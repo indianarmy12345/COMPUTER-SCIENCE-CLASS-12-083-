@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Loader2, RotateCcw, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useChapterSlug } from "./ChapterLayout";
+import { markComplete } from "@/lib/progress";
 
 type SqlValue = string | number | Uint8Array | null;
 type SqlJsDb = {
@@ -58,6 +60,7 @@ export function SqlRunner({
   const [error, setError] = useState<string>("");
   const [status, setStatus] = useState<"idle" | "loading" | "running">("idle");
   const dbRef = useRef<SqlJsDb | null>(null);
+  const chapterSlug = useChapterSlug();
 
   const ensureDb = async () => {
     if (dbRef.current) return dbRef.current;
@@ -78,6 +81,7 @@ export function SqlRunner({
       const res = db.exec(query);
       setResults(res);
       if (res.length === 0) setError("Query OK (no rows returned).");
+      if (chapterSlug) markComplete(chapterSlug);
     } catch (e) {
       setError((e as Error).message);
     } finally {

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { Play, Loader2, RotateCcw, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useChapterSlug } from "./ChapterLayout";
+import { markComplete } from "@/lib/progress";
 
 declare global {
   interface Window {
@@ -65,6 +67,7 @@ export function PyRunner({
   const [output, setOutput] = useState<string>("");
   const [status, setStatus] = useState<"idle" | "loading" | "running">("idle");
   const pyRef = useRef<PyodideInstance | null>(null);
+  const chapterSlug = useChapterSlug();
 
   const run = async () => {
     setOutput("");
@@ -86,6 +89,7 @@ export function PyRunner({
     try {
       await py.runPythonAsync(code);
       setOutput(buf || "(no output)");
+      if (chapterSlug) markComplete(chapterSlug);
     } catch (e) {
       setOutput(buf + "\n" + (e as Error).message);
     } finally {
