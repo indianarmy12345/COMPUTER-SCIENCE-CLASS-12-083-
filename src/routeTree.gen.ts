@@ -11,6 +11,16 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as XiiStacksRouteImport } from './routes/xii.stacks'
+import { Route as XiiPythonSqlRouteImport } from './routes/xii.python-sql'
+import { Route as XiiNetworksRouteImport } from './routes/xii.networks'
+import { Route as XiiFunctionsRouteImport } from './routes/xii.functions'
+import { Route as XiiFileHandlingRouteImport } from './routes/xii.file-handling'
+import { Route as XiiExceptionsRouteImport } from './routes/xii.exceptions'
+import { Route as XiiDbmsRouteImport } from './routes/xii.dbms'
+import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
+import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
+import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
 
 const PlaygroundRoute = PlaygroundRouteImport.update({
   id: '/playground',
@@ -22,31 +32,158 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const XiiStacksRoute = XiiStacksRouteImport.update({
+  id: '/xii/stacks',
+  path: '/xii/stacks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiPythonSqlRoute = XiiPythonSqlRouteImport.update({
+  id: '/xii/python-sql',
+  path: '/xii/python-sql',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiNetworksRoute = XiiNetworksRouteImport.update({
+  id: '/xii/networks',
+  path: '/xii/networks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiFunctionsRoute = XiiFunctionsRouteImport.update({
+  id: '/xii/functions',
+  path: '/xii/functions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiFileHandlingRoute = XiiFileHandlingRouteImport.update({
+  id: '/xii/file-handling',
+  path: '/xii/file-handling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiExceptionsRoute = XiiExceptionsRouteImport.update({
+  id: '/xii/exceptions',
+  path: '/xii/exceptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiDbmsRoute = XiiDbmsRouteImport.update({
+  id: '/xii/dbms',
+  path: '/xii/dbms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiSocietyEthicsRoute = XiSocietyEthicsRouteImport.update({
+  id: '/xi/society-ethics',
+  path: '/xi/society-ethics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiPythonBasicsRoute = XiPythonBasicsRouteImport.update({
+  id: '/xi/python-basics',
+  path: '/xi/python-basics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiComputerSystemsRoute = XiComputerSystemsRouteImport.update({
+  id: '/xi/computer-systems',
+  path: '/xi/computer-systems',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/playground': typeof PlaygroundRoute
+  '/xi/computer-systems': typeof XiComputerSystemsRoute
+  '/xi/python-basics': typeof XiPythonBasicsRoute
+  '/xi/society-ethics': typeof XiSocietyEthicsRoute
+  '/xii/dbms': typeof XiiDbmsRoute
+  '/xii/exceptions': typeof XiiExceptionsRoute
+  '/xii/file-handling': typeof XiiFileHandlingRoute
+  '/xii/functions': typeof XiiFunctionsRoute
+  '/xii/networks': typeof XiiNetworksRoute
+  '/xii/python-sql': typeof XiiPythonSqlRoute
+  '/xii/stacks': typeof XiiStacksRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/playground': typeof PlaygroundRoute
+  '/xi/computer-systems': typeof XiComputerSystemsRoute
+  '/xi/python-basics': typeof XiPythonBasicsRoute
+  '/xi/society-ethics': typeof XiSocietyEthicsRoute
+  '/xii/dbms': typeof XiiDbmsRoute
+  '/xii/exceptions': typeof XiiExceptionsRoute
+  '/xii/file-handling': typeof XiiFileHandlingRoute
+  '/xii/functions': typeof XiiFunctionsRoute
+  '/xii/networks': typeof XiiNetworksRoute
+  '/xii/python-sql': typeof XiiPythonSqlRoute
+  '/xii/stacks': typeof XiiStacksRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/playground': typeof PlaygroundRoute
+  '/xi/computer-systems': typeof XiComputerSystemsRoute
+  '/xi/python-basics': typeof XiPythonBasicsRoute
+  '/xi/society-ethics': typeof XiSocietyEthicsRoute
+  '/xii/dbms': typeof XiiDbmsRoute
+  '/xii/exceptions': typeof XiiExceptionsRoute
+  '/xii/file-handling': typeof XiiFileHandlingRoute
+  '/xii/functions': typeof XiiFunctionsRoute
+  '/xii/networks': typeof XiiNetworksRoute
+  '/xii/python-sql': typeof XiiPythonSqlRoute
+  '/xii/stacks': typeof XiiStacksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/playground'
+  fullPaths:
+    | '/'
+    | '/playground'
+    | '/xi/computer-systems'
+    | '/xi/python-basics'
+    | '/xi/society-ethics'
+    | '/xii/dbms'
+    | '/xii/exceptions'
+    | '/xii/file-handling'
+    | '/xii/functions'
+    | '/xii/networks'
+    | '/xii/python-sql'
+    | '/xii/stacks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/playground'
-  id: '__root__' | '/' | '/playground'
+  to:
+    | '/'
+    | '/playground'
+    | '/xi/computer-systems'
+    | '/xi/python-basics'
+    | '/xi/society-ethics'
+    | '/xii/dbms'
+    | '/xii/exceptions'
+    | '/xii/file-handling'
+    | '/xii/functions'
+    | '/xii/networks'
+    | '/xii/python-sql'
+    | '/xii/stacks'
+  id:
+    | '__root__'
+    | '/'
+    | '/playground'
+    | '/xi/computer-systems'
+    | '/xi/python-basics'
+    | '/xi/society-ethics'
+    | '/xii/dbms'
+    | '/xii/exceptions'
+    | '/xii/file-handling'
+    | '/xii/functions'
+    | '/xii/networks'
+    | '/xii/python-sql'
+    | '/xii/stacks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PlaygroundRoute: typeof PlaygroundRoute
+  XiComputerSystemsRoute: typeof XiComputerSystemsRoute
+  XiPythonBasicsRoute: typeof XiPythonBasicsRoute
+  XiSocietyEthicsRoute: typeof XiSocietyEthicsRoute
+  XiiDbmsRoute: typeof XiiDbmsRoute
+  XiiExceptionsRoute: typeof XiiExceptionsRoute
+  XiiFileHandlingRoute: typeof XiiFileHandlingRoute
+  XiiFunctionsRoute: typeof XiiFunctionsRoute
+  XiiNetworksRoute: typeof XiiNetworksRoute
+  XiiPythonSqlRoute: typeof XiiPythonSqlRoute
+  XiiStacksRoute: typeof XiiStacksRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +202,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/xii/stacks': {
+      id: '/xii/stacks'
+      path: '/xii/stacks'
+      fullPath: '/xii/stacks'
+      preLoaderRoute: typeof XiiStacksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/python-sql': {
+      id: '/xii/python-sql'
+      path: '/xii/python-sql'
+      fullPath: '/xii/python-sql'
+      preLoaderRoute: typeof XiiPythonSqlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/networks': {
+      id: '/xii/networks'
+      path: '/xii/networks'
+      fullPath: '/xii/networks'
+      preLoaderRoute: typeof XiiNetworksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/functions': {
+      id: '/xii/functions'
+      path: '/xii/functions'
+      fullPath: '/xii/functions'
+      preLoaderRoute: typeof XiiFunctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/file-handling': {
+      id: '/xii/file-handling'
+      path: '/xii/file-handling'
+      fullPath: '/xii/file-handling'
+      preLoaderRoute: typeof XiiFileHandlingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/exceptions': {
+      id: '/xii/exceptions'
+      path: '/xii/exceptions'
+      fullPath: '/xii/exceptions'
+      preLoaderRoute: typeof XiiExceptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/dbms': {
+      id: '/xii/dbms'
+      path: '/xii/dbms'
+      fullPath: '/xii/dbms'
+      preLoaderRoute: typeof XiiDbmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xi/society-ethics': {
+      id: '/xi/society-ethics'
+      path: '/xi/society-ethics'
+      fullPath: '/xi/society-ethics'
+      preLoaderRoute: typeof XiSocietyEthicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xi/python-basics': {
+      id: '/xi/python-basics'
+      path: '/xi/python-basics'
+      fullPath: '/xi/python-basics'
+      preLoaderRoute: typeof XiPythonBasicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xi/computer-systems': {
+      id: '/xi/computer-systems'
+      path: '/xi/computer-systems'
+      fullPath: '/xi/computer-systems'
+      preLoaderRoute: typeof XiComputerSystemsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PlaygroundRoute: PlaygroundRoute,
+  XiComputerSystemsRoute: XiComputerSystemsRoute,
+  XiPythonBasicsRoute: XiPythonBasicsRoute,
+  XiSocietyEthicsRoute: XiSocietyEthicsRoute,
+  XiiDbmsRoute: XiiDbmsRoute,
+  XiiExceptionsRoute: XiiExceptionsRoute,
+  XiiFileHandlingRoute: XiiFileHandlingRoute,
+  XiiFunctionsRoute: XiiFunctionsRoute,
+  XiiNetworksRoute: XiiNetworksRoute,
+  XiiPythonSqlRoute: XiiPythonSqlRoute,
+  XiiStacksRoute: XiiStacksRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
