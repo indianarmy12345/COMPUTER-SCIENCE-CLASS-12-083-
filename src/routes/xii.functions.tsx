@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck } from "@/components/ChapterLayout";
 import { PyRunner } from "@/components/PyRunner";
 
 export const Route = createFileRoute("/xii/functions")({
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/xii/functions")({
       {
         name: "description",
         content:
-          "User-defined functions, parameters (default, positional, keyword), return values, and global vs local scope — CBSE Class 12.",
+          "Deep dive into Python functions: definition, parameters (positional, default, keyword, *args, **kwargs), return values, scope (LEGB), recursion, lambda, modules and the standard library.",
       },
     ],
   }),
@@ -19,38 +19,79 @@ export const Route = createFileRoute("/xii/functions")({
 function Page() {
   return (
     <ChapterLayout slug="/xii/functions">
-      <Section title="Why functions?">
+      <Section title="What is a function?">
         <p>
-          A <b>function</b> is a reusable block of code that performs one job. It keeps
-          programs short, readable and easy to debug.
+          A <b>function</b> is a named, reusable block of code that performs a single
+          well-defined task. Functions help you avoid copy-paste, make programs easier
+          to read, easier to test, and easier to change.
         </p>
+        <p><b>Three categories</b> in Python:</p>
+        <ul className="list-disc space-y-1 pl-5">
+          <li><b>Built-in</b> — already available: <code>print(), len(), range(), input(), sum(), abs()</code>.</li>
+          <li><b>Module functions</b> — imported from libraries: <code>math.sqrt, random.randint, statistics.mean</code>.</li>
+          <li><b>User-defined</b> — written by you using <code>def</code>.</li>
+        </ul>
         <Callout>
           Real-world: WhatsApp's "send message" button calls the same{" "}
-          <code>send(msg, to)</code> function whether you message one friend or a group
-          — written once, reused everywhere.
+          <code>send(msg, to)</code> function whether you message one friend or a
+          group — written once, reused everywhere.
         </Callout>
       </Section>
 
-      <Section title="Defining your own function">
+      <Section title="Defining a function">
         <PyRunner
           initialCode={`def area_of_circle(r):
-    """Returns area given radius r."""
+    """Returns area of a circle given radius r."""
     pi = 3.14159
     return pi * r * r
 
 print(area_of_circle(5))
-print(area_of_circle(10))`}
+print(area_of_circle(10))
+print(area_of_circle.__doc__)   # access the docstring`}
+        />
+        <p>
+          Anatomy: <code>def</code> keyword → name → parameters in <code>()</code> →
+          colon → indented body → optional <code>return</code>.
+        </p>
+      </Section>
+
+      <Section title="Parameters vs Arguments">
+        <ul className="list-disc space-y-1 pl-5">
+          <li><b>Parameter</b> — variable in the function definition.</li>
+          <li><b>Argument</b> — actual value passed during a call.</li>
+        </ul>
+        <p>Python supports four argument styles:</p>
+        <PyRunner
+          initialCode={`def greet(name, message="Welcome", *, punctuation="!"):
+    print(message + ",", name + punctuation)
+
+# 1. Positional
+greet("Aarav", "Hi")
+
+# 2. Default
+greet("Diya")
+
+# 3. Keyword
+greet(name="Kabir", message="Hello", punctuation=".")
+
+# 4. Mixed (positional first, keywords after)
+greet("Mira", punctuation="?")`}
         />
       </Section>
 
-      <Section title="Default & keyword parameters">
+      <Section title="*args and **kwargs (variable-length arguments)">
         <PyRunner
-          initialCode={`def greet(name, message="Welcome"):
-    print(message + ",", name + "!")
+          initialCode={`def total(*nums):              # *args → tuple
+    return sum(nums)
 
-greet("Aarav")                       # uses default
-greet("Diya", "Good morning")        # positional override
-greet(name="Kabir", message="Hi")    # keyword args`}
+print(total(1,2,3))
+print(total(10,20,30,40,50))
+
+def show(**details):           # **kwargs → dict
+    for k, v in details.items():
+        print(f"{k} = {v}")
+
+show(name="Aarav", roll=1, marks=88)`}
         />
       </Section>
 
@@ -60,17 +101,25 @@ greet(name="Kabir", message="Hi")    # keyword args`}
     return min(nums), max(nums), sum(nums)/len(nums)
 
 lo, hi, avg = stats([10, 7, 3, 8, 5])
-print("min:", lo, "max:", hi, "avg:", avg)`}
+print("min:", lo, "max:", hi, "avg:", avg)
+
+# the return is actually a tuple
+result = stats([4,9,2,7])
+print(type(result), result)`}
         />
       </Section>
 
-      <Section title="Scope: global vs local">
+      <Section title="Scope: LEGB rule">
+        <p>
+          Python looks up a name in this order: <b>L</b>ocal → <b>E</b>nclosing →{" "}
+          <b>G</b>lobal → <b>B</b>uilt-in.
+        </p>
         <PyRunner
           initialCode={`x = 100   # global
 
 def demo():
     x = 5     # local — does NOT change global
-    print("inside:", x)
+    print("inside demo:", x)
 
 demo()
 print("outside:", x)
@@ -79,7 +128,127 @@ def change_global():
     global x
     x = 999
 change_global()
-print("after change_global:", x)`}
+print("after change_global:", x)
+
+# enclosing (closure)
+def outer():
+    msg = "hi from outer"
+    def inner():
+        nonlocal msg
+        msg = "modified by inner"
+    inner()
+    print(msg)
+outer()`}
+          height={300}
+        />
+      </Section>
+
+      <Section title="Pass by reference — mutable vs immutable">
+        <PyRunner
+          initialCode={`def modify(lst, num):
+    lst.append(99)        # list is mutable → caller sees change
+    num = num + 1         # int is immutable → local rebind only
+
+a, b = [1,2,3], 10
+modify(a, b)
+print("a =", a, "b =", b)`}
+        />
+      </Section>
+
+      <Section title="Recursion">
+        <p>
+          A function that calls itself, with a <b>base case</b> to stop.
+        </p>
+        <PyRunner
+          initialCode={`def fact(n):
+    if n <= 1:
+        return 1
+    return n * fact(n - 1)
+
+print([fact(i) for i in range(8)])
+
+def fib(n):
+    if n < 2: return n
+    return fib(n-1) + fib(n-2)
+
+print([fib(i) for i in range(10)])`}
+        />
+      </Section>
+
+      <Section title="lambda — anonymous functions">
+        <PyRunner
+          initialCode={`square = lambda x: x*x
+print(square(7))
+
+nums = [4, 1, 7, 3, 9, 2]
+print(sorted(nums, key=lambda x: -x))           # desc
+students = [("Aarav",88),("Diya",76),("Kabir",92)]
+print(sorted(students, key=lambda s: s[1], reverse=True))
+
+print(list(map(lambda x: x*10, [1,2,3])))
+print(list(filter(lambda x: x % 2, range(10))))`}
+        />
+      </Section>
+
+      <Section title="Modules — using the standard library">
+        <p>
+          A <b>module</b> is just a Python file. Use <code>import</code> to bring its
+          functions in.
+        </p>
+        <PyRunner
+          initialCode={`import math, random, statistics
+
+print(math.sqrt(2), math.pi, math.factorial(6), math.gcd(24,36))
+print(math.floor(3.7), math.ceil(3.2), math.pow(2,10))
+
+random.seed(7)
+print(random.random(), random.randint(1,100), random.choice("ABCDE"))
+deck = [1,2,3,4,5,6]
+random.shuffle(deck)
+print(deck, random.sample(range(100), 5))
+
+data = [4,9,2,7,5,8]
+print("mean:", statistics.mean(data),
+      "median:", statistics.median(data),
+      "mode:", statistics.mode([1,2,2,3,4]),
+      "stdev:", round(statistics.stdev(data),2))`}
+          height={280}
+        />
+      </Section>
+
+      <Section title="Writing your own module (concept)">
+        <p>
+          If you save the following as <code>utility.py</code>, you can use
+          <code> import utility</code> in another file.
+        </p>
+        <pre className="rounded-md border border-border bg-[var(--code-bg)] p-3 font-mono text-xs">{`# utility.py
+def square(x): return x*x
+def cube(x):   return x*x*x
+
+# main.py
+import utility
+print(utility.square(5), utility.cube(3))
+
+# selective import
+from utility import square as sq
+print(sq(8))`}</pre>
+      </Section>
+
+      <Section title="Practice">
+        <QuickCheck
+          question="What will fact(0) return for the recursion above?"
+          answer="1"
+          hint="The base case fires when n <= 1."
+        />
+        <QuickCheck
+          question="In a function, which keyword is needed to modify a global variable?"
+          options={["nonlocal", "extern", "global", "static"]}
+          answer="global"
+        />
+        <QuickCheck
+          question="Which collection type does **kwargs receive inside the function?"
+          options={["list", "tuple", "set", "dict"]}
+          answer="dict"
         />
       </Section>
     </ChapterLayout>
