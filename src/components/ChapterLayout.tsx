@@ -172,6 +172,18 @@ export function ChapterLayout({
   const next = chapters[idx + 1];
   const { isDone } = useProgress();
   const done = isDone(slug);
+  const articleRef = useRef<HTMLDivElement>(null);
+  const [pdfLoading, setPdfLoading] = useState(false);
+
+  const handleDownload = async () => {
+    if (!articleRef.current || !current) return;
+    try {
+      setPdfLoading(true);
+      await downloadChapterPdf(articleRef.current, current.title, current.unit, current.blurb);
+    } finally {
+      setPdfLoading(false);
+    }
+  };
 
   return (
     <ChapterCtx.Provider value={slug}>
@@ -184,9 +196,27 @@ export function ChapterLayout({
             </span>
           )}
         </div>
-        <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{current?.title}</h1>
-        <p className="mt-2 text-muted-foreground">{current?.blurb}</p>
-        <div className="mt-8 space-y-8 text-[15px] leading-7">{children}</div>
+        <div className="mt-1 flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{current?.title}</h1>
+            <p className="mt-2 text-muted-foreground">{current?.blurb}</p>
+          </div>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={handleDownload}
+            disabled={pdfLoading}
+            className="shrink-0"
+          >
+            {pdfLoading ? (
+              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+            ) : (
+              <Download className="mr-1 h-4 w-4" />
+            )}
+            {pdfLoading ? "Building PDF…" : "Download notes as PDF"}
+          </Button>
+        </div>
+        <div ref={articleRef} className="mt-8 space-y-8 text-[15px] leading-7">{children}</div>
 
         <div className="mt-12 flex items-center justify-between rounded-lg border border-border bg-card/40 p-4">
           <div className="text-sm text-muted-foreground">
