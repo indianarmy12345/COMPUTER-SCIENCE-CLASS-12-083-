@@ -32,23 +32,36 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CS 083 — CBSE Class 12 Computer Science" },
+      { title: "CS 083 Hub — Learn CBSE Class 12 Computer Science with Live IDEs" },
       {
         name: "description",
         content:
-          "Learn the entire CBSE Class 12 Computer Science (Code 083) syllabus with real-world examples and live in-browser Python and SQL IDEs.",
+          "Master the full CBSE Class 12 Computer Science (Code 083) syllabus — Python, SQL, Networks & DBMS — with real-world examples, live in-browser IDEs, progress tracking and downloadable PDF notes.",
       },
       { name: "author", content: "CS 083 Hub" },
-      { property: "og:title", content: "CS 083 — CBSE Class 12 Computer Science" },
+      { name: "theme-color", content: "#0F1729" },
+      { property: "og:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
       {
         property: "og:description",
         content:
-          "Interactive Class 12 CS course with live Python and SQL playgrounds, covering Programming, Networks and DBMS.",
+          "Interactive CBSE Class 12 CS course with live Python (Pyodide) and SQL (SQLite) playgrounds, full notes and chapter-wise progress tracking.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:image", content: "/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
+      {
+        name: "twitter:description",
+        content:
+          "Learn the entire CBSE Class 12 CS syllabus with live Python & SQL IDEs — no installs, no setup.",
+      },
+      { name: "twitter:image", content: "/og-image.jpg" },
     ],
-    links: [{ rel: "stylesheet", href: appCss }],
+    links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
+      { rel: "apple-touch-icon", href: "/favicon.png" },
+    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
