@@ -245,6 +245,71 @@ doc = undo(doc); print("undo:", repr(doc))`}
           hint="Multiplication has higher precedence than addition."
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: why LIFO matters">
+          <p>
+            A stack enforces <strong>Last-In-First-Out</strong> ordering: the
+            most recently pushed item is the first popped. This makes it the
+            natural model for any process that must "unwind" in reverse —
+            function calls, undo histories, expression evaluation, syntax
+            checking, and depth-first traversal.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Time complexity:</strong> push, pop, peek and isEmpty are all O(1) using a Python list.</li>
+            <li><strong>Stack overflow:</strong> trying to push beyond capacity (in fixed-size implementations) — Python lists grow dynamically, so this is rare.</li>
+            <li><strong>Stack underflow:</strong> popping from an empty stack — always check <code>isEmpty()</code> first.</li>
+            <li><strong>Recursion uses a stack:</strong> the call stack stores each function's local variables and return address; deep recursion can hit Python's limit (default 1000).</li>
+          </ul>
+          <p className="text-sm">
+            <strong>Infix vs Postfix:</strong> infix (<code>A + B</code>) needs
+            operator precedence and parentheses; postfix / Reverse Polish (<code>A B +</code>)
+            does not — it can be evaluated with one stack pass, which is why
+            compilers convert expressions to postfix internally.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={3}
+            question={<>Write functions <code>Push(stk, name)</code> and <code>Pop(stk)</code> that push a city name onto a stack and pop the top element. Pop should print "Underflow" if empty.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`def Push(stk, name):
+    stk.append(name)
+
+def Pop(stk):
+    if len(stk) == 0:
+        print("Underflow")
+    else:
+        return stk.pop()`}</pre>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>Evaluate the postfix expression: <code>20, 8, 4, /, 2, *, +</code></>}
+            answer={<>
+              <p>Process left-to-right using a stack:</p>
+              <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`push 20  -> [20]
+push 8   -> [20, 8]
+push 4   -> [20, 8, 4]
+'/'  -> pop 4, 8 -> 8/4 = 2  -> [20, 2]
+push 2   -> [20, 2, 2]
+'*'  -> pop 2, 2 -> 2*2 = 4  -> [20, 4]
+'+'  -> pop 4, 20 -> 20+4 = 24  -> [24]
+Result = 24`}</pre>
+            </>}
+          />
+          <PYQ year="CBSE 2024" marks={2}
+            question={<>Name two real-life applications of a stack.</>}
+            answer={<>Browser back-button history; Undo operation in text editors; Function call stack; Expression evaluation in compilers; Balanced-bracket checking in IDEs (any two).</>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which list method behaves like push?"
+            options={["insert(0, x)", "append(x)", "extend(x)", "add(x)"]} answer="append(x)" />
+          <QuickCheck question="Time complexity of pop() from end of list?"
+            options={["O(1)", "O(n)", "O(log n)", "O(n²)"]} answer="O(1)" />
+          <QuickCheck question="Postfix of A + B * C is:"
+            options={["A B + C *", "A B C * +", "A B C + *", "+ A * B C"]} answer="A B C * +" />
+          <QuickCheck question="Trying to pop an empty stack causes:"
+            options={["Overflow", "Underflow", "Crash", "Returns 0"]} answer="Underflow" />
+        </Section>
+      </ChapterLayout>
   );
 }

@@ -317,6 +317,63 @@ print(list(enumerate(["sun","mon","tue"], start=1)))`}
           answer="continue"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: identity, equality & immutability">
+          <p>
+            Python has two comparison operators that look similar but mean very
+            different things. <code>==</code> checks <strong>value equality</strong>;
+            <code>is</code> checks <strong>identity</strong> (whether two names
+            point to the same object in memory). <code>id(x)</code> returns the
+            memory address.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Immutable</strong>: int, float, bool, str, tuple, frozenset — every "modification" creates a new object.</li>
+            <li><strong>Mutable</strong>: list, dict, set — can be changed in place.</li>
+            <li>Strings support indexing (<code>s[0]</code>), slicing (<code>s[1:4]</code>) and methods like <code>upper()</code>, <code>strip()</code>, <code>split()</code>, <code>replace()</code>, <code>find()</code>.</li>
+            <li>Lists support <code>append</code>, <code>extend</code>, <code>insert</code>, <code>pop</code>, <code>remove</code>, <code>sort</code>, <code>reverse</code>, list comprehensions.</li>
+            <li>Dicts: keys must be immutable; common methods <code>get</code>, <code>keys</code>, <code>values</code>, <code>items</code>, <code>update</code>, <code>pop</code>.</li>
+          </ul>
+          <p className="text-sm">
+            <strong>Operator precedence (high → low):</strong> <code>**</code>,
+            unary <code>+/-</code>, <code>* / // %</code>, <code>+ -</code>,
+            comparison, <code>not</code>, <code>and</code>, <code>or</code>.
+            Use parentheses when in doubt.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={1}
+            question={<>What is the output of <code>print(2 ** 3 ** 2)</code>?</>}
+            answer={<><code>**</code> is right-associative, so it evaluates as <code>2 ** (3 ** 2)</code> = <code>2 ** 9</code> = <strong>512</strong>.</>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>Differentiate between a list and a tuple with an example.</>}
+            answer={<>
+              <p><strong>List</strong> is mutable, written with <code>[]</code> — items can be changed, added, removed. <code>L = [1,2,3]; L[0] = 9</code>.</p>
+              <p><strong>Tuple</strong> is immutable, written with <code>()</code> — once created cannot be modified. <code>T = (1,2,3); T[0] = 9</code> raises <code>TypeError</code>.</p>
+            </>}
+          />
+          <PYQ year="CBSE 2024" marks={2}
+            question={<>Predict output: <code>s = "Computer"; print(s[2:6], s[::-1])</code></>}
+            answer={<>
+              <p><code>s[2:6]</code> → <strong>"mput"</strong> (chars at index 2,3,4,5)</p>
+              <p><code>s[::-1]</code> → <strong>"retupmoC"</strong> (full string reversed)</p>
+            </>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which of these is immutable?"
+            options={["list", "set", "dict", "tuple"]} answer="tuple" />
+          <QuickCheck question="Result of 17 // 5 in Python?"
+            options={["3.4", "3", "2", "4"]} answer="3" />
+          <QuickCheck question="Which method removes leading and trailing whitespace?"
+            options={["strip()", "trim()", "clean()", "cut()"]} answer="strip()" />
+          <QuickCheck question="Type of value returned by input()?"
+            options={["int", "float", "str", "depends on input"]} answer="str" />
+          <QuickCheck question="Which keyword exits a loop early?"
+            options={["exit", "stop", "break", "return"]} answer="break" />
+        </Section>
+      </ChapterLayout>
   );
 }

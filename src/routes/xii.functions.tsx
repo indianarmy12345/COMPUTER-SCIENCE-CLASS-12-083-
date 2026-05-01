@@ -251,6 +251,72 @@ print(sq(8))`}</pre>
           answer="dict"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: scope, lifetime & pass-by-reference">
+          <p>
+            Python uses <strong>pass-by-object-reference</strong> (often called
+            "call-by-sharing"). The function receives a reference to the same
+            object the caller has. Mutating a mutable argument (list, dict)
+            inside the function changes the caller's object; rebinding the
+            parameter name does not.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Local</strong> variables are created when the function is called and destroyed when it returns.</li>
+            <li><strong>Global</strong> variables live for the program's lifetime; use the <code>global</code> keyword to rebind them inside a function.</li>
+            <li><strong>Nonlocal</strong> rebinds a name in the nearest enclosing function (used in closures).</li>
+            <li>Default argument values are evaluated <em>once</em> at function definition — never use a mutable default like <code>def f(x=[])</code>.</li>
+          </ul>
+          <p className="text-sm">
+            <strong>Function vs Method:</strong> a method is a function bound to an
+            object (called as <code>obj.method()</code>); a plain function is
+            called as <code>func()</code>. <strong>Built-in</strong> functions
+            (<code>len</code>, <code>print</code>) come with Python; <strong>user-defined</strong>
+            functions are written by the programmer; <strong>module functions</strong>
+            (<code>math.sqrt</code>) live inside imported modules.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={2}
+            question={<>Differentiate between default parameter and keyword argument with an example.</>}
+            answer={<>
+              <p><strong>Default parameter:</strong> a value supplied in the function header used when the caller omits the argument.</p>
+              <p><strong>Keyword argument:</strong> the caller passes <code>name=value</code> at the call site to bind by name, in any order.</p>
+              <pre className="mt-2 overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`def greet(name, msg="Hello"):  # msg is default
+    print(msg, name)
+
+greet("Aarav")                    # uses default
+greet(name="Diya", msg="Hi")      # keyword arguments`}</pre>
+            </>}
+          />
+          <PYQ year="CBSE 2020" marks={3}
+            question={<>Write a function <code>countNow(PLACES)</code> that takes a list of city names and prints those names which contain more than 5 characters.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`def countNow(PLACES):
+    for city in PLACES:
+        if len(city) > 5:
+            print(city)
+
+countNow(["Delhi","Mumbai","Pune","Chennai","Goa"])
+# Mumbai
+# Chennai`}</pre>}
+          />
+          <PYQ year="CBSE 2024" marks={2}
+            question={<>What is the output? <code>def f(a, b=2, c=3): return a+b+c; print(f(1, c=10))</code></>}
+            answer={<>13 — <code>a=1</code>, <code>b=2</code> (default), <code>c=10</code> (keyword), so <code>1+2+10 = 13</code>.</>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="What is the default return value of a function with no return statement?"
+            options={["0", "None", "Empty string", "Error"]} answer="None" />
+          <QuickCheck question="Which keyword is used to rebind a global variable inside a function?"
+            options={["nonlocal", "global", "extern", "static"]} answer="global" />
+          <QuickCheck question="What does *args collect?"
+            options={["Keyword arguments as dict", "Positional arguments as tuple", "Default values", "Return values"]}
+            answer="Positional arguments as tuple" />
+          <QuickCheck question="In LEGB rule, what does B stand for?"
+            options={["Block", "Built-in", "Boolean", "Bound"]} answer="Built-in" />
+        </Section>
+      </ChapterLayout>
   );
 }

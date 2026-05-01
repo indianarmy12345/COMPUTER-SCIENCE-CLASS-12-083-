@@ -220,6 +220,66 @@ Reading bottom → top:  (101101)₂`}</pre>
           answer="A' · B'"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: memory hierarchy & data representation">
+          <p>
+            Modern computers organise memory in a <strong>hierarchy</strong>:
+            registers (fastest, smallest) → L1/L2/L3 cache → RAM → SSD/HDD →
+            tape/cloud (slowest, largest, cheapest per byte). Higher levels are
+            faster but more expensive per byte.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>RAM</strong> is volatile (loses data on power off); <strong>ROM</strong> is non-volatile and stores firmware/BIOS.</li>
+            <li><strong>Cache</strong> sits between CPU and RAM to keep frequently used data close to the processor.</li>
+            <li><strong>Bit</strong> = 0 or 1; <strong>Byte</strong> = 8 bits; 1 KB = 1024 B; 1 MB = 1024 KB.</li>
+            <li><strong>ASCII</strong> uses 7 bits (128 chars); <strong>Unicode/UTF-8</strong> supports every script (Hindi, emoji…).</li>
+            <li><strong>System software</strong> (OS, compilers, drivers) manages hardware; <strong>application software</strong> solves user problems.</li>
+          </ul>
+          <p className="text-sm">
+            <strong>De Morgan's Laws:</strong> (A·B)' = A' + B' and (A+B)' = A'·B'
+            — used to simplify Boolean expressions and to convert between AND/OR
+            forms when designing logic circuits.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={1}
+            question={<>Convert (101101)₂ to decimal.</>}
+            answer={<>1·32 + 0·16 + 1·8 + 1·4 + 0·2 + 1·1 = <strong>45</strong></>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>Convert (75)₁₀ to (i) binary and (ii) hexadecimal.</>}
+            answer={<>
+              <p>(i) 75 ÷ 2 repeatedly → remainders 1,1,0,1,0,0,1 → <strong>(1001011)₂</strong></p>
+              <p>(ii) 75 = 4·16 + 11 → <strong>(4B)₁₆</strong></p>
+            </>}
+          />
+          <PYQ year="CBSE 2024" marks={2}
+            question={<>State and verify De Morgan's first law for two variables.</>}
+            answer={<>
+              <p>Statement: <code>(A·B)' = A' + B'</code></p>
+              <pre className="mt-1 overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`A B | A·B (A·B)'  A' B' A'+B'
+0 0 |  0    1     1  1   1
+0 1 |  0    1     1  0   1
+1 0 |  0    1     0  1   1
+1 1 |  1    0     0  0   0`}</pre>
+              <p>Columns (A·B)' and A'+B' are identical, so the law is verified.</p>
+            </>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which gate gives output 1 only when both inputs are 1?"
+            options={["OR", "AND", "NAND", "XOR"]} answer="AND" />
+          <QuickCheck question="Hexadecimal of (255)₁₀ is:"
+            options={["FE", "FF", "F0", "EF"]} answer="FF" />
+          <QuickCheck question="Which memory loses contents on power off?"
+            options={["ROM", "Flash", "RAM", "HDD"]} answer="RAM" />
+          <QuickCheck question="A·A' equals:"
+            options={["A", "1", "0", "A'"]} answer="0" />
+          <QuickCheck question="Universal gate?"
+            options={["AND", "OR", "NAND", "XOR"]} answer="NAND" />
+        </Section>
+      </ChapterLayout>
   );
 }

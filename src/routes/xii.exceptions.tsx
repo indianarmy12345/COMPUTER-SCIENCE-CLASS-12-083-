@@ -203,6 +203,55 @@ finally:
           answer="raise"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: how exceptions actually work">
+          <p>
+            When Python encounters an error, it creates an <strong>exception object</strong>
+            and walks up the call stack looking for a matching <code>except</code>.
+            If none is found, the program terminates and prints a <em>traceback</em> —
+            the chain of function calls that led to the error.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Syntax errors</strong> are caught at parse time — <em>before</em> the program runs — and cannot be handled by try/except.</li>
+            <li><strong>Runtime exceptions</strong> (ZeroDivisionError, ValueError, IndexError, KeyError, FileNotFoundError, TypeError) happen during execution and <em>can</em> be handled.</li>
+            <li>All built-in exceptions inherit from the <code>Exception</code> class, which itself inherits from <code>BaseException</code>.</li>
+            <li>Catch the most specific exception first; <code>except Exception</code> at the end is a safety net.</li>
+            <li><code>finally</code> always runs — used for cleanup like closing files or DB connections, even when an exception propagates.</li>
+          </ul>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={1}
+            question={<>Name the exception raised when a number is divided by zero.</>}
+            answer={<><code>ZeroDivisionError</code></>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>Write a Python program that asks the user for two numbers and prints their division. Handle <code>ZeroDivisionError</code> and <code>ValueError</code>.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`try:
+    a = int(input("a: "))
+    b = int(input("b: "))
+    print(a / b)
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+except ValueError:
+    print("Please enter integers only")`}</pre>}
+          />
+          <PYQ year="CBSE 2024" marks={1}
+            question={<>Which clause of try-except is always executed whether an exception is raised or not?</>}
+            answer={<><code>finally</code></>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which exception is raised when accessing a non-existent dict key?"
+            options={["IndexError", "KeyError", "ValueError", "TypeError"]} answer="KeyError" />
+          <QuickCheck question="Which block runs only when no exception occurs?"
+            options={["finally", "except", "else", "raise"]} answer="else" />
+          <QuickCheck question="Which keyword is used to manually trigger an exception?"
+            options={["throw", "raise", "trigger", "panic"]} answer="raise" />
+          <QuickCheck question="Parent class of all built-in exceptions?"
+            options={["Error", "Exception", "BaseException", "RuntimeError"]} answer="BaseException" />
+        </Section>
+      </ChapterLayout>
   );
 }

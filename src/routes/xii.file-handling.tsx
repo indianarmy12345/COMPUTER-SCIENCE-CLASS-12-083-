@@ -278,6 +278,67 @@ print("Topper:", topper("school.csv"))`}
           answer="current position of file pointer in bytes"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: file pointer, buffering & modes">
+          <p>
+            Every open file maintains a <strong>file pointer</strong> — the byte
+            position where the next read or write happens. <code>tell()</code>
+            returns it; <code>seek(offset, whence)</code> moves it (whence: 0=start,
+            1=current, 2=end — only allowed in binary mode).
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Text mode</strong> (default) decodes bytes using a platform encoding and translates line endings; <strong>binary mode</strong> (<code>'b'</code>) reads raw bytes.</li>
+            <li><strong>Modes:</strong> <code>'r'</code> read, <code>'w'</code> write (truncates!), <code>'a'</code> append, <code>'x'</code> exclusive create, <code>'+'</code> read+write, <code>'b'</code> binary, <code>'t'</code> text.</li>
+            <li><strong>readline()</strong> returns one line including <code>\n</code>; <strong>readlines()</strong> returns a list of all lines; <strong>read(n)</strong> reads n characters/bytes.</li>
+            <li><strong>Pickle</strong> serialises Python objects (lists, dicts, custom classes) to bytes; only unpickle data you trust.</li>
+            <li><strong>CSV</strong>: use <code>newline=""</code> when opening to prevent extra blank rows on Windows.</li>
+          </ul>
+          <p className="text-sm">
+            Always close files — prefer the <code>with open(...) as f:</code>
+            context manager so files close automatically even if an exception is raised.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={3}
+            question={<>Write a function <code>countVowels()</code> that reads <code>story.txt</code> and returns the number of vowels.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`def countVowels():
+    n = 0
+    with open("story.txt", "r") as f:
+        for ch in f.read().lower():
+            if ch in "aeiou":
+                n += 1
+    return n`}</pre>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>Differentiate between <code>'w'</code> and <code>'a'</code> modes.</>}
+            answer={<>
+              <p><code>'w'</code> opens the file for writing and <strong>truncates</strong> it to zero length (existing data is lost). If the file doesn't exist, it is created.</p>
+              <p><code>'a'</code> opens the file for <strong>appending</strong>: writes are added at the end, existing data is preserved. If the file doesn't exist, it is created.</p>
+            </>}
+          />
+          <PYQ year="CBSE 2024" marks={3}
+            question={<>Write a function to read a binary file <code>emp.dat</code> containing a list of dictionaries (employee records) and display only those with salary &gt; 50000.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`import pickle
+def show_high_paid():
+    with open("emp.dat", "rb") as f:
+        records = pickle.load(f)
+    for r in records:
+        if r["salary"] > 50000:
+            print(r)`}</pre>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which method returns current file pointer position?"
+            options={["seek()", "tell()", "pos()", "where()"]} answer="tell()" />
+          <QuickCheck question="Which module is used to handle CSV files?"
+            options={["csv", "json", "pickle", "io"]} answer="csv" />
+          <QuickCheck question="Default mode of open() if no mode is specified?"
+            options={["'w'", "'r'", "'rb'", "'a'"]} answer="'r'" />
+          <QuickCheck question="Which method writes a list of strings to a file?"
+            options={["write()", "writelines()", "writeall()", "putlines()"]} answer="writelines()" />
+        </Section>
+      </ChapterLayout>
   );
 }
