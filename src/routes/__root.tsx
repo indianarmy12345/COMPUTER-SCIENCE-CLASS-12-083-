@@ -40,7 +40,7 @@ export const Route = createRootRoute({
       },
       { name: "author", content: "CS 083 Hub" },
       { name: "theme-color", content: "#0F1729" },
-      { property: "og:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
+      { property: "og:title", content: "CS 083 Hub — Learn CBSE Class 12 Computer Science with Live IDEs" },
       {
         property: "og:description",
         content:
@@ -49,13 +49,16 @@ export const Route = createRootRoute({
       { property: "og:type", content: "website" },
       { property: "og:image", content: "/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
+      { name: "twitter:title", content: "CS 083 Hub — Learn CBSE Class 12 Computer Science with Live IDEs" },
       {
         name: "twitter:description",
         content:
           "Learn the entire CBSE Class 12 CS syllabus with live Python & SQL IDEs — no installs, no setup.",
       },
       { name: "twitter:image", content: "/og-image.jpg" },
+      { name: "description", content: "A comprehensive educational platform for Class 12 Computer Science, offering interactive learning with real-time examples and IDEs." },
+      { property: "og:description", content: "A comprehensive educational platform for Class 12 Computer Science, offering interactive learning with real-time examples and IDEs." },
+      { name: "twitter:description", content: "A comprehensive educational platform for Class 12 Computer Science, offering interactive learning with real-time examples and IDEs." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
