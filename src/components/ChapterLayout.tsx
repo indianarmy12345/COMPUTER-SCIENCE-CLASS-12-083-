@@ -295,6 +295,40 @@ export function Callout({
   );
 }
 
+/** Previous Year Question card (CBSE board exams). */
+export function PYQ({
+  year,
+  marks,
+  question,
+  answer,
+}: {
+  year: string;
+  marks?: number;
+  question: ReactNode;
+  answer: ReactNode;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-lg border border-amber-500/40 bg-amber-500/5 p-4">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <div className="text-[11px] font-semibold uppercase tracking-widest text-amber-400">
+          PYQ · {year}{marks ? ` · ${marks} mark${marks > 1 ? "s" : ""}` : ""}
+        </div>
+        <Button size="sm" variant="ghost" onClick={() => setOpen((o) => !o)}>
+          {open ? "Hide answer" : "Show answer"}
+        </Button>
+      </div>
+      <div className="text-sm font-medium text-foreground/90">{question}</div>
+      {open && (
+        <div className="mt-3 rounded-md border border-amber-500/30 bg-background/50 p-3 text-sm text-foreground/85">
+          <div className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-amber-400">Answer</div>
+          {answer}
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** Quick check: short answer or MCQ. Marks the chapter complete on correct submit. */
 export function QuickCheck({
   question,
