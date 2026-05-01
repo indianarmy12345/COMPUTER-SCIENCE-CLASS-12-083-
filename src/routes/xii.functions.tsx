@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
 import { PyRunner } from "@/components/PyRunner";
 
 export const Route = createFileRoute("/xii/functions")({
