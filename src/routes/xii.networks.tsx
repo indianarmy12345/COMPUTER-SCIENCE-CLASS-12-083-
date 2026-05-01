@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
 
 export const Route = createFileRoute("/xii/networks")({
   head: () => ({
@@ -223,6 +223,67 @@ function Page() {
           hint="Stands for Media Access Control."
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: how the internet really works">
+          <p>
+            When you type <code>www.cbse.gov.in</code> in a browser, your
+            computer asks a <strong>DNS server</strong> to translate the
+            domain into an IP address. Your request is then split into
+            <strong> packets</strong>, each tagged with source/destination IPs,
+            routed hop-by-hop through routers, reassembled by TCP at the
+            destination, and answered with HTTPS-encrypted HTML, which the
+            browser parses and renders.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Bandwidth</strong> = max data rate of a link (bps, Kbps, Mbps, Gbps). <strong>Throughput</strong> = actual rate achieved.</li>
+            <li><strong>MAC address</strong> (48-bit, hex) is permanent, assigned by NIC manufacturer; <strong>IP address</strong> (IPv4 32-bit, IPv6 128-bit) is logical and changes by network.</li>
+            <li><strong>HTTP vs HTTPS:</strong> HTTPS uses TLS to encrypt the channel — protects against eavesdropping and tampering; uses port 443 instead of 80.</li>
+            <li><strong>TCP vs UDP:</strong> TCP is reliable, connection-oriented, ordered (used by HTTP, SMTP, FTP); UDP is connectionless, faster but unreliable (used by DNS queries, video streaming, gaming).</li>
+            <li><strong>Cookies</strong> are small text files a server stores on your browser to remember session/preferences; can raise privacy concerns.</li>
+          </ul>
+          <p className="text-sm">
+            <strong>Cloud computing</strong> models — IaaS (raw VMs, e.g. AWS
+            EC2), PaaS (managed runtime, e.g. Heroku), SaaS (ready apps, e.g.
+            Gmail). <strong>IoT</strong> connects everyday objects (sensors,
+            appliances) to the internet so they can exchange data.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={1}
+            question={<>Expand the term: VoIP.</>}
+            answer={<>Voice over Internet Protocol — technology to make voice calls over an IP network instead of traditional phone lines (e.g. WhatsApp call, Google Meet).</>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>Differentiate between star and bus topology.</>}
+            answer={<>
+              <p><strong>Star:</strong> all nodes connect to a central hub/switch. Failure of one cable affects only that node; failure of the hub breaks the whole network.</p>
+              <p><strong>Bus:</strong> all nodes share a single backbone cable. Cheap and easy to set up but a break in the backbone disables the whole network and performance drops with traffic.</p>
+            </>}
+          />
+          <PYQ year="CBSE 2024" marks={3}
+            question={<>A school in Delhi has 4 buildings. Suggest (a) the best topology, (b) placement of the server, (c) suitable cable, and (d) required device to connect to a branch in Mumbai.</>}
+            answer={<>
+              <p>(a) <strong>Star topology</strong> within each building, all linked through a central switch.</p>
+              <p>(b) Place the server in the building with the <strong>maximum number of computers</strong> (minimises traffic).</p>
+              <p>(c) <strong>Optical fibre</strong> for inter-building links (high speed, long distance, EMI-immune).</p>
+              <p>(d) A <strong>router with a modem</strong> (or a leased-line/MPLS router) to connect to the Mumbai branch over the WAN.</p>
+            </>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which device works at the Data Link layer and forwards frames using MAC?"
+            options={["Hub", "Repeater", "Switch", "Modem"]} answer="Switch" />
+          <QuickCheck question="Default port number of HTTPS?"
+            options={["80", "21", "25", "443"]} answer="443" />
+          <QuickCheck question="Which protocol is used to send email?"
+            options={["POP3", "IMAP", "SMTP", "FTP"]} answer="SMTP" />
+          <QuickCheck question="Which is NOT a guided medium?"
+            options={["Twisted pair", "Coaxial", "Optical fibre", "Microwave"]} answer="Microwave" />
+          <QuickCheck question="IPv4 address length is:"
+            options={["16 bits", "32 bits", "64 bits", "128 bits"]} answer="32 bits" />
+        </Section>
+      </ChapterLayout>
   );
 }

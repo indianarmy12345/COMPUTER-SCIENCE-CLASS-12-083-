@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
 
 export const Route = createFileRoute("/xi/society-ethics")({
   head: () => ({
@@ -202,6 +202,80 @@ function Page() {
           answer="Section 66C"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: digital citizenship & cyber laws">
+          <p>
+            Every online action you take — a tweet, a like, a search — leaves a
+            trace called your <strong>digital footprint</strong>. Footprints are
+            <strong> active</strong> (data you intentionally share: posts,
+            uploads) or <strong>passive</strong> (data collected without your
+            direct input: cookies, IP logs, location). Once posted online,
+            information is hard to erase, so think before you share.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Netiquette:</strong> respect others' privacy, avoid ALL CAPS (= shouting), don't spam, give credit, fact-check before forwarding.</li>
+            <li><strong>Plagiarism</strong> = presenting someone else's work as your own. Always cite sources; use quotation marks for direct text.</li>
+            <li><strong>IPR (Intellectual Property Rights):</strong> Copyright (creative works), Patent (inventions), Trademark (brand symbols).</li>
+            <li><strong>Licences:</strong> Proprietary (Microsoft Office), Open Source (Apache, MIT), Copyleft (GPL — derivatives must stay open), Creative Commons (CC-BY, CC-BY-SA…).</li>
+            <li><strong>Cybercrime:</strong> hacking, phishing, identity theft, cyberstalking, ransomware, fraud.</li>
+            <li><strong>Malware types:</strong> virus (attaches to files), worm (spreads on its own), trojan (disguised as useful), ransomware (encrypts and demands money), spyware (steals data).</li>
+            <li><strong>E-waste:</strong> handle through certified recyclers; never dump batteries or CRT screens in regular trash — they leak lead, mercury and cadmium.</li>
+          </ul>
+          <p className="text-sm">
+            <strong>IT Act 2000 (India):</strong> Section 43 (damage to
+            computer/data, civil penalty), Section 66 (hacking — up to 3 years +
+            fine), Section 66C (identity theft), Section 66D (cheating by
+            impersonation), Section 67 (publishing obscene material), Section
+            72 (breach of confidentiality).
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={1}
+            question={<>Define digital footprint.</>}
+            answer={<>A digital footprint is the trail of data you create whenever you use the internet — websites you visit, emails you send, posts you publish — which can be traced back to you.</>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>What is phishing? Mention one way to protect yourself.</>}
+            answer={<>
+              <p><strong>Phishing</strong> is a cybercrime where attackers send fake emails/SMS/websites that look genuine to trick you into revealing passwords, OTPs or card details.</p>
+              <p><strong>Protection:</strong> never click suspicious links; verify the URL (HTTPS + correct domain); enable two-factor authentication; never share OTPs.</p>
+            </>}
+          />
+          <PYQ year="CBSE 2024" marks={2}
+            question={<>Differentiate between Free Software and Open-Source Software.</>}
+            answer={<>
+              <p><strong>Free software</strong> (FSF/GNU) emphasises the user's <em>freedom</em> to run, study, modify and redistribute — often with copyleft (GPL) so derivatives stay free.</p>
+              <p><strong>Open-source software</strong> (OSI) emphasises the practical/development advantages of open code (collaboration, peer review). All free software is open source, but some open-source licences (e.g. MIT, Apache) allow proprietary derivatives.</p>
+            </>}
+          />
+          <PYQ year="CBSE 2023" marks={3}
+            question={<>List any three precautions a student should take to ensure cyber safety.</>}
+            answer={<>
+              <ul className="ml-5 list-disc">
+                <li>Use strong, unique passwords and enable two-factor authentication.</li>
+                <li>Keep OS, browser and antivirus up to date; never download software from untrusted sources.</li>
+                <li>Never share personal information (address, phone, OTP, school ID) on public platforms.</li>
+                <li>Review privacy settings on social media and accept friend requests only from known people.</li>
+                <li>Avoid public Wi-Fi for banking; use HTTPS and a VPN if needed.</li>
+              </ul>
+            </>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which type of malware self-replicates across networks without user action?"
+            options={["Virus", "Worm", "Trojan", "Spyware"]} answer="Worm" />
+          <QuickCheck question="CC-BY-SA stands for:"
+            options={["Creative Commons – Buy & Share", "Creative Commons – Attribution & ShareAlike", "Copy Code – By Author", "Common Code – Standard Authorisation"]}
+            answer="Creative Commons – Attribution & ShareAlike" />
+          <QuickCheck question="Which IT Act section deals with identity theft?"
+            options={["43", "66", "66C", "67"]} answer="66C" />
+          <QuickCheck question="E-waste contains harmful element:"
+            options={["Carbon", "Mercury", "Iron", "Calcium"]} answer="Mercury" />
+          <QuickCheck question="Right granted for an invention is called:"
+            options={["Copyright", "Patent", "Trademark", "Licence"]} answer="Patent" />
+        </Section>
+      </ChapterLayout>
   );
 }

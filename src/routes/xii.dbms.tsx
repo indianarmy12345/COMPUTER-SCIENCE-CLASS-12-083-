@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
 import { SqlRunner } from "@/components/SqlRunner";
 
 const SETUP = `CREATE TABLE student (
@@ -317,6 +317,71 @@ LIMIT 5;`}
           answer="COMMIT"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: keys, constraints & normalisation basics">
+          <p>
+            A <strong>key</strong> uniquely identifies a row. The most common types:
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>Candidate key:</strong> a minimal set of attributes that can uniquely identify a row.</li>
+            <li><strong>Primary key:</strong> the candidate key chosen by the designer; cannot be NULL or duplicate.</li>
+            <li><strong>Alternate key:</strong> any candidate key that is not the primary key.</li>
+            <li><strong>Foreign key:</strong> an attribute that refers to the primary key of another table — enforces <em>referential integrity</em>.</li>
+            <li><strong>Composite key:</strong> a primary key made of two or more columns.</li>
+          </ul>
+          <p className="text-sm">
+            <strong>Constraints</strong> in SQL: <code>NOT NULL</code>,
+            <code>UNIQUE</code>, <code>PRIMARY KEY</code>, <code>FOREIGN KEY</code>,
+            <code>CHECK</code>, <code>DEFAULT</code>. <strong>DDL</strong>
+            (CREATE/ALTER/DROP) defines schema; <strong>DML</strong>
+            (INSERT/UPDATE/DELETE) changes data; <strong>DQL</strong> (SELECT)
+            queries data; <strong>TCL</strong> (COMMIT/ROLLBACK) controls
+            transactions.
+          </p>
+          <p className="text-sm">
+            <strong>Aggregate functions</strong> ignore NULLs (except
+            <code>COUNT(*)</code>). <strong>WHERE</strong> filters rows
+            <em> before</em> grouping; <strong>HAVING</strong> filters
+            <em> after</em> grouping.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={2}
+            question={<>Differentiate between DELETE and DROP commands with example.</>}
+            answer={<>
+              <p><strong>DELETE</strong> (DML) removes rows but keeps the table structure. <code>DELETE FROM student WHERE marks &lt; 33;</code></p>
+              <p><strong>DROP</strong> (DDL) removes the entire table — structure and data. <code>DROP TABLE student;</code></p>
+            </>}
+          />
+          <PYQ year="CBSE 2022" marks={3}
+            question={<>Write SQL to (i) display class-wise average marks, (ii) display names of students from Delhi sorted by marks descending, (iii) count students whose marks &gt;= 75.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`-- (i)
+SELECT class, AVG(marks) FROM student GROUP BY class;
+-- (ii)
+SELECT name FROM student WHERE city='Delhi' ORDER BY marks DESC;
+-- (iii)
+SELECT COUNT(*) FROM student WHERE marks >= 75;`}</pre>}
+          />
+          <PYQ year="CBSE 2024" marks={1}
+            question={<>Which clause is used with SELECT to remove duplicate rows from output?</>}
+            answer={<><code>DISTINCT</code> — e.g. <code>SELECT DISTINCT city FROM student;</code></>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which is a DDL command?"
+            options={["UPDATE", "INSERT", "ALTER", "SELECT"]} answer="ALTER" />
+          <QuickCheck question="Which aggregate function counts NULLs as well?"
+            options={["COUNT(column)", "COUNT(*)", "SUM()", "AVG()"]} answer="COUNT(*)" />
+          <QuickCheck question="Which clause filters groups in a GROUP BY query?"
+            options={["WHERE", "HAVING", "ORDER BY", "LIMIT"]} answer="HAVING" />
+          <QuickCheck question="A foreign key enforces:"
+            options={["Domain integrity", "Referential integrity", "Entity integrity", "Uniqueness"]}
+            answer="Referential integrity" />
+          <QuickCheck question="Cartesian product of m × n rows produces how many rows?"
+            options={["m+n", "max(m,n)", "m*n", "m-n"]} answer="m*n" />
+        </Section>
+      </ChapterLayout>
   );
 }

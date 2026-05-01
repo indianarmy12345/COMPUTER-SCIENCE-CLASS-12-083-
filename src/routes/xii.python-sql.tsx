@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
 
 export const Route = createFileRoute("/xii/python-sql")({
   head: () => ({
@@ -263,6 +263,71 @@ print("Bye!")`}</Code>
           answer="None"
         />
       </Section>
-    </ChapterLayout>
+    
+        <Section title="Deeper theory: cursor types, transactions & security">
+          <p>
+            A <strong>cursor</strong> is a control structure that lets Python
+            iterate over the result set returned by the database. The MySQL
+            connector returns tuples by default; pass <code>dictionary=True</code>
+            to <code>conn.cursor()</code> to get rows as dicts.
+          </p>
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><strong>fetchone()</strong> → next row or <code>None</code>.</li>
+            <li><strong>fetchmany(n)</strong> → list of up to <em>n</em> rows.</li>
+            <li><strong>fetchall()</strong> → list of all remaining rows.</li>
+            <li><strong>cursor.rowcount</strong> → rows affected by the last DML.</li>
+            <li><strong>cursor.lastrowid</strong> → AUTO_INCREMENT id of the last INSERT.</li>
+          </ul>
+          <p className="text-sm">
+            By default the connection is <strong>transactional</strong> — DML
+            changes are not visible to other connections until you call
+            <code>conn.commit()</code>. Use <code>conn.rollback()</code> to undo
+            if something fails. Always <code>cursor.close()</code> and
+            <code>conn.close()</code> at the end.
+          </p>
+          <p className="text-sm">
+            <strong>Never</strong> build SQL with f-strings or <code>+</code> —
+            use <strong>parameterised queries</strong> (<code>%s</code> placeholders)
+            so the driver escapes inputs and protects against
+            <strong> SQL injection</strong>.
+          </p>
+        </Section>
+
+        <Section title="Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2023" marks={3}
+            question={<>Write Python code to connect to MySQL database <code>school</code>, fetch all rows from table <code>student</code> and display them.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`import mysql.connector as ms
+conn = ms.connect(host="localhost", user="root",
+                  password="****", database="school")
+cur = conn.cursor()
+cur.execute("SELECT * FROM student")
+for row in cur.fetchall():
+    print(row)
+cur.close(); conn.close()`}</pre>}
+          />
+          <PYQ year="CBSE 2022" marks={2}
+            question={<>Differentiate between <code>fetchone()</code> and <code>fetchall()</code>.</>}
+            answer={<>
+              <p><code>fetchone()</code> returns the <strong>next single row</strong> as a tuple, or <code>None</code> if no more rows. Useful when you expect at most one record (e.g. login lookup).</p>
+              <p><code>fetchall()</code> returns <strong>all remaining rows</strong> as a list of tuples. Useful for displaying full result sets.</p>
+            </>}
+          />
+          <PYQ year="CBSE 2024" marks={2}
+            question={<>What is the role of <code>commit()</code> in database connectivity?</>}
+            answer={<>It permanently saves all DML changes (INSERT/UPDATE/DELETE) made in the current transaction to the database. Without <code>commit()</code>, changes are kept only in the connection buffer and are discarded when the connection closes.</>}
+          />
+        </Section>
+
+        <Section title="More MCQs">
+          <QuickCheck question="Which package connects Python to MySQL?"
+            options={["sqlite3", "mysql.connector", "pymongo", "psycopg2"]} answer="mysql.connector" />
+          <QuickCheck question="Which method permanently saves changes?"
+            options={["save()", "commit()", "flush()", "store()"]} answer="commit()" />
+          <QuickCheck question="What does cursor.rowcount give after an UPDATE?"
+            options={["Total rows in table", "Rows affected", "Last id", "Always 1"]} answer="Rows affected" />
+          <QuickCheck question="Safest placeholder for user input in mysql.connector?"
+            options={["?", "%s", "{}", "$1"]} answer="%s" />
+        </Section>
+      </ChapterLayout>
   );
 }
