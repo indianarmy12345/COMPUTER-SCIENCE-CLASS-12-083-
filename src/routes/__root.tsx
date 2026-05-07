@@ -100,6 +100,16 @@ function RootComponent() {
           <main className="min-w-0 flex-1">
             <Outlet />
           </main>
+          <footer className="border-t border-border bg-background/60 px-4 py-6 text-xs text-muted-foreground sm:px-8">
+            <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 sm:flex-row">
+              <span>© {new Date().getFullYear()} CS 083 Hub. Built for CBSE learners.</span>
+              <nav className="flex items-center gap-4">
+                <Link to="/about" className="hover:text-neon">About</Link>
+                <Link to="/contact" className="hover:text-neon">Contact</Link>
+                <Link to="/privacy" className="hover:text-neon">Privacy</Link>
+              </nav>
+            </div>
+          </footer>
         </div>
         <Toaster />
       </div>
