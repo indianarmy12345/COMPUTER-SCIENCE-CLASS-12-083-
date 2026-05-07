@@ -65,6 +65,14 @@ export const Route = createRootRoute({
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
+    scripts: [
+      {
+        async: true,
+        crossorigin: "anonymous",
+        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5234729428537235",
+      },
+    ],
+    meta_extra: [{ name: "google-adsense-account", content: "ca-pub-5234729428537235" }],
   }),
   shellComponent: RootShell,
   component: RootComponent,
