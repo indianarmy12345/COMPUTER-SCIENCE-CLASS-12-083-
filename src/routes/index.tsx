@@ -75,6 +75,7 @@ function Home() {
       </section>
 
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-8">
+        <AdSlot className="mb-10" />
         <h2 className="text-2xl font-semibold tracking-tight">Class XII chapters</h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Tap a chapter to read the notes, see real-world examples, and run code.
