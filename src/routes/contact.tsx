@@ -121,6 +121,7 @@ function ContactPage() {
           <Mail className="h-4 w-4" /> Send message
         </button>
       </form>
+      <AdSlot className="mt-10" />
     </div>
   );
 }
