@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { GraduationCap, Code2, Database, Sparkles } from "lucide-react";
+import { AdSlot } from "@/components/AdSlot";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
