@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as XiiStacksRouteImport } from './routes/xii.stacks'
@@ -26,6 +27,11 @@ import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-syst
 const PlaygroundRoute = PlaygroundRouteImport.update({
   id: '/playground',
   path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -92,6 +98,7 @@ const XiComputerSystemsRoute = XiComputerSystemsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/playground': typeof PlaygroundRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
@@ -107,6 +114,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/playground': typeof PlaygroundRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
@@ -123,6 +131,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/playground': typeof PlaygroundRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
@@ -140,6 +149,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/contact'
     | '/playground'
     | '/xi/computer-systems'
     | '/xi/python-basics'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/contact'
     | '/playground'
     | '/xi/computer-systems'
     | '/xi/python-basics'
@@ -170,6 +181,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/contact'
     | '/playground'
     | '/xi/computer-systems'
     | '/xi/python-basics'
@@ -186,6 +198,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   PlaygroundRoute: typeof PlaygroundRoute
   XiComputerSystemsRoute: typeof XiComputerSystemsRoute
   XiPythonBasicsRoute: typeof XiPythonBasicsRoute
@@ -206,6 +219,13 @@ declare module '@tanstack/react-router' {
       path: '/playground'
       fullPath: '/playground'
       preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -298,6 +318,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   PlaygroundRoute: PlaygroundRoute,
   XiComputerSystemsRoute: XiComputerSystemsRoute,
   XiPythonBasicsRoute: XiPythonBasicsRoute,
