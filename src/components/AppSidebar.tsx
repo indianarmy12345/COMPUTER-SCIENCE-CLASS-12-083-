@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { BookOpen, Code2, Database, Network, Home, GraduationCap, CheckCircle2, RotateCcw } from "lucide-react";
+import { BookOpen, Code2, Database, Network, Home, GraduationCap, CheckCircle2, RotateCcw, Info, Mail, Shield } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
