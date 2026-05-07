@@ -128,6 +128,29 @@ export function AppSidebar() {
             <SidebarMenu>{xii.map(renderItem)}</SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        <SidebarGroup>
+          <SidebarGroupLabel>Site</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/about"}>
+                  <Link to="/about"><Info className="h-4 w-4" /><span>About</span></Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/contact"}>
+                  <Link to="/contact"><Mail className="h-4 w-4" /><span>Contact</span></Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/privacy"}>
+                  <Link to="/privacy"><Shield className="h-4 w-4" /><span>Privacy</span></Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
       </SidebarContent>
       {!collapsed && (
         <SidebarFooter className="border-t border-sidebar-border px-3 py-2 text-[10px] text-muted-foreground">
