@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Code2, Database, Network, Sparkles, Terminal } from "lucide-react";
 import { chapters } from "@/lib/syllabus";
+import { AdSlot } from "@/components/AdSlot";
 
 export const Route = createFileRoute("/")({
   head: () => ({
