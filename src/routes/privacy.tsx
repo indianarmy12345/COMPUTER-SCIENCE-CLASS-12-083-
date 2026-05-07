@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AdSlot } from "@/components/AdSlot";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
