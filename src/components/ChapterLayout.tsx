@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Check, CheckCircle2, Download, Loader2 } from "l
 import { chapters } from "@/lib/syllabus";
 import { markComplete, useProgress } from "@/lib/progress";
 import { Button } from "@/components/ui/button";
+import { AdSlot } from "@/components/AdSlot";
 
 async function downloadChapterPdf(
   el: HTMLElement,
