@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { AdSlot } from "@/components/AdSlot";
 
 export const Route = createFileRoute("/privacy")({
   head: () => ({
@@ -25,6 +26,7 @@ function PrivacyPage() {
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-8 sm:py-16">
       <h1 className="text-4xl font-bold tracking-tight">Privacy Policy</h1>
       <p className="mt-2 text-xs text-muted-foreground">Last updated: {updated}</p>
+      <AdSlot className="mt-6" />
 
       <div className="prose prose-invert mt-8 max-w-none space-y-6 text-sm text-muted-foreground">
         <section>

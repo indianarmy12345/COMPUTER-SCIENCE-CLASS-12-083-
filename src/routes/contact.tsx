@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, MessageSquare, Bug, Sparkles } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { AdSlot } from "@/components/AdSlot";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -120,6 +121,7 @@ function ContactPage() {
           <Mail className="h-4 w-4" /> Send message
         </button>
       </form>
+      <AdSlot className="mt-10" />
     </div>
   );
 }

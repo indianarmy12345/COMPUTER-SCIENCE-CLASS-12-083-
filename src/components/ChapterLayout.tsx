@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Check, CheckCircle2, Download, Loader2 } from "l
 import { chapters } from "@/lib/syllabus";
 import { markComplete, useProgress } from "@/lib/progress";
 import { Button } from "@/components/ui/button";
+import { AdSlot } from "@/components/AdSlot";
 
 async function downloadChapterPdf(
   el: HTMLElement,
@@ -217,6 +218,8 @@ export function ChapterLayout({
           </Button>
         </div>
         <div ref={articleRef} className="mt-8 space-y-8 text-[15px] leading-7">{children}</div>
+
+        <AdSlot className="mt-10" />
 
         <div className="mt-12 flex items-center justify-between rounded-lg border border-border bg-card/40 p-4">
           <div className="text-sm text-muted-foreground">
