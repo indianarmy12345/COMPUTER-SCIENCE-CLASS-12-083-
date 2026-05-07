@@ -22,7 +22,7 @@ export const Route = createFileRoute("/contact")({
   component: ContactPage,
 });
 
-const CONTACT_EMAIL = "hello@cslearners.lovable.app";
+const CONTACT_EMAIL = "cslearners11@gmail.com";
 
 function ContactPage() {
   const [name, setName] = useState("");
