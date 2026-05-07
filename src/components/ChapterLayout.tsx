@@ -219,6 +219,8 @@ export function ChapterLayout({
         </div>
         <div ref={articleRef} className="mt-8 space-y-8 text-[15px] leading-7">{children}</div>
 
+        <AdSlot className="mt-10" />
+
         <div className="mt-12 flex items-center justify-between rounded-lg border border-border bg-card/40 p-4">
           <div className="text-sm text-muted-foreground">
             {done
