@@ -76,6 +76,7 @@ function AboutPage() {
         distraction-free way to learn Python, SQL, DBMS and Networks.
       </p>
 
+      <AdSlot className="mt-10" />
       <div className="mt-10 rounded-lg border border-border bg-card p-5">
         <h3 className="font-semibold">Get in touch</h3>
         <p className="mt-1 text-sm text-muted-foreground">
