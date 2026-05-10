@@ -34,12 +34,29 @@ export function AdSlot({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch {
-      /* ignore */
-    }
-  }, []);
+    if (!slot) return; // Without a slot id, skip push — Auto Ads handles placement.
+    // Defer to idle so it never blocks chapter navigation.
+    const schedule =
+      (window as unknown as { requestIdleCallback?: (cb: () => void) => number })
+        .requestIdleCallback ?? ((cb: () => void) => window.setTimeout(cb, 200));
+    const id = schedule(() => {
+      try {
+        (window.adsbygoogle = window.adsbygoogle || []).push({});
+      } catch {
+        /* ignore */
+      }
+    });
+    return () => {
+      const cancel =
+        (window as unknown as { cancelIdleCallback?: (id: number) => void })
+          .cancelIdleCallback ?? window.clearTimeout;
+      try { cancel(id as number); } catch { /* ignore */ }
+    };
+  }, [slot]);
+
+  // Don't render an empty <ins> when no slot — that just gives AdSense an
+  // unfilled unit on every page and contributes to navigation lag.
+  if (!slot) return null;
 
   return (
     <div className={`my-6 flex w-full justify-center ${className}`}>
@@ -48,7 +65,7 @@ export function AdSlot({
         className="adsbygoogle"
         style={{ display: "block", width: "100%", ...style }}
         data-ad-client={ADSENSE_CLIENT}
-        {...(slot ? { "data-ad-slot": slot } : {})}
+        data-ad-slot={slot}
         data-ad-format={format}
         {...(layout ? { "data-ad-layout": layout } : {})}
         data-full-width-responsive={responsive ? "true" : "false"}
