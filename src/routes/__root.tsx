@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Toaster } from "@/components/ui/sonner";
+import { ADSENSE_CLIENT } from "@/components/AdSlot";
 
 import appCss from "../styles.css?url";
 
@@ -66,13 +68,6 @@ export const Route = createRootRoute({
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
-    scripts: [
-      {
-        async: true,
-        crossorigin: "anonymous",
-        src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5234729428537235",
-      },
-    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -120,7 +115,46 @@ function RootComponent() {
           </footer>
         </div>
         <Toaster />
+        <LazyAdSenseScript />
       </div>
     </SidebarProvider>
   );
+}
+
+function LazyAdSenseScript() {
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    let loaded = false;
+    let timeoutId: number | undefined;
+    let idleId: number | undefined;
+
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+      if (document.querySelector(`script[data-adsense-client="${ADSENSE_CLIENT}"]`)) return;
+
+      const script = document.createElement("script");
+      script.async = true;
+      script.crossOrigin = "anonymous";
+      script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;
+      script.dataset.adsenseClient = ADSENSE_CLIENT;
+      document.head.appendChild(script);
+    };
+
+    const idle = (window as unknown as {
+      requestIdleCallback?: (cb: () => void, opts?: { timeout: number }) => number;
+      cancelIdleCallback?: (id: number) => void;
+    });
+
+    timeoutId = window.setTimeout(load, 3500);
+    idleId = idle.requestIdleCallback?.(load, { timeout: 5000 });
+
+    return () => {
+      if (timeoutId) window.clearTimeout(timeoutId);
+      if (idleId) idle.cancelIdleCallback?.(idleId);
+    };
+  }, []);
+
+  return null;
 }
