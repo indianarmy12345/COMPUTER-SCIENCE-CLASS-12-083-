@@ -124,6 +124,13 @@ function RootComponent() {
 function LazyAdSenseScript() {
   useEffect(() => {
     if (typeof window === "undefined") return;
+    if (import.meta.env.DEV) return;
+    if (
+      window.location.hostname.includes("lovableproject.com") ||
+      window.location.hostname.includes("-preview--")
+    ) {
+      return;
+    }
 
     let loaded = false;
     let timeoutId: number | undefined;
