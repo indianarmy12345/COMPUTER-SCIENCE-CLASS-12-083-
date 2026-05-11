@@ -139,13 +139,13 @@ function LazyAdSenseScript() {
     const load = () => {
       if (loaded) return;
       loaded = true;
-      if (document.querySelector(`script[data-adsense-client="${ADSENSE_CLIENT}"]`)) return;
+      if (document.getElementById("adsense-script")) return;
 
       const script = document.createElement("script");
+      script.id = "adsense-script";
       script.async = true;
       script.crossOrigin = "anonymous";
       script.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`;
-      script.dataset.adsenseClient = ADSENSE_CLIENT;
       document.head.appendChild(script);
     };
 
