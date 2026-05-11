@@ -58,6 +58,7 @@ export const getRouter = () => {
   const router = createRouter({
     routeTree,
     context: {},
+    defaultPreload: "intent",
     scrollRestoration: true,
     defaultPreloadStaleTime: 0,
     defaultErrorComponent: DefaultErrorComponent,

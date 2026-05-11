@@ -38,7 +38,7 @@ export function AppSidebar() {
     return (
       <SidebarMenuItem key={c.slug}>
         <SidebarMenuButton asChild isActive={pathname === c.slug}>
-          <Link to={c.slug}>
+          <Link to={c.slug} preload="intent">
             {done ? (
               <CheckCircle2 className="h-4 w-4 text-neon" />
             ) : (
@@ -54,7 +54,7 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-sidebar-border">
-        <Link to="/" className="flex items-center gap-2 px-2 py-2">
+        <Link to="/" preload="intent" className="flex items-center gap-2 px-2 py-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-neon">
             <GraduationCap className="h-4 w-4" />
           </div>
@@ -97,7 +97,7 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname === "/"}>
-                  <Link to="/">
+                    <Link to="/" preload="intent">
                     <Home className="h-4 w-4" />
                     <span>Home</span>
                   </Link>
@@ -105,7 +105,7 @@ export function AppSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname === "/playground"}>
-                  <Link to="/playground">
+                    <Link to="/playground" preload="intent">
                     <Code2 className="h-4 w-4" />
                     <span>Playground</span>
                   </Link>
@@ -135,17 +135,17 @@ export function AppSidebar() {
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname === "/about"}>
-                  <Link to="/about"><Info className="h-4 w-4" /><span>About</span></Link>
+                  <Link to="/about" preload="intent"><Info className="h-4 w-4" /><span>About</span></Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname === "/contact"}>
-                  <Link to="/contact"><Mail className="h-4 w-4" /><span>Contact</span></Link>
+                  <Link to="/contact" preload="intent"><Mail className="h-4 w-4" /><span>Contact</span></Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname === "/privacy"}>
-                  <Link to="/privacy"><Shield className="h-4 w-4" /><span>Privacy</span></Link>
+                  <Link to="/privacy" preload="intent"><Shield className="h-4 w-4" /><span>Privacy</span></Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
