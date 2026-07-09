@@ -6,13 +6,21 @@ import { AdSlot } from "@/components/AdSlot";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "CS 083 — Class 12 Computer Science | Interactive CBSE Course" },
+      { title: "CS 083 — CBSE Class 12 Computer Science" },
       {
         name: "description",
         content:
-          "Master the full CBSE Class 12 Computer Science syllabus with real examples, live Python (Pyodide) and SQL (SQLite) IDEs, and chapter-wise notes.",
+          "Master the CBSE Class 12 Computer Science syllabus with real examples, live Python (Pyodide) and SQL (SQLite) IDEs, and chapter-wise notes.",
       },
+      { property: "og:title", content: "CS 083 — CBSE Class 12 Computer Science" },
+      {
+        property: "og:description",
+        content:
+          "The full CBSE Class 12 CS course with live Python & SQL IDEs, chapter notes and progress tracking.",
+      },
+      { property: "og:url", content: "https://cslearners.lovable.app/" },
     ],
+    links: [{ rel: "canonical", href: "https://cslearners.lovable.app/" }],
   }),
   component: Home,
 });

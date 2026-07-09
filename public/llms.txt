@@ -1,0 +1,27 @@
+# CS 083 Hub
+
+> Free, interactive CBSE Class 12 Computer Science (Code 083) course — covers Python, SQL, DBMS and Computer Networks with live in-browser Python (Pyodide) and SQLite (sql.js) playgrounds, downloadable PDF notes, and chapter-wise progress tracking.
+
+## Pages
+
+- [Home](/): Course overview and chapter index.
+- [About](/about): What CS 083 Hub is and who it's for.
+- [Contact](/contact): Feedback, bug reports, topic suggestions.
+- [Privacy](/privacy): Privacy policy and advertising disclosure.
+- [Playground](/playground): Live Python and SQLite IDE in the browser.
+
+## Class XII chapters
+
+- [Functions in Python](/xii/functions): User-defined functions, scope, arguments.
+- [Exception Handling](/xii/exceptions): try/except/finally and raising errors.
+- [File Handling](/xii/file-handling): Text, binary and CSV file operations.
+- [Data Structures — Stacks](/xii/stacks): LIFO with lists, push/pop, applications.
+- [Database Management & SQL](/xii/dbms): Relational model, DDL/DML, joins, aggregates.
+- [Interface Python with SQL](/xii/python-sql): mysql-connector, cursors, transactions.
+- [Computer Networks](/xii/networks): Topologies, devices, protocols, HTTP/DNS.
+
+## Class XI revision
+
+- [Computer Systems](/xi/computer-systems): Hardware, memory, number systems.
+- [Python Basics](/xi/python-basics): Variables, control flow, strings, lists, dicts.
+- [Society, Law & Ethics](/xi/society-ethics): Cyber safety, IPR, digital footprint.

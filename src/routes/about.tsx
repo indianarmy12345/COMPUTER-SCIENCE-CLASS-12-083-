@@ -17,7 +17,9 @@ export const Route = createFileRoute("/about")({
         content:
           "Learn who built CS 083 Hub and why — interactive CBSE Class 12 CS notes with real Python & SQL IDEs.",
       },
+      { property: "og:url", content: "https://cslearners.lovable.app/about" },
     ],
+    links: [{ rel: "canonical", href: "https://cslearners.lovable.app/about" }],
   }),
   component: AboutPage,
 });

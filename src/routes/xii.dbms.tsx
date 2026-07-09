@@ -45,8 +45,18 @@ export const Route = createFileRoute("/xii/dbms")({
       {
         name: "description",
         content:
-          "Comprehensive DBMS notes — relational model, keys, DDL/DML/DCL/TCL, all SQL clauses, joins, aggregates, constraints, normalization basics — practise on a live SQLite database.",
+          "DBMS & SQL notes for CBSE Class 12 — relational model, keys, DDL/DML, joins, aggregates and constraints — practise on a live SQLite database.",
       },
+      { property: "og:title", content: "Database Management & SQL — CS 083 Class XII" },
+      {
+        property: "og:description",
+        content:
+          "Learn DBMS and SQL for CBSE Class 12 with live SQLite queries — joins, aggregates, constraints and more.",
+      },
+      { property: "og:url", content: "https://cslearners.lovable.app/xii/dbms" },
+    ],
+    links: [
+      { rel: "canonical", href: "https://cslearners.lovable.app/xii/dbms" },
     ],
   }),
   component: Page,

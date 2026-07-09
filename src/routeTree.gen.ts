@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as ContactRouteImport } from './routes/contact'
@@ -25,6 +26,11 @@ import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
 import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
 import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
 
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -107,6 +113,7 @@ export interface FileRoutesByFullPath {
   '/contact': typeof ContactRoute
   '/playground': typeof PlaygroundRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -124,6 +131,7 @@ export interface FileRoutesByTo {
   '/contact': typeof ContactRoute
   '/playground': typeof PlaygroundRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -142,6 +150,7 @@ export interface FileRoutesById {
   '/contact': typeof ContactRoute
   '/playground': typeof PlaygroundRoute
   '/privacy': typeof PrivacyRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -161,6 +170,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/playground'
     | '/privacy'
+    | '/sitemap.xml'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -178,6 +188,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/playground'
     | '/privacy'
+    | '/sitemap.xml'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -195,6 +206,7 @@ export interface FileRouteTypes {
     | '/contact'
     | '/playground'
     | '/privacy'
+    | '/sitemap.xml'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -213,6 +225,7 @@ export interface RootRouteChildren {
   ContactRoute: typeof ContactRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PrivacyRoute: typeof PrivacyRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   XiComputerSystemsRoute: typeof XiComputerSystemsRoute
   XiPythonBasicsRoute: typeof XiPythonBasicsRoute
   XiSocietyEthicsRoute: typeof XiSocietyEthicsRoute
@@ -227,6 +240,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -341,6 +361,7 @@ const rootRouteChildren: RootRouteChildren = {
   ContactRoute: ContactRoute,
   PlaygroundRoute: PlaygroundRoute,
   PrivacyRoute: PrivacyRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   XiComputerSystemsRoute: XiComputerSystemsRoute,
   XiPythonBasicsRoute: XiPythonBasicsRoute,
   XiSocietyEthicsRoute: XiSocietyEthicsRoute,

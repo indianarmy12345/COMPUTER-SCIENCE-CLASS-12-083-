@@ -208,11 +208,12 @@ export function ChapterLayout({
             onClick={handleDownload}
             disabled={pdfLoading}
             className="shrink-0"
+            aria-label={pdfLoading ? "Building PDF" : "Download chapter notes as PDF"}
           >
             {pdfLoading ? (
-              <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+              <Loader2 className="mr-1 h-4 w-4 animate-spin" aria-hidden="true" />
             ) : (
-              <Download className="mr-1 h-4 w-4" />
+              <Download className="mr-1 h-4 w-4" aria-hidden="true" />
             )}
             {pdfLoading ? "Building PDF…" : "Download notes as PDF"}
           </Button>

@@ -34,39 +34,60 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CS 083 Hub — Learn CBSE Class 12 Computer Science with Live IDEs" },
+      { title: "CS 083 Hub — CBSE Class 12 Computer Science" },
       {
         name: "description",
         content:
-          "Master the full CBSE Class 12 Computer Science (Code 083) syllabus — Python, SQL, Networks & DBMS — with real-world examples, live in-browser IDEs, progress tracking and downloadable PDF notes.",
+          "Interactive CBSE Class 12 Computer Science (Code 083) course — Python, SQL, DBMS & Networks with live in-browser IDEs, notes and PDF downloads.",
       },
       { name: "author", content: "CS 083 Hub" },
       { name: "theme-color", content: "#0F1729" },
-      { property: "og:title", content: "CS 083 Hub — Learn CBSE Class 12 Computer Science with Live IDEs" },
+      { property: "og:site_name", content: "CS 083 Hub" },
+      { property: "og:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
       {
         property: "og:description",
         content:
-          "Interactive CBSE Class 12 CS course with live Python (Pyodide) and SQL (SQLite) playgrounds, full notes and chapter-wise progress tracking.",
+          "Interactive CBSE Class 12 Computer Science course with live Python and SQL playgrounds, notes and progress tracking.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:image", content: "/og-image.jpg" },
+      { property: "og:image", content: "https://cslearners.lovable.app/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "CS 083 Hub — Learn CBSE Class 12 Computer Science with Live IDEs" },
+      { name: "twitter:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
       {
         name: "twitter:description",
         content:
-          "Learn the entire CBSE Class 12 CS syllabus with live Python & SQL IDEs — no installs, no setup.",
+          "Learn the full CBSE Class 12 CS syllabus with live Python & SQL IDEs — no installs, no setup.",
       },
-      { name: "twitter:image", content: "/og-image.jpg" },
-      { name: "description", content: "A comprehensive educational platform for Class 12 Computer Science, offering interactive learning with real-time examples and IDEs." },
-      { property: "og:description", content: "A comprehensive educational platform for Class 12 Computer Science, offering interactive learning with real-time examples and IDEs." },
-      { name: "twitter:description", content: "A comprehensive educational platform for Class 12 Computer Science, offering interactive learning with real-time examples and IDEs." },
+      { name: "twitter:image", content: "https://cslearners.lovable.app/og-image.jpg" },
       { name: "google-adsense-account", content: "ca-pub-5234729428537235" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "CS 083 Hub",
+          url: "https://cslearners.lovable.app",
+          description:
+            "Interactive CBSE Class 12 Computer Science (Code 083) course with live Python and SQL IDEs.",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "CS 083 Hub",
+          url: "https://cslearners.lovable.app",
+          logo: "https://cslearners.lovable.app/favicon.png",
+        }),
+      },
     ],
   }),
   shellComponent: RootShell,
