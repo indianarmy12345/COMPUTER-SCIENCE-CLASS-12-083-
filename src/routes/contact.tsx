@@ -18,7 +18,9 @@ export const Route = createFileRoute("/contact")({
         property: "og:description",
         content: "Send feedback, report a bug, or suggest a topic for CS 083 Hub.",
       },
+      { property: "og:url", content: "https://cslearners.lovable.app/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://cslearners.lovable.app/contact" }],
   }),
   component: ContactPage,
 });
@@ -82,8 +84,9 @@ function ContactPage() {
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="text-xs font-medium text-muted-foreground">Your name</label>
+            <label htmlFor="contact-name" className="text-xs font-medium text-muted-foreground">Your name</label>
             <input
+              id="contact-name"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -92,8 +95,9 @@ function ContactPage() {
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-muted-foreground">Email</label>
+            <label htmlFor="contact-email" className="text-xs font-medium text-muted-foreground">Email</label>
             <input
+              id="contact-email"
               required
               type="email"
               value={email}
@@ -104,8 +108,9 @@ function ContactPage() {
           </div>
         </div>
         <div>
-          <label className="text-xs font-medium text-muted-foreground">Message</label>
+          <label htmlFor="contact-message" className="text-xs font-medium text-muted-foreground">Message</label>
           <textarea
+            id="contact-message"
             required
             value={message}
             onChange={(e) => setMessage(e.target.value)}

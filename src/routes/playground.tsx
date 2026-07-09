@@ -13,7 +13,15 @@ export const Route = createFileRoute("/playground")({
         content:
           "Free online Python and SQLite playground for CBSE Class 12 Computer Science. Run code in your browser.",
       },
+      { property: "og:title", content: "Playground — Live Python & SQL IDE" },
+      {
+        property: "og:description",
+        content:
+          "Run real Python and SQLite queries entirely in your browser — no installs, no setup.",
+      },
+      { property: "og:url", content: "https://cslearners.lovable.app/playground" },
     ],
+    links: [{ rel: "canonical", href: "https://cslearners.lovable.app/playground" }],
   }),
   component: Playground,
 });

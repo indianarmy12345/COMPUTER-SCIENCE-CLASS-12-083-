@@ -15,7 +15,9 @@ export const Route = createFileRoute("/privacy")({
         property: "og:description",
         content: "How CS 083 Hub handles your data, cookies, and advertising.",
       },
+      { property: "og:url", content: "https://cslearners.lovable.app/privacy" },
     ],
+    links: [{ rel: "canonical", href: "https://cslearners.lovable.app/privacy" }],
   }),
   component: PrivacyPage,
 });
