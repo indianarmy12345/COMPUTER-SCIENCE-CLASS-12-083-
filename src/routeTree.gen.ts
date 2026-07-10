@@ -27,6 +27,7 @@ import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
 import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
 import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
 import { Route as LearnCourseIndexRouteImport } from './routes/learn.$course.index'
+import { Route as LearnCourseLessonRouteImport } from './routes/learn.$course.$lesson'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -118,6 +119,11 @@ const LearnCourseIndexRoute = LearnCourseIndexRouteImport.update({
   path: '/learn/$course/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnCourseLessonRoute = LearnCourseLessonRouteImport.update({
+  id: '/learn/$course/$lesson',
+  path: '/learn/$course/$lesson',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -137,6 +143,7 @@ export interface FileRoutesByFullPath {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn/': typeof LearnIndexRoute
+  '/learn/$course/$lesson': typeof LearnCourseLessonRoute
   '/learn/$course/': typeof LearnCourseIndexRoute
 }
 export interface FileRoutesByTo {
@@ -157,6 +164,7 @@ export interface FileRoutesByTo {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn': typeof LearnIndexRoute
+  '/learn/$course/$lesson': typeof LearnCourseLessonRoute
   '/learn/$course': typeof LearnCourseIndexRoute
 }
 export interface FileRoutesById {
@@ -178,6 +186,7 @@ export interface FileRoutesById {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn/': typeof LearnIndexRoute
+  '/learn/$course/$lesson': typeof LearnCourseLessonRoute
   '/learn/$course/': typeof LearnCourseIndexRoute
 }
 export interface FileRouteTypes {
@@ -200,6 +209,7 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn/'
+    | '/learn/$course/$lesson'
     | '/learn/$course/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn'
+    | '/learn/$course/$lesson'
     | '/learn/$course'
   id:
     | '__root__'
@@ -240,6 +251,7 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn/'
+    | '/learn/$course/$lesson'
     | '/learn/$course/'
   fileRoutesById: FileRoutesById
 }
@@ -261,6 +273,7 @@ export interface RootRouteChildren {
   XiiPythonSqlRoute: typeof XiiPythonSqlRoute
   XiiStacksRoute: typeof XiiStacksRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  LearnCourseLessonRoute: typeof LearnCourseLessonRoute
   LearnCourseIndexRoute: typeof LearnCourseIndexRoute
 }
 
@@ -392,6 +405,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnCourseIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/$course/$lesson': {
+      id: '/learn/$course/$lesson'
+      path: '/learn/$course/$lesson'
+      fullPath: '/learn/$course/$lesson'
+      preLoaderRoute: typeof LearnCourseLessonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -413,6 +433,7 @@ const rootRouteChildren: RootRouteChildren = {
   XiiPythonSqlRoute: XiiPythonSqlRoute,
   XiiStacksRoute: XiiStacksRoute,
   LearnIndexRoute: LearnIndexRoute,
+  LearnCourseLessonRoute: LearnCourseLessonRoute,
   LearnCourseIndexRoute: LearnCourseIndexRoute,
 }
 export const routeTree = rootRouteImport
