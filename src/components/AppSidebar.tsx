@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { BookOpen, Code2, Database, Network, Home, GraduationCap, CheckCircle2, RotateCcw, Info, Mail, Shield } from "lucide-react";
+import { BookOpen, Code2, Database, Network, Home, GraduationCap, CheckCircle2, RotateCcw, Info, Mail, Shield, Sparkles } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/sidebar";
 import { Progress } from "@/components/ui/progress";
 import { chapters } from "@/lib/syllabus";
+import { courses, lessonPath } from "@/lib/courses";
 import { resetProgress, useProgress } from "@/lib/progress";
 
 const iconFor = (slug: string) => {
