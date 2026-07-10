@@ -39,7 +39,7 @@ export const Route = createFileRoute("/learn/$course/")({
 });
 
 function CoursePage() {
-  const { course } = Route.useLoaderData();
+  const { course } = Route.useLoaderData() as { course: Course };
   const { isDone } = useProgress();
 
   if (course.status !== "available") {
