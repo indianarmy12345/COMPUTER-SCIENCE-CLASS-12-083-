@@ -157,7 +157,7 @@ async function downloadChapterPdf(
   pdf.save(`${safe}-notes.pdf`);
 }
 
-const ChapterCtx = createContext<string | null>(null);
+export const ChapterCtx = createContext<string | null>(null);
 export const useChapterSlug = () => useContext(ChapterCtx);
 
 export function ChapterLayout({
