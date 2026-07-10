@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type {} from "@tanstack/react-start";
+import { courses } from "@/lib/courses";
 
 const BASE_URL = "https://cslearners.lovable.app";
 
