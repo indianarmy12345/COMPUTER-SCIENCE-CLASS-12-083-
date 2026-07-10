@@ -15,6 +15,7 @@ import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as XiiStacksRouteImport } from './routes/xii.stacks'
 import { Route as XiiPythonSqlRouteImport } from './routes/xii.python-sql'
 import { Route as XiiNetworksRouteImport } from './routes/xii.networks'
@@ -25,6 +26,8 @@ import { Route as XiiDbmsRouteImport } from './routes/xii.dbms'
 import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
 import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
 import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
+import { Route as LearnCourseIndexRouteImport } from './routes/learn.$course.index'
+import { Route as LearnCourseLessonRouteImport } from './routes/learn.$course.$lesson'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -54,6 +57,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/learn/',
+  path: '/learn/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const XiiStacksRoute = XiiStacksRouteImport.update({
@@ -106,6 +114,16 @@ const XiComputerSystemsRoute = XiComputerSystemsRouteImport.update({
   path: '/xi/computer-systems',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LearnCourseIndexRoute = LearnCourseIndexRouteImport.update({
+  id: '/learn/$course/',
+  path: '/learn/$course/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnCourseLessonRoute = LearnCourseLessonRouteImport.update({
+  id: '/learn/$course/$lesson',
+  path: '/learn/$course/$lesson',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -124,6 +142,9 @@ export interface FileRoutesByFullPath {
   '/xii/networks': typeof XiiNetworksRoute
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
+  '/learn/': typeof LearnIndexRoute
+  '/learn/$course/$lesson': typeof LearnCourseLessonRoute
+  '/learn/$course/': typeof LearnCourseIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -142,6 +163,9 @@ export interface FileRoutesByTo {
   '/xii/networks': typeof XiiNetworksRoute
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
+  '/learn': typeof LearnIndexRoute
+  '/learn/$course/$lesson': typeof LearnCourseLessonRoute
+  '/learn/$course': typeof LearnCourseIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -161,6 +185,9 @@ export interface FileRoutesById {
   '/xii/networks': typeof XiiNetworksRoute
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
+  '/learn/': typeof LearnIndexRoute
+  '/learn/$course/$lesson': typeof LearnCourseLessonRoute
+  '/learn/$course/': typeof LearnCourseIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -181,6 +208,9 @@ export interface FileRouteTypes {
     | '/xii/networks'
     | '/xii/python-sql'
     | '/xii/stacks'
+    | '/learn/'
+    | '/learn/$course/$lesson'
+    | '/learn/$course/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -199,6 +229,9 @@ export interface FileRouteTypes {
     | '/xii/networks'
     | '/xii/python-sql'
     | '/xii/stacks'
+    | '/learn'
+    | '/learn/$course/$lesson'
+    | '/learn/$course'
   id:
     | '__root__'
     | '/'
@@ -217,6 +250,9 @@ export interface FileRouteTypes {
     | '/xii/networks'
     | '/xii/python-sql'
     | '/xii/stacks'
+    | '/learn/'
+    | '/learn/$course/$lesson'
+    | '/learn/$course/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -236,6 +272,9 @@ export interface RootRouteChildren {
   XiiNetworksRoute: typeof XiiNetworksRoute
   XiiPythonSqlRoute: typeof XiiPythonSqlRoute
   XiiStacksRoute: typeof XiiStacksRoute
+  LearnIndexRoute: typeof LearnIndexRoute
+  LearnCourseLessonRoute: typeof LearnCourseLessonRoute
+  LearnCourseIndexRoute: typeof LearnCourseIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -280,6 +319,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/': {
+      id: '/learn/'
+      path: '/learn'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/xii/stacks': {
@@ -352,6 +398,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof XiComputerSystemsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/learn/$course/': {
+      id: '/learn/$course/'
+      path: '/learn/$course'
+      fullPath: '/learn/$course/'
+      preLoaderRoute: typeof LearnCourseIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/$course/$lesson': {
+      id: '/learn/$course/$lesson'
+      path: '/learn/$course/$lesson'
+      fullPath: '/learn/$course/$lesson'
+      preLoaderRoute: typeof LearnCourseLessonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -372,16 +432,10 @@ const rootRouteChildren: RootRouteChildren = {
   XiiNetworksRoute: XiiNetworksRoute,
   XiiPythonSqlRoute: XiiPythonSqlRoute,
   XiiStacksRoute: XiiStacksRoute,
+  LearnIndexRoute: LearnIndexRoute,
+  LearnCourseLessonRoute: LearnCourseLessonRoute,
+  LearnCourseIndexRoute: LearnCourseIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
