@@ -16,6 +16,7 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const entries: SitemapEntry[] = [
           { path: "/", changefreq: "weekly", priority: "1.0" },
+          { path: "/learn", changefreq: "weekly", priority: "0.9" },
           { path: "/about", changefreq: "monthly", priority: "0.6" },
           { path: "/contact", changefreq: "monthly", priority: "0.5" },
           { path: "/privacy", changefreq: "yearly", priority: "0.3" },
@@ -30,6 +31,16 @@ export const Route = createFileRoute("/sitemap.xml")({
           { path: "/xi/computer-systems", changefreq: "monthly", priority: "0.7" },
           { path: "/xi/python-basics", changefreq: "monthly", priority: "0.7" },
           { path: "/xi/society-ethics", changefreq: "monthly", priority: "0.7" },
+          ...courses
+            .filter((c) => c.status === "available")
+            .flatMap((c) => [
+              { path: `/learn/${c.slug}`, changefreq: "weekly" as const, priority: "0.8" },
+              ...c.lessons.map((l) => ({
+                path: `/learn/${c.slug}/${l.slug}`,
+                changefreq: "monthly" as const,
+                priority: "0.7",
+              })),
+            ]),
         ];
 
         const urls = entries.map((e) =>
