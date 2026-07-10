@@ -1,4 +1,4 @@
-import { PyRunner } from "@/components/PyRunner";
+
 
 export type LessonContent = {
   intro: string;
