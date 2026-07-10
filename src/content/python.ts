@@ -731,5 +731,3 @@ export function getLessonContent(courseSlug: string, lessonSlug: string): Lesson
   return P[lessonSlug];
 }
 
-// Re-export for callers that only need the runner component.
-export { PyRunner };
