@@ -105,6 +105,14 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname === "/learn"}>
+                  <Link to="/learn" preload="intent">
+                    <Sparkles className="h-4 w-4" />
+                    <span>Courses</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+              <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive={pathname === "/playground"}>
                     <Link to="/playground" preload="intent">
                     <Code2 className="h-4 w-4" />
@@ -115,6 +123,38 @@ export function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+
+        {courses.filter((c) => c.status === "available").map((course) => (
+          <SidebarGroup key={course.slug}>
+            <SidebarGroupLabel>{course.title} course</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {course.lessons.map((l) => {
+                  const to = lessonPath(course.slug, l.slug);
+                  const done = isDone(to);
+                  return (
+                    <SidebarMenuItem key={l.slug}>
+                      <SidebarMenuButton asChild isActive={pathname === to}>
+                        <Link
+                          to="/learn/$course/$lesson"
+                          params={{ course: course.slug, lesson: l.slug }}
+                          preload="intent"
+                        >
+                          {done ? (
+                            <CheckCircle2 className="h-4 w-4 text-neon" />
+                          ) : (
+                            <Code2 className="h-4 w-4" />
+                          )}
+                          <span>{l.title}</span>
+                        </Link>
+                      </SidebarMenuButton>
+                    </SidebarMenuItem>
+                  );
+                })}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
 
         <SidebarGroup>
           <SidebarGroupLabel>Class XI · Revision</SidebarGroupLabel>
