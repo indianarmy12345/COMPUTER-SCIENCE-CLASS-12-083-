@@ -179,7 +179,7 @@ function LessonNav({
       ) : (
         <Link
           to="/learn/$course"
-          params={{ course: course.shrunk ?? course.slug }}
+          params={{ course: course.slug }}
           className="group ml-auto flex items-center gap-2 text-right text-muted-foreground hover:text-neon"
         >
           <span>
