@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Code2 } from "lucide-react";
-import { courses } from "@/lib/courses";
+import { courses, type Course } from "@/lib/courses";
+import { useCourseProgress } from "@/lib/progress";
+import { Progress } from "@/components/ui/progress";
+
 
 export const Route = createFileRoute("/learn/")({
   head: () => ({
