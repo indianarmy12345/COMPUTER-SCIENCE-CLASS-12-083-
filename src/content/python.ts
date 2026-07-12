@@ -724,10 +724,485 @@ const P: Record<string, LessonContent> = {
       code: `import asyncio\n\nasync def fetch(i):\n    await asyncio.sleep(0.05 * i)\n    return f"result {i}"\n\nasync def main():\n    xs = await asyncio.gather(*[fetch(i) for i in range(1, 6)])\n    print(xs)\n\nawait main()`,
     },
   },
+
+  // ================= NEW LESSONS =================
+
+  "install-and-setup": {
+    intro:
+      "Before writing serious Python, install Python 3 on your machine and pick an editor. This lesson walks you through the whole setup — Windows, macOS, and Linux.",
+    sections: [
+      {
+        title: "Install Python 3",
+        body:
+          "• Windows: download from python.org/downloads. On the first installer screen, tick 'Add python.exe to PATH', then click 'Install Now'.\n• macOS: install with Homebrew — `brew install python` — or the official installer.\n• Linux: it's usually already installed. Use your package manager, e.g. `sudo apt install python3 python3-pip`.\n\nAvoid Python 2 — it's end-of-life. Always use Python 3.10+ for modern features.",
+      },
+      {
+        title: "Verify the install",
+        body:
+          "Open a terminal (Command Prompt / PowerShell on Windows, Terminal on macOS/Linux) and run:\n\n  python --version\n  python3 --version\n\nYou should see something like `Python 3.12.4`. If not, re-run the installer with 'Add to PATH' enabled.",
+      },
+      {
+        title: "Pick an editor",
+        body:
+          "• VS Code (recommended for beginners) — free, fast, with a great Python extension. Install VS Code, then the 'Python' extension by Microsoft.\n• PyCharm Community — full-featured IDE built for Python.\n• IDLE — ships with Python. Simple and enough for your first few lessons.\n\nWhichever you pick, keep the built-in browser editor on this site open while you learn — it removes all setup friction.",
+      },
+      {
+        title: "Your first script on your machine",
+        body:
+          "Create a file `hello.py`, put `print('Hello from my computer!')` in it, then run:\n\n  python hello.py\n\nCongratulations — that's the full 'install → write → run' loop that every Python project uses.",
+      },
+    ],
+    runner: {
+      code: `# You can also run Python right here — no install required.\nimport sys\nprint("Python version:", sys.version.split()[0])\nprint("Ready to code!")`,
+    },
+    keyPoints: [
+      "Install Python 3 from python.org and tick 'Add to PATH' on Windows.",
+      "Verify with `python --version` in a terminal.",
+      "VS Code + the Python extension is the friendliest setup in 2025.",
+    ],
+  },
+
+  "type-conversion": {
+    intro:
+      "Python is dynamically typed but it doesn't automatically convert between types. When you need a number from a string, or a string from a number, you convert (cast) explicitly.",
+    sections: [
+      {
+        title: "The four workhorse conversions",
+        body:
+          "• int(x) — to integer. Truncates floats toward zero. Fails on non-numeric strings.\n• float(x) — to float.\n• str(x) — to a string representation.\n• bool(x) — Python's truthiness rules: 0, 0.0, '', [], {}, None → False; everything else → True.",
+        code: `print(int("42"))       # 42\nprint(int(3.9))         # 3 (truncated, not rounded)\nprint(float("3.14"))    # 3.14\nprint(str(2025))        # "2025"\nprint(bool(""), bool("hi"), bool(0), bool(0.1))`,
+      },
+      {
+        title: "Common pitfalls",
+        body:
+          "• int('3.5') raises ValueError — go via float first: int(float('3.5')).\n• Concatenating a number to a string needs str(): 'age ' + str(21).\n• Reading input() always gives a string — convert if you want to do math.",
+        code: `age = 17\nprint("next year: " + str(age + 1))`,
+      },
+      {
+        title: "Explicit is better than implicit",
+        body:
+          "Python won't guess for you. This is a feature — silent conversions cause bugs in other languages. Convert once at the boundary (where data enters your program) and keep the right type from there.",
+      },
+    ],
+    runner: {
+      code: `# Convert a list of numeric strings to floats and average them\nrows = ["12.5", "8", "17.25", "9.5"]\nnums = [float(x) for x in rows]\nprint("avg:", sum(nums) / len(nums))`,
+    },
+  },
+
+  "nested-loops": {
+    intro:
+      "You can put a loop inside another loop. It's how you build tables, grids, and process 2-D data. Python also has a rarely-known `else` clause on loops.",
+    sections: [
+      {
+        title: "Loops inside loops",
+        body:
+          "The inner loop runs to completion for every single iteration of the outer loop. Total iterations = outer × inner.",
+        code: `for i in range(1, 4):\n    for j in range(1, 4):\n        print(f"{i}x{j}={i*j}", end="  ")\n    print()`,
+      },
+      {
+        title: "Iterating a 2-D grid",
+        body: "A list of lists is a natural grid. Two nested loops walk every cell.",
+        code: `grid = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\nfor row in grid:\n    for cell in row:\n        print(cell, end=" ")\n    print()`,
+      },
+      {
+        title: "The else clause on loops",
+        body:
+          "for/while can have an `else`. It runs only if the loop finished normally — not if `break` fired. Perfect for search loops.",
+        code: `def find_factor(n):\n    for p in range(2, n):\n        if n % p == 0:\n            print(p, "divides", n)\n            break\n    else:\n        print(n, "is prime")\n\nfind_factor(21)\nfind_factor(23)`,
+      },
+    ],
+    runner: {
+      code: `# 5x5 multiplication table\nfor i in range(1, 6):\n    for j in range(1, 6):\n        print(f"{i*j:4}", end="")\n    print()`,
+    },
+  },
+
+  recursion: {
+    intro:
+      "A recursive function calls itself. Every recursion needs a base case (when to stop) and a recursive case (a smaller subproblem).",
+    sections: [
+      {
+        title: "The shape of a recursive function",
+        body:
+          "1. Check the base case — return a direct answer.\n2. Otherwise, call yourself with a smaller input and combine.",
+        code: `def factorial(n):\n    if n <= 1:\n        return 1\n    return n * factorial(n - 1)\n\nprint(factorial(6))    # 720`,
+      },
+      {
+        title: "A classic: Fibonacci",
+        body: "Elegant but slow (exponential). We fix it with a decorator in the Advanced module.",
+        code: `def fib(n):\n    if n < 2: return n\n    return fib(n-1) + fib(n-2)\n\nprint([fib(i) for i in range(10)])`,
+      },
+      {
+        title: "Recursion limits",
+        body:
+          "Python caps recursion depth (default 1000) to prevent stack overflows. For deep problems, prefer iteration or memoization. Use sys.setrecursionlimit() only if you truly know what you're doing.",
+      },
+    ],
+    runner: {
+      code: `def deep_sum(items):\n    total = 0\n    for x in items:\n        if isinstance(x, list):\n            total += deep_sum(x)\n        else:\n            total += x\n    return total\n\nprint(deep_sum([1, [2, [3, 4], 5], [6, [7, [8]]]]))`,
+    },
+  },
+
+  docstrings: {
+    intro:
+      "A docstring is a string literal placed as the first statement in a module, function, class, or method. Python's help() and every IDE reads them.",
+    sections: [
+      {
+        title: "Writing a docstring",
+        body: "Use triple-quoted strings. First line is a short summary; leave a blank line before longer detail.",
+        code: `def area(width, height):\n    """Return the area of a rectangle.\n\n    Both arguments must be non-negative numbers.\n    """\n    return width * height\n\nhelp(area)`,
+      },
+      {
+        title: "Common styles",
+        body:
+          "Popular formats: Google, NumPy, and reStructuredText. Any of them is fine — just be consistent within a project.\n\nGoogle style:\n\n  Args:\n      width: horizontal size.\n      height: vertical size.\n  Returns:\n      Area.",
+      },
+      {
+        title: "__doc__ attribute",
+        body: "Docstrings become the __doc__ attribute — tools like Sphinx build full doc sites from them.",
+        code: `def greet(name):\n    "Say hi to someone."\n    return "hi " + name\n\nprint(greet.__doc__)`,
+      },
+    ],
+    runner: {
+      code: `class BankAccount:\n    """A very small bank account.\n\n    Attributes:\n        balance: current balance in rupees.\n    """\n    def __init__(self, balance=0):\n        self.balance = balance\n    def deposit(self, amount):\n        """Add money to the account."""\n        self.balance += amount\n\nprint(BankAccount.__doc__)\nhelp(BankAccount.deposit)`,
+    },
+  },
+
+  "pip-and-venv": {
+    intro:
+      "Real Python projects use packages from the Python Package Index (PyPI). pip installs them and virtual environments keep each project's packages isolated.",
+    sections: [
+      {
+        title: "pip — the package installer",
+        body:
+          "Basic commands (run in your terminal, not in a Python REPL):\n\n  pip install requests\n  pip install \"django>=5.0\"\n  pip uninstall requests\n  pip list\n  pip show requests\n\nOn some systems you must use `pip3` or `python -m pip` instead of plain `pip`.",
+      },
+      {
+        title: "Why virtual environments",
+        body:
+          "Different projects need different package versions. A venv is a private folder with its own Python and its own installed packages.\n\n  python -m venv .venv\n  source .venv/bin/activate      # macOS/Linux\n  .venv\\Scripts\\activate         # Windows\n  deactivate\n\nAfter activating, `pip install` only affects that venv.",
+      },
+      {
+        title: "requirements.txt",
+        body:
+          "Freeze exact versions so teammates can reproduce your setup:\n\n  pip freeze > requirements.txt\n  pip install -r requirements.txt\n\nModern projects often use pyproject.toml + tools like uv or Poetry, but requirements.txt is still everywhere.",
+      },
+    ],
+    runner: {
+      code: `import sys\nprint("Python:", sys.version.split()[0])\nprint("Executable:", sys.executable)\n\nfor name in ["math", "json", "random", "statistics"]:\n    mod = __import__(name)\n    print(name, "->", (mod.__doc__ or "").split(chr(10))[0])`,
+    },
+    keyPoints: [
+      "Use pip to install packages from PyPI.",
+      "One virtual environment per project.",
+      "Commit requirements.txt (or pyproject.toml), never the .venv folder.",
+    ],
+  },
+
+  "properties-encapsulation": {
+    intro:
+      "Python doesn't have truly private attributes — it uses conventions instead. The @property decorator lets attribute access run code, so you can validate or compute values transparently.",
+    sections: [
+      {
+        title: "The single-underscore convention",
+        body: "Attributes prefixed with `_` are 'internal — please don't touch from outside'. Python doesn't stop you, but linters and other developers will respect it.",
+        code: `class Counter:\n    def __init__(self):\n        self._value = 0\n    def bump(self):\n        self._value += 1`,
+      },
+      {
+        title: "@property — computed attributes",
+        body: "Turn a method into something callers access like a regular attribute.",
+        code: `class Circle:\n    def __init__(self, r):\n        self.r = r\n    @property\n    def area(self):\n        return 3.14159 * self.r ** 2\n\nc = Circle(3)\nprint(c.area)   # no parentheses`,
+      },
+      {
+        title: "Setters with validation",
+        body: "Pair @property with a setter to enforce rules when a value is assigned.",
+        code: `class Temperature:\n    def __init__(self, c):\n        self.celsius = c\n    @property\n    def celsius(self):\n        return self._c\n    @celsius.setter\n    def celsius(self, value):\n        if value < -273.15:\n            raise ValueError("Below absolute zero!")\n        self._c = value\n\nt = Temperature(25)\nt.celsius = 30\nprint(t.celsius)`,
+      },
+      {
+        title: "Name mangling with __double_underscore",
+        body: "Names beginning with (but not ending in) two underscores get renamed to _ClassName__name. Not security — just avoids accidental clashes in subclasses.",
+      },
+    ],
+    runner: {
+      code: `class BankAccount:\n    def __init__(self, initial=0):\n        self._balance = initial\n    @property\n    def balance(self):\n        return self._balance\n    def deposit(self, amount):\n        if amount <= 0:\n            raise ValueError("positive only")\n        self._balance += amount\n\na = BankAccount(100)\na.deposit(250)\nprint("balance:", a.balance)`,
+    },
+  },
+
+  "classmethod-staticmethod": {
+    intro:
+      "Regular methods receive the instance (self). @classmethod receives the class (cls). @staticmethod receives nothing special — it's just a function that lives in the class namespace.",
+    sections: [
+      {
+        title: "@classmethod — alternative constructors",
+        body: "The classic use case: factory methods that build an instance from a different kind of input.",
+        code: `class Date:\n    def __init__(self, year, month, day):\n        self.year, self.month, self.day = year, month, day\n    @classmethod\n    def from_string(cls, s):\n        y, m, d = map(int, s.split("-"))\n        return cls(y, m, d)\n    def __repr__(self):\n        return f"Date({self.year}, {self.month}, {self.day})"\n\nprint(Date.from_string("2026-07-12"))`,
+      },
+      {
+        title: "@staticmethod — utility functions",
+        body: "Use when a function is conceptually part of the class but doesn't need `self` or `cls`.",
+        code: `class MathTools:\n    @staticmethod\n    def is_even(n):\n        return n % 2 == 0\n\nprint(MathTools.is_even(10))`,
+      },
+      {
+        title: "Choosing between them",
+        body: "• Need the instance's data? → regular method.\n• Need the class (subclass-friendly instantiate)? → @classmethod.\n• Need neither? → @staticmethod (or a module-level function).",
+      },
+    ],
+    runner: {
+      code: `class Pizza:\n    def __init__(self, ingredients):\n        self.ingredients = ingredients\n    def __repr__(self):\n        return f"Pizza({self.ingredients})"\n    @classmethod\n    def margherita(cls):\n        return cls(["mozzarella", "tomato", "basil"])\n    @classmethod\n    def pepperoni(cls):\n        return cls(["mozzarella", "tomato", "pepperoni"])\n\nprint(Pizza.margherita())\nprint(Pizza.pepperoni())`,
+    },
+  },
+
+  "abstract-and-polymorphism": {
+    intro:
+      "Polymorphism means different objects can respond to the same message in their own way. Python leans on 'duck typing' but also offers formal abstract base classes.",
+    sections: [
+      {
+        title: "Duck typing",
+        body: "You don't have to share a base class — sharing a method name is enough. Python won't check types unless you ask it to.",
+        code: `class Dog:\n    def speak(self): return "woof"\nclass Cat:\n    def speak(self): return "meow"\n\nfor a in [Dog(), Cat()]:\n    print(a.speak())`,
+      },
+      {
+        title: "Abstract Base Classes (ABC)",
+        body: "Use `abc.ABC` to declare a class that can't be instantiated directly and to mark methods subclasses MUST implement.",
+        code: `from abc import ABC, abstractmethod\n\nclass Shape(ABC):\n    @abstractmethod\n    def area(self): ...\n\nclass Square(Shape):\n    def __init__(self, side): self.side = side\n    def area(self): return self.side ** 2\n\nprint(Square(4).area())`,
+      },
+      {
+        title: "Programming to an interface",
+        body: "Write code that only cares about the methods it needs, not the exact class. This is how frameworks stay flexible.",
+      },
+    ],
+    runner: {
+      code: `from abc import ABC, abstractmethod\n\nclass Notifier(ABC):\n    @abstractmethod\n    def send(self, message): ...\n\nclass EmailNotifier(Notifier):\n    def send(self, message): print("EMAIL:", message)\n\nclass SMSNotifier(Notifier):\n    def send(self, message): print("SMS:", message)\n\ndef alert_all(channels, msg):\n    for c in channels: c.send(msg)\n\nalert_all([EmailNotifier(), SMSNotifier()], "Server is down!")`,
+    },
+  },
+
+  "collections-module": {
+    intro:
+      "The `collections` module ships specialised data structures that solve everyday problems more cleanly than plain dicts and lists.",
+    sections: [
+      {
+        title: "Counter — count anything",
+        body: "Give it any iterable; it returns a dict-like object with counts.",
+        code: `from collections import Counter\nvotes = ["a", "b", "a", "c", "b", "a"]\nprint(Counter(votes))\nprint(Counter("mississippi").most_common(3))`,
+      },
+      {
+        title: "defaultdict — default values on missing keys",
+        body: "No more `if key not in d: d[key] = []`. Just declare the default factory.",
+        code: `from collections import defaultdict\ngroups = defaultdict(list)\nfor name in ["Ada", "Ken", "Alan", "Grace"]:\n    groups[name[0]].append(name)\nprint(dict(groups))`,
+      },
+      {
+        title: "deque — O(1) appends and pops from both ends",
+        body: "Perfect for queues and sliding windows. Lists are O(n) for pop(0).",
+        code: `from collections import deque\nq = deque([1, 2, 3])\nq.appendleft(0)\nq.append(4)\nprint(q, q.popleft())`,
+      },
+      {
+        title: "namedtuple — self-documenting tuples",
+        body: "Give tuple fields names without writing a full class.",
+        code: `from collections import namedtuple\nPoint = namedtuple("Point", "x y")\np = Point(3, 4)\nprint(p, p.x, p.y)`,
+      },
+    ],
+    runner: {
+      code: `from collections import Counter, defaultdict\n\ntext = "to be or not to be that is the question".split()\nprint(Counter(text).most_common(3))\n\nby_len = defaultdict(list)\nfor w in text:\n    by_len[len(w)].append(w)\nprint(dict(by_len))`,
+    },
+  },
+
+  "itertools-functools": {
+    intro:
+      "`itertools` gives you memory-efficient iterator building blocks; `functools` gives you tools for higher-order functions like caching and partial application.",
+    sections: [
+      {
+        title: "itertools essentials",
+        body: "count, cycle, repeat — infinite iterators.\nchain, islice, takewhile, dropwhile — slicing and filtering.\ncombinations, permutations, product — combinatorics.",
+        code: `from itertools import chain, islice, combinations\n\nprint(list(chain([1,2], [3,4])))\nprint(list(islice(range(100), 3, 8)))\nprint(list(combinations("ABCD", 2)))`,
+      },
+      {
+        title: "functools.lru_cache — memoize slow functions",
+        body: "Turns exponential Fibonacci into linear.",
+        code: `from functools import lru_cache\n\n@lru_cache\ndef fib(n):\n    return n if n < 2 else fib(n-1) + fib(n-2)\n\nprint(fib(50))`,
+      },
+      {
+        title: "functools.reduce & partial",
+        body: "reduce folds an iterable into a single value. partial pre-fills some arguments of a function.",
+        code: `from functools import reduce, partial\n\nprint(reduce(lambda a, b: a * b, range(1, 6)))  # 120\n\ndef power(base, exp): return base ** exp\nsquare = partial(power, exp=2)\nprint([square(x) for x in range(5)])`,
+      },
+    ],
+    runner: {
+      code: `from itertools import groupby\n\ndata = [("a", 1), ("a", 2), ("b", 3), ("b", 4), ("a", 5)]\ndata.sort(key=lambda t: t[0])\nfor k, group in groupby(data, key=lambda t: t[0]):\n    print(k, [v for _, v in group])`,
+    },
+  },
+
+  "pathlib-os": {
+    intro:
+      "`pathlib` is the modern, object-oriented way to work with filesystem paths in Python. It replaces most of the string juggling you'd do with os.path.",
+    sections: [
+      {
+        title: "Building paths",
+        body: "Use `/` to join parts — works on Windows and Unix. Path objects have handy properties: .name, .stem, .suffix, .parent.",
+        code: `from pathlib import Path\np = Path("data") / "reports" / "2026.csv"\nprint(p)\nprint(p.name, p.stem, p.suffix, p.parent)`,
+      },
+      {
+        title: "Checking and iterating",
+        body: "path.exists(), .is_file(), .is_dir(), .iterdir(), .glob('*.py'), .rglob() recurse into subfolders.",
+      },
+      {
+        title: "Reading and writing files",
+        body: "Path.read_text() / write_text() / read_bytes() / write_bytes() cover 90% of tiny scripts without needing open().",
+      },
+      {
+        title: "When you still want os",
+        body: "os.getenv() reads environment variables. os.getcwd() gives the current working directory. os.remove/rename are also common — though pathlib has p.unlink() and p.rename().",
+      },
+    ],
+    runner: {
+      code: `from pathlib import PurePosixPath, PureWindowsPath\n\np = PurePosixPath("/home/ada/notes/day1.txt")\nprint("parts:", p.parts)\nprint("parent:", p.parent)\nprint("suffix:", p.suffix)\n\nw = PureWindowsPath("C:/Users/Ada/Documents/report.pdf")\nprint("windows:", w, w.drive)`,
+    },
+  },
+
+  "datetime-time": {
+    intro:
+      "The `datetime` module handles dates, times, and timezones. `time` gives lower-level clock access. Both live in the standard library.",
+    sections: [
+      {
+        title: "date, time, datetime",
+        body: "date — just a calendar date. time — clock time. datetime — the two combined. All are immutable.",
+        code: `from datetime import date, datetime\ntoday = date.today()\nnow = datetime.now()\nprint(today, now)\nprint(now.year, now.hour)`,
+      },
+      {
+        title: "timedelta — durations & arithmetic",
+        body: "Subtract two datetimes → timedelta. Add a timedelta to shift a date.",
+        code: `from datetime import datetime, timedelta\ndeadline = datetime(2026, 12, 31)\nprint("days to go:", (deadline - datetime.now()).days)\nprint("in 90 days:", datetime.now() + timedelta(days=90))`,
+      },
+      {
+        title: "Formatting: strftime / strptime",
+        body: "strftime turns a datetime into a string; strptime parses a string. Common codes: %Y %m %d %H %M %S %A %B.",
+        code: `from datetime import datetime\nprint(datetime.now().strftime("%A, %d %B %Y %H:%M"))\nd = datetime.strptime("2026-07-12", "%Y-%m-%d")\nprint(d)`,
+      },
+      {
+        title: "Timezones",
+        body: "Use `datetime.now(tz)` with `zoneinfo.ZoneInfo('Asia/Kolkata')` for aware datetimes. Naive datetimes (no tz) are fine locally but dangerous when data travels.",
+      },
+    ],
+    runner: {
+      code: `from datetime import datetime, timedelta\n\nbirthday = datetime(2010, 4, 22, 8, 30)\nage = datetime.now() - birthday\nprint("You have lived approximately", age.days, "days.")\nprint("Next 1000-day milestone:", birthday + timedelta(days=(age.days // 1000 + 1) * 1000))`,
+    },
+  },
+
+  logging: {
+    intro:
+      "`print()` is fine for tiny scripts, but real programs use the `logging` module — it supports levels, format, multiple destinations, and can be silenced or amplified without touching code.",
+    sections: [
+      {
+        title: "The five levels",
+        body: "DEBUG < INFO < WARNING < ERROR < CRITICAL. Setting a level shows that level and everything above it.",
+        code: `import logging\nlogging.basicConfig(level=logging.INFO,\n                    format="%(levelname)s %(name)s: %(message)s")\nlog = logging.getLogger("app")\nlog.debug("won't show")\nlog.info("starting up")\nlog.warning("cache miss")\nlog.error("payment failed")`,
+      },
+      {
+        title: "Loggers per module",
+        body: "Use `logging.getLogger(__name__)` in each module. Every log line tells you where it came from, and you can turn one module's logs on/off.",
+      },
+      {
+        title: "Handlers and formatters",
+        body: "A handler decides where log records go (console, file, HTTP). A formatter decides how they look. logging.basicConfig is a shortcut; for larger apps use logging.config.dictConfig.",
+      },
+      {
+        title: "Why not just print?",
+        body: "logging lets you control verbosity globally, adds timestamps and levels, and separates output for humans from diagnostics for developers.",
+      },
+    ],
+    runner: {
+      code: `import logging\nlogging.basicConfig(level=logging.DEBUG,\n                    format="%(asctime)s %(levelname)-8s %(message)s",\n                    datefmt="%H:%M:%S")\n\nlog = logging.getLogger("demo")\nfor i in range(3):\n    log.debug("loop iter %d", i)\n    if i == 1:\n        log.warning("halfway through")\nlog.info("done")`,
+    },
+  },
+
+  "testing-basics": {
+    intro:
+      "Tests let you change code without fear. Python ships `unittest`; `pytest` is the community favourite for its terser syntax.",
+    sections: [
+      {
+        title: "unittest — batteries included",
+        body: "Subclass unittest.TestCase, prefix methods with test_, and use self.assertEqual / assertTrue / assertRaises.",
+        code: `import unittest\n\ndef add(a, b): return a + b\n\nclass AddTests(unittest.TestCase):\n    def test_positive(self):\n        self.assertEqual(add(2, 3), 5)\n    def test_negative(self):\n        self.assertEqual(add(-1, 1), 0)\n\nunittest.main(argv=[""], exit=False)`,
+      },
+      {
+        title: "pytest — plain functions",
+        body: "Install with `pip install pytest`. Tests are just functions starting with test_ that use assert. Run `pytest` and it discovers them.\n\n  # test_math.py\n  from math_utils import add\n  def test_add():\n      assert add(2, 3) == 5",
+      },
+      {
+        title: "Structuring tests",
+        body: "Put tests in a `tests/` folder next to your code. Aim for tests that are fast, isolated, and named after the behaviour they check. Test the tricky edges — empty input, zero, negatives, huge values.",
+      },
+    ],
+    runner: {
+      code: `import unittest\n\ndef reverse(s):\n    return s[::-1]\n\nclass ReverseTests(unittest.TestCase):\n    def test_hello(self):\n        self.assertEqual(reverse("hello"), "olleh")\n    def test_empty(self):\n        self.assertEqual(reverse(""), "")\n    def test_palindrome(self):\n        self.assertEqual(reverse("abba"), "abba")\n\nunittest.main(argv=[""], exit=False, verbosity=2)`,
+    },
+  },
+
+  "http-requests": {
+    intro:
+      "Most modern programs talk to web APIs over HTTP. The `requests` library is the de-facto way to do that in Python — its slogan is 'HTTP for humans'.",
+    sections: [
+      {
+        title: "Installing and importing",
+        body: "  pip install requests\n\nThen `import requests`.",
+      },
+      {
+        title: "GET requests",
+        body: "requests.get(url) returns a Response object. Read text, json, status_code, headers.",
+        code: `import requests\nr = requests.get("https://httpbin.org/json")\nprint(r.status_code)\nprint(r.json())`,
+      },
+      {
+        title: "POST, JSON bodies, headers",
+        body: "Send data via `data=` (form) or `json=` (JSON). Custom headers via `headers=`. Query strings via `params=`.",
+        code: `# Conceptual pattern for a real script:\n# r = requests.post("https://api.example.com/items",\n#                   json={"name": "Widget", "price": 9.99},\n#                   headers={"Authorization": "Bearer TOKEN"})\n# r.raise_for_status()\n# print(r.json())`,
+      },
+      {
+        title: "Status codes and errors",
+        body: "2xx = success, 3xx = redirect, 4xx = your fault, 5xx = server's fault. Call r.raise_for_status() to turn a bad response into an exception.",
+      },
+    ],
+    runner: {
+      code: `try:\n    import requests\n    r = requests.get("https://httpbin.org/get", params={"lang": "python"})\n    r.raise_for_status()\n    data = r.json()\n    print("You called:", data.get("url"))\n    print("Query args:", data.get("args"))\nexcept Exception as e:\n    print("Skipped (sandbox network limitation):", type(e).__name__)`,
+    },
+  },
+
+  "performance-tips": {
+    intro:
+      "Python is fast enough for most work — until it isn't. Before optimising, measure. Then apply a handful of well-known techniques.",
+    sections: [
+      {
+        title: "Measure first — timeit & cProfile",
+        body: "timeit measures small snippets accurately. cProfile shows which functions dominate a whole program's runtime. Never optimise on gut feel.",
+        code: `import timeit\nt1 = timeit.timeit("sum(range(10000))", number=1000)\nt2 = timeit.timeit("total = 0\\nfor i in range(10000): total += i", number=1000)\nprint(f"builtin sum: {t1:.3f}s")\nprint(f"manual loop: {t2:.3f}s")`,
+      },
+      {
+        title: "Choose the right data structure",
+        body: "• Membership test on 10k items? set / dict → O(1). list → O(n).\n• Frequent pops from the front? collections.deque, not a list.\n• Building a string in a loop? join a list at the end, don't `+=`.",
+      },
+      {
+        title: "Prefer built-ins and comprehensions",
+        body: "sum, map, min, max, any, all and comprehensions run in C. They are almost always faster than the equivalent hand-written Python loop.",
+      },
+      {
+        title: "Cache expensive results",
+        body: "functools.lru_cache is a one-line speedup for pure, deterministic functions.",
+      },
+      {
+        title: "When Python isn't enough",
+        body: "Try NumPy for numeric arrays, multiprocessing for CPU-bound work, async I/O for network-bound work, or a compiled helper (Cython, Rust, C extensions) as a last resort.",
+      },
+    ],
+    runner: {
+      code: `import time\n\nN = 200_000\ndata_list = list(range(N))\ndata_set  = set(data_list)\ntargets   = [N - 1, N // 2, -1]\n\nt0 = time.perf_counter()\nfor t in targets: t in data_list\nprint("list:", round(time.perf_counter() - t0, 4), "s")\n\nt0 = time.perf_counter()\nfor t in targets: t in data_set\nprint("set: ", round(time.perf_counter() - t0, 6), "s")`,
+    },
+    keyPoints: [
+      "Measure with timeit/cProfile before you touch any code.",
+      "Right data structure > clever code.",
+      "Use built-ins, comprehensions, and lru_cache before reaching for anything exotic.",
+    ],
+  },
 };
 
 export function getLessonContent(courseSlug: string, lessonSlug: string): LessonContent | undefined {
   if (courseSlug !== "python") return undefined;
   return P[lessonSlug];
 }
+
 
