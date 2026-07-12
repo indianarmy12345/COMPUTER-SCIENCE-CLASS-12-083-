@@ -1,14 +1,16 @@
 import { useRef, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2 } from "lucide-react";
-import { markComplete, useProgress } from "@/lib/progress";
+import { markComplete, useCourseProgress } from "@/lib/progress";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 import { AdSlot } from "@/components/AdSlot";
 import { ChapterCtx } from "@/components/ChapterLayout";
 import type { Course, Lesson } from "@/lib/courses";
 import { lessonPath } from "@/lib/courses";
 import { PyRunner } from "@/components/PyRunner";
 import type { LessonContent } from "@/content/python";
+
 
 export function LessonPage({
   course,
