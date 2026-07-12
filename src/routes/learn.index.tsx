@@ -42,46 +42,11 @@ function LearnIndex() {
       </div>
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {courses.map((c) => {
-          const available = c.status === "available";
-          const inner = (
-            <div
-              className={`group rounded-lg border p-5 transition-colors ${
-                available
-                  ? "border-border bg-card hover:border-neon"
-                  : "border-border/50 bg-card/40 opacity-70"
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <div className={`text-2xl font-bold ${c.color}`}>{c.title}</div>
-                {available ? (
-                  <span className="rounded-full border border-neon/40 bg-neon/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-neon">
-                    Available
-                  </span>
-                ) : (
-                  <span className="rounded-full border border-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                    Coming soon
-                  </span>
-                )}
-              </div>
-              <p className="mt-2 text-sm text-muted-foreground">{c.tagline}</p>
-              {available && (
-                <div className="mt-4 flex items-center gap-1 text-sm font-medium text-neon">
-                  {c.lessons.length} lessons
-                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </div>
-              )}
-            </div>
-          );
-          return available ? (
-            <Link key={c.slug} to="/learn/$course" params={{ course: c.slug }}>
-              {inner}
-            </Link>
-          ) : (
-            <div key={c.slug}>{inner}</div>
-          );
-        })}
+        {courses.map((c) => (
+          <CourseCard key={c.slug} course={c} />
+        ))}
       </div>
+
 
       <div className="mt-12 rounded-lg border border-border bg-card/40 p-5">
         <h2 className="text-lg font-semibold">Preparing for CBSE Class 12 CS (Code 083)?</h2>
