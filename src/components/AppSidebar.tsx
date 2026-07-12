@@ -15,8 +15,9 @@ import {
 } from "@/components/ui/sidebar";
 import { Progress } from "@/components/ui/progress";
 import { chapters } from "@/lib/syllabus";
-import { courses, lessonPath } from "@/lib/courses";
-import { resetProgress, useProgress } from "@/lib/progress";
+import { courses, lessonPath, type Course } from "@/lib/courses";
+import { resetProgress, useCourseProgress, useProgress } from "@/lib/progress";
+
 
 const iconFor = (slug: string) => {
   if (slug.includes("dbms") || slug.includes("python-sql")) return Database;
