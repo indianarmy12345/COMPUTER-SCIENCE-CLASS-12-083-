@@ -1,7 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2, RotateCcw } from "lucide-react";
 import { getCourse, lessonPath, type Course } from "@/lib/courses";
-import { useProgress } from "@/lib/progress";
+import { useCourseProgress, resetCourseProgress } from "@/lib/progress";
+import { Progress } from "@/components/ui/progress";
+
 
 export const Route = createFileRoute("/learn/$course/")({
   loader: ({ params }) => {
