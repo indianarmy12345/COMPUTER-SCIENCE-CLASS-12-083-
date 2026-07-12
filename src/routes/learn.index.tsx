@@ -63,3 +63,63 @@ function LearnIndex() {
     </div>
   );
 }
+
+function CourseCard({ course }: { course: Course }) {
+  const available = course.status === "available";
+  const { completed, total, percent } = useCourseProgress(course);
+  const started = available && completed > 0;
+
+  const inner = (
+    <div
+      className={`group h-full rounded-lg border p-5 transition-colors ${
+        available
+          ? "border-border bg-card hover:border-neon"
+          : "border-border/50 bg-card/40 opacity-70"
+      }`}
+    >
+      <div className="flex items-center justify-between">
+        <div className={`text-2xl font-bold ${course.color}`}>{course.title}</div>
+        {available ? (
+          <span className="rounded-full border border-neon/40 bg-neon/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-neon">
+            {started ? (percent === 100 ? "Complete" : "In progress") : "Available"}
+          </span>
+        ) : (
+          <span className="rounded-full border border-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Coming soon
+          </span>
+        )}
+      </div>
+      <p className="mt-2 text-sm text-muted-foreground">{course.tagline}</p>
+      {available && (
+        <>
+          <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
+            <span>
+              {started ? (
+                <>
+                  <span className="font-mono text-neon">{completed}</span> / {total} lessons
+                </>
+              ) : (
+                <>{total} lessons</>
+              )}
+            </span>
+            {started && <span className="font-mono text-neon">{percent}%</span>}
+          </div>
+          {started && <Progress value={percent} className="mt-2 h-1.5" />}
+          <div className="mt-3 flex items-center gap-1 text-sm font-medium text-neon">
+            {started ? "Resume" : "Start course"}
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </div>
+        </>
+      )}
+    </div>
+  );
+
+  return available ? (
+    <Link to="/learn/$course" params={{ course: course.slug }}>
+      {inner}
+    </Link>
+  ) : (
+    <div>{inner}</div>
+  );
+}
+
