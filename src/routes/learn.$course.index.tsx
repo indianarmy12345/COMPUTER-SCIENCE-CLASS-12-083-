@@ -42,7 +42,7 @@ export const Route = createFileRoute("/learn/$course/")({
 
 function CoursePage() {
   const { course } = Route.useLoaderData() as { course: Course };
-  const { isDone } = useProgress();
+  const { isDone, completed: doneCount, total, percent: pct } = useCourseProgress(course);
 
   if (course.status !== "available") {
     return (
@@ -60,8 +60,9 @@ function CoursePage() {
     );
   }
 
-  const doneCount = course.lessons.filter((l) => isDone(lessonPath(course.slug, l.slug))).length;
-  const pct = Math.round((doneCount / course.lessons.length) * 100);
+  // Find first not-completed lesson to resume from.
+  const nextLesson =
+    course.lessons.find((l) => !isDone(lessonPath(course.slug, l.slug))) ?? course.lessons[0];
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 sm:px-8">
@@ -69,21 +70,37 @@ function CoursePage() {
       <h1 className={`mt-1 text-4xl font-bold tracking-tight ${course.color}`}>{course.title}</h1>
       <p className="mt-2 text-muted-foreground">{course.tagline}</p>
 
-      <div className="mt-6 flex items-center gap-4 rounded-lg border border-border bg-card/40 p-4 text-sm">
-        <div className="text-muted-foreground">
-          Progress: <span className="font-mono text-neon">{doneCount}</span> / {course.lessons.length} lessons
-          {" "}({pct}%)
+      <div className="mt-6 rounded-lg border border-border bg-card/40 p-4">
+        <div className="flex flex-wrap items-center gap-3 text-sm">
+          <div className="text-muted-foreground">
+            <span className="font-mono text-neon">{doneCount}</span> / {total} lessons complete
+          </div>
+          <div className="font-mono text-neon">{pct}%</div>
+          {doneCount > 0 && (
+            <button
+              onClick={() => {
+                if (confirm(`Reset your ${course.title} course progress?`)) resetCourseProgress(course);
+              }}
+              className="ml-auto inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-destructive"
+            >
+              <RotateCcw className="h-3 w-3" /> Reset
+            </button>
+          )}
+          {nextLesson && (
+            <Link
+              to="/learn/$course/$lesson"
+              params={{ course: course.slug, lesson: nextLesson.slug }}
+              className={`inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90 ${doneCount > 0 ? "" : "ml-auto"}`}
+            >
+              {doneCount === 0 ? "Start course" : doneCount === total ? "Review lessons" : "Resume"}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          )}
         </div>
-        {course.lessons[0] && (
-          <Link
-            to="/learn/$course/$lesson"
-            params={{ course: course.slug, lesson: course.lessons[0].slug }}
-            className="ml-auto inline-flex items-center gap-1 rounded-md bg-primary px-3 py-1.5 text-xs font-semibold text-primary-foreground hover:opacity-90"
-          >
-            Start course <ArrowRight className="h-3 w-3" />
-          </Link>
-        )}
+        <Progress value={pct} className="mt-3 h-2" />
       </div>
+
+
 
       <div className="mt-10 space-y-8">
         {course.modules.map((mod) => {
