@@ -1,0 +1,135 @@
+{
+  "version": 1,
+  "sdk_version": "0.23.0",
+  "path": "/mcp",
+  "auth": {
+    "type": "oauth",
+    "issuer": "https://kxxhxyvlrrypgwfgtpdp.supabase.co/auth/v1",
+    "accepted_audiences": [
+      "authenticated"
+    ]
+  },
+  "mcp": {
+    "server": {
+      "name": "cs-learners-mcp",
+      "version": "0.1.0",
+      "title": "CS Learners"
+    },
+    "tools": [
+      {
+        "name": "list_courses",
+        "title": "List programming courses",
+        "description": "List all programming courses available on CS Learners (Python, plus upcoming HTML/CSS/JS).",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_lessons",
+        "title": "List lessons in a course",
+        "description": "Return the ordered lesson list for a course, grouped by module.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "course": {
+              "type": "string",
+              "description": "Course slug, e.g. 'python'."
+            }
+          },
+          "required": [
+            "course"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "get_lesson",
+        "title": "Get lesson metadata",
+        "description": "Return metadata for a single lesson (title, module, order, blurb) and a link to the full lesson page on CS Learners.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "course": {
+              "type": "string",
+              "description": "Course slug, e.g. 'python'."
+            },
+            "lesson": {
+              "type": "string",
+              "description": "Lesson slug within the course, e.g. 'hello-world'."
+            }
+          },
+          "required": [
+            "course",
+            "lesson"
+          ],
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "list_cbse_chapters",
+        "title": "List CBSE Class 11/12 CS chapters",
+        "description": "List CBSE Computer Science (Code 083) chapters covered on CS Learners.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "type": "object",
+          "properties": {
+            "className": {
+              "type": "string",
+              "enum": [
+                "XI",
+                "XII",
+                "all"
+              ],
+              "description": "Filter by class: 'XI', 'XII', or 'all'."
+            }
+          },
+          "additionalProperties": false,
+          "$schema": "http://json-schema.org/draft-07/schema#"
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "whoami",
+        "title": "Who am I",
+        "description": "Return the signed-in CS Learners user's ID and email from the OAuth access token.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {}
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}
