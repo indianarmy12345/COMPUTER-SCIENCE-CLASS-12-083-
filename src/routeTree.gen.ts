@@ -12,7 +12,9 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
@@ -26,8 +28,12 @@ import { Route as XiiDbmsRouteImport } from './routes/xii.dbms'
 import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
 import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
 import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LearnCourseIndexRouteImport } from './routes/learn.$course.index'
 import { Route as LearnCourseLessonRouteImport } from './routes/learn.$course.$lesson'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -44,9 +50,19 @@ const PlaygroundRoute = PlaygroundRouteImport.update({
   path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -114,6 +130,18 @@ const XiComputerSystemsRoute = XiComputerSystemsRouteImport.update({
   path: '/xi/computer-systems',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const LearnCourseIndexRoute = LearnCourseIndexRouteImport.update({
   id: '/learn/$course/',
   path: '/learn/$course/',
@@ -124,14 +152,29 @@ const LearnCourseLessonRoute = LearnCourseLessonRouteImport.update({
   path: '/learn/$course/$lesson',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/mcp': typeof McpRoute
   '/playground': typeof PlaygroundRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -143,16 +186,22 @@ export interface FileRoutesByFullPath {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn/': typeof LearnIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/learn/$course/$lesson': typeof LearnCourseLessonRoute
   '/learn/$course/': typeof LearnCourseIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/mcp': typeof McpRoute
   '/playground': typeof PlaygroundRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -164,6 +213,8 @@ export interface FileRoutesByTo {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn': typeof LearnIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/learn/$course/$lesson': typeof LearnCourseLessonRoute
   '/learn/$course': typeof LearnCourseIndexRoute
 }
@@ -171,10 +222,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/contact': typeof ContactRoute
+  '/mcp': typeof McpRoute
   '/playground': typeof PlaygroundRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -186,6 +241,8 @@ export interface FileRoutesById {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn/': typeof LearnIndexRoute
+  '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
+  '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/learn/$course/$lesson': typeof LearnCourseLessonRoute
   '/learn/$course/': typeof LearnCourseIndexRoute
 }
@@ -194,10 +251,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
+    | '/mcp'
     | '/playground'
     | '/privacy'
     | '/sitemap.xml'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -209,16 +270,22 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/learn/$course/$lesson'
     | '/learn/$course/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
+    | '/mcp'
     | '/playground'
     | '/privacy'
     | '/sitemap.xml'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -230,16 +297,22 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/learn/$course/$lesson'
     | '/learn/$course'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/auth'
     | '/contact'
+    | '/mcp'
     | '/playground'
     | '/privacy'
     | '/sitemap.xml'
+    | '/.mcp/list-tools'
+    | '/.well-known/oauth-protected-resource'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -251,6 +324,8 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn/'
+    | '/.lovable/oauth/consent'
+    | '/.mcp/invoke-tool/$tool'
     | '/learn/$course/$lesson'
     | '/learn/$course/'
   fileRoutesById: FileRoutesById
@@ -258,10 +333,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   ContactRoute: typeof ContactRoute
+  McpRoute: typeof McpRoute
   PlaygroundRoute: typeof PlaygroundRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   XiComputerSystemsRoute: typeof XiComputerSystemsRoute
   XiPythonBasicsRoute: typeof XiPythonBasicsRoute
   XiSocietyEthicsRoute: typeof XiSocietyEthicsRoute
@@ -273,6 +352,8 @@ export interface RootRouteChildren {
   XiiPythonSqlRoute: typeof XiiPythonSqlRoute
   XiiStacksRoute: typeof XiiStacksRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
+  Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   LearnCourseLessonRoute: typeof LearnCourseLessonRoute
   LearnCourseIndexRoute: typeof LearnCourseIndexRoute
 }
@@ -300,11 +381,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -398,6 +493,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof XiComputerSystemsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/learn/$course/': {
       id: '/learn/$course/'
       path: '/learn/$course'
@@ -412,16 +521,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LearnCourseLessonRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   ContactRoute: ContactRoute,
+  McpRoute: McpRoute,
   PlaygroundRoute: PlaygroundRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   XiComputerSystemsRoute: XiComputerSystemsRoute,
   XiPythonBasicsRoute: XiPythonBasicsRoute,
   XiSocietyEthicsRoute: XiSocietyEthicsRoute,
@@ -433,6 +561,8 @@ const rootRouteChildren: RootRouteChildren = {
   XiiPythonSqlRoute: XiiPythonSqlRoute,
   XiiStacksRoute: XiiStacksRoute,
   LearnIndexRoute: LearnIndexRoute,
+  DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
+  Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   LearnCourseLessonRoute: LearnCourseLessonRoute,
   LearnCourseIndexRoute: LearnCourseIndexRoute,
 }
@@ -441,10 +571,11 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 
 import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
+import type { startInstance } from './start.ts'
 declare module '@tanstack/react-start' {
   interface Register {
     ssr: true
     router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
   }
 }
