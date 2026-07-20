@@ -4,6 +4,7 @@ import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/AppSidebar";
 import { Toaster } from "@/components/ui/sonner";
 import { ADSENSE_CLIENT } from "@/components/AdSlot";
+import { AuthButton } from "@/components/AuthButton";
 
 import appCss from "../styles.css?url";
 
@@ -118,8 +119,11 @@ function RootComponent() {
           <header className="sticky top-0 z-30 flex h-12 items-center gap-2 border-b border-border bg-background px-3">
             <SidebarTrigger />
             <span className="text-sm font-medium text-muted-foreground">
-              CBSE Computer Science · 083
+              CS Learners · Learn to code
             </span>
+            <div className="ml-auto">
+              <AuthButton />
+            </div>
           </header>
           <main className="min-w-0 flex-1">
             <Outlet />
