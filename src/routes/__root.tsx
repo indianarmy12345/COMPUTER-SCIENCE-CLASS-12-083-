@@ -35,29 +35,29 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "CS 083 Hub — CBSE Class 12 Computer Science" },
+      { title: "CodeLearners — Learn to Code, Free & Interactive" },
       {
         name: "description",
         content:
-          "Interactive CBSE Class 12 Computer Science (Code 083) course — Python, SQL, DBMS & Networks with live in-browser IDEs, notes and PDF downloads.",
+          "Free interactive programming courses. Learn Python from beginner to advanced with a live in-browser editor. HTML, CSS & JavaScript coming soon.",
       },
-      { name: "author", content: "CS 083 Hub" },
+      { name: "author", content: "CodeLearners" },
       { name: "theme-color", content: "#0F1729" },
-      { property: "og:site_name", content: "CS 083 Hub" },
-      { property: "og:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
+      { property: "og:site_name", content: "CodeLearners" },
+      { property: "og:title", content: "CodeLearners — Learn to Code in Your Browser" },
       {
         property: "og:description",
         content:
-          "Interactive CBSE Class 12 Computer Science course with live Python and SQL playgrounds, notes and progress tracking.",
+          "Free interactive Python course with a live editor in every lesson. HTML, CSS & JS coming soon.",
       },
       { property: "og:type", content: "website" },
       { property: "og:image", content: "https://cslearners.lovable.app/og-image.jpg" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "CS 083 Hub — CBSE Class 12 Computer Science" },
+      { name: "twitter:title", content: "CodeLearners — Learn to Code in Your Browser" },
       {
         name: "twitter:description",
         content:
-          "Learn the full CBSE Class 12 CS syllabus with live Python & SQL IDEs — no installs, no setup.",
+          "Free interactive Python course with a live editor in every lesson.",
       },
       { name: "twitter:image", content: "https://cslearners.lovable.app/og-image.jpg" },
       { name: "google-adsense-account", content: "ca-pub-5234729428537235" },
@@ -73,10 +73,10 @@ export const Route = createRootRoute({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "WebSite",
-          name: "CS 083 Hub",
+          name: "CodeLearners",
           url: "https://cslearners.lovable.app",
           description:
-            "Interactive CBSE Class 12 Computer Science (Code 083) course with live Python and SQL IDEs.",
+            "Free interactive programming courses — Python from beginner to advanced with a live in-browser editor.",
         }),
       },
       {
@@ -84,7 +84,7 @@ export const Route = createRootRoute({
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "EducationalOrganization",
-          name: "CS 083 Hub",
+          name: "CodeLearners",
           url: "https://cslearners.lovable.app",
           logo: "https://cslearners.lovable.app/favicon.png",
         }),
@@ -119,7 +119,7 @@ function RootComponent() {
           <header className="sticky top-0 z-30 flex h-12 items-center gap-2 border-b border-border bg-background px-3">
             <SidebarTrigger />
             <span className="text-sm font-medium text-muted-foreground">
-              CS Learners · Learn to code
+              CodeLearners · Learn to code
             </span>
             <div className="ml-auto">
               <AuthButton />
@@ -130,7 +130,7 @@ function RootComponent() {
           </main>
           <footer className="border-t border-border bg-background/60 px-4 py-6 text-xs text-muted-foreground sm:px-8">
             <div className="mx-auto flex max-w-5xl flex-col items-center justify-between gap-3 sm:flex-row">
-              <span>© {new Date().getFullYear()} CS 083 Hub. Built for CBSE learners.</span>
+              <span>© {new Date().getFullYear()} CodeLearners. Learn to code in your browser.</span>
               <nav className="flex items-center gap-4">
                 <Link to="/about" className="hover:text-neon">About</Link>
                 <Link to="/contact" className="hover:text-neon">Contact</Link>
