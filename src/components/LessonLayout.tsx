@@ -3,7 +3,6 @@ import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2 } from "lucide-react";
 import { markComplete, useCourseProgress } from "@/lib/progress";
 import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
 import { AdSlot } from "@/components/AdSlot";
 import { ChapterCtx } from "@/components/ChapterLayout";
 import type { Course, Lesson } from "@/lib/courses";
@@ -26,7 +25,7 @@ export function LessonPage({
   next?: Lesson;
 }) {
   const slug = lessonPath(course.slug, lesson.slug);
-  const { isDone, completed, total, percent } = useCourseProgress(course);
+  const { isDone, total } = useCourseProgress(course);
   const done = isDone(slug);
   const articleRef = useRef<HTMLDivElement>(null);
   const lessonIndex = course.lessons.findIndex((l) => l.slug === lesson.slug) + 1;
@@ -53,12 +52,6 @@ export function LessonPage({
         <h1 className="mt-1 text-3xl font-bold tracking-tight sm:text-4xl">{lesson.title}</h1>
         <p className="mt-2 text-muted-foreground">{lesson.blurb}</p>
 
-        <div className="mt-4 flex items-center gap-3">
-          <Progress value={percent} className="h-1.5 flex-1" />
-          <span className="font-mono text-[11px] text-muted-foreground">
-            {completed}/{total} · {percent}%
-          </span>
-        </div>
 
         <div ref={articleRef} className="mt-8 space-y-8 text-[15px] leading-7">
           <section>
