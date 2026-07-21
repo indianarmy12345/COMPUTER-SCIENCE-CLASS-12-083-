@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Code2 } from "lucide-react";
 import { courses, type Course } from "@/lib/courses";
-import { useCourseProgress } from "@/lib/progress";
-import { Progress } from "@/components/ui/progress";
+
 
 
 export const Route = createFileRoute("/learn/")({
@@ -66,8 +65,7 @@ function LearnIndex() {
 
 function CourseCard({ course }: { course: Course }) {
   const available = course.status === "available";
-  const { completed, total, percent } = useCourseProgress(course);
-  const started = available && completed > 0;
+  const total = course.lessons.length;
 
   const inner = (
     <div
@@ -81,7 +79,7 @@ function CourseCard({ course }: { course: Course }) {
         <div className={`text-2xl font-bold ${course.color}`}>{course.title}</div>
         {available ? (
           <span className="rounded-full border border-neon/40 bg-neon/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-neon">
-            {started ? (percent === 100 ? "Complete" : "In progress") : "Available"}
+            Available
           </span>
         ) : (
           <span className="rounded-full border border-border px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
@@ -92,21 +90,9 @@ function CourseCard({ course }: { course: Course }) {
       <p className="mt-2 text-sm text-muted-foreground">{course.tagline}</p>
       {available && (
         <>
-          <div className="mt-4 flex items-center justify-between text-xs text-muted-foreground">
-            <span>
-              {started ? (
-                <>
-                  <span className="font-mono text-neon">{completed}</span> / {total} lessons
-                </>
-              ) : (
-                <>{total} lessons</>
-              )}
-            </span>
-            {started && <span className="font-mono text-neon">{percent}%</span>}
-          </div>
-          {started && <Progress value={percent} className="mt-2 h-1.5" />}
+          <div className="mt-4 text-xs text-muted-foreground">{total} lessons</div>
           <div className="mt-3 flex items-center gap-1 text-sm font-medium text-neon">
-            {started ? "Resume" : "Start course"}
+            Start course
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </div>
         </>
@@ -122,4 +108,5 @@ function CourseCard({ course }: { course: Course }) {
     <div>{inner}</div>
   );
 }
+
 
