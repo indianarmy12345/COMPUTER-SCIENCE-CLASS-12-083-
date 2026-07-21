@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { BookOpen, Code2, Database, Network, Home, GraduationCap, CheckCircle2, RotateCcw, Info, Mail, Shield, Sparkles } from "lucide-react";
+import { BookOpen, Code2, Database, Network, Home, GraduationCap, CheckCircle2, Info, Mail, Shield, Sparkles } from "lucide-react";
 import {
   Sidebar,
   SidebarContent,
@@ -13,10 +13,9 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { Progress } from "@/components/ui/progress";
 import { chapters } from "@/lib/syllabus";
-import { courses, lessonPath, type Course } from "@/lib/courses";
-import { resetProgress, useCourseProgress, useProgress } from "@/lib/progress";
+import { courses, lessonPath } from "@/lib/courses";
+import { useProgress } from "@/lib/progress";
 
 
 const iconFor = (slug: string) => {
@@ -30,7 +29,8 @@ export function AppSidebar() {
   const { pathname } = useLocation();
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const { isDone, completed, total, percent } = useProgress();
+  void collapsed;
+  const { isDone } = useProgress();
   const xi = chapters.filter((c) => c.className === "XI");
   const xii = chapters.filter((c) => c.className === "XII");
 
@@ -61,38 +61,12 @@ export function AppSidebar() {
             <GraduationCap className="h-4 w-4" />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-semibold">CS 083</span>
-            <span className="text-[10px] text-muted-foreground">CBSE Class XII</span>
+            <span className="text-sm font-semibold">CodeLearners</span>
+            <span className="text-[10px] text-muted-foreground">Learn to code</span>
           </div>
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        {!collapsed && (
-          <SidebarGroup>
-            <SidebarGroupLabel>Your progress</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <div className="px-2 py-1">
-                <div className="mb-1 flex items-center justify-between text-[11px] text-muted-foreground">
-                  <span>
-                    {completed} / {total} chapters
-                  </span>
-                  <span className="font-mono text-neon">{percent}%</span>
-                </div>
-                <Progress value={percent} className="h-1.5" />
-                {completed > 0 && (
-                  <button
-                    onClick={() => {
-                      if (confirm("Reset all chapter progress?")) resetProgress();
-                    }}
-                    className="mt-2 inline-flex items-center gap-1 text-[10px] text-muted-foreground hover:text-destructive"
-                  >
-                    <RotateCcw className="h-3 w-3" /> Reset
-                  </button>
-                )}
-              </div>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        )}
 
         <SidebarGroup>
           <SidebarGroupContent>
@@ -194,11 +168,9 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      {!collapsed && (
-        <SidebarFooter className="border-t border-sidebar-border px-3 py-2 text-[10px] text-muted-foreground">
-          Progress saved on this device.
-        </SidebarFooter>
-      )}
+      <SidebarFooter className="border-t border-sidebar-border px-3 py-2 text-[10px] text-muted-foreground">
+        CodeLearners · free & open
+      </SidebarFooter>
     </Sidebar>
   );
 }
