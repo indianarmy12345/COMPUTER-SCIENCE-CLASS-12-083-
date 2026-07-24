@@ -234,6 +234,61 @@ from utility import square as sq
 print(sq(8))`}</pre>
       </Section>
 
+      <Section title="Types of functions (by parameters & return)">
+        <p>
+          Based on whether a function <b>takes parameters</b> and whether it{" "}
+          <b>returns a value</b>, user-defined functions fall into four types.
+          One example for each is shown below.
+        </p>
+
+        <p className="mt-2"><b>1. No parameters, No return</b> — just performs an action.</p>
+        <PyRunner
+          initialCode={`def greet():
+    print("Hello, welcome to CodeLearners!")
+
+greet()`}
+        />
+
+        <p className="mt-2"><b>2. With parameters, No return</b> — acts on inputs but returns nothing (returns <code>None</code>).</p>
+        <PyRunner
+          initialCode={`def wish(name, msg="Good morning"):
+    print(msg + ",", name)
+
+wish("Aarav")
+wish("Diya", "Hello")`}
+        />
+
+        <p className="mt-2"><b>3. No parameters, With return</b> — produces a value without needing input.</p>
+        <PyRunner
+          initialCode={`import random
+
+def lucky_number():
+    return random.randint(1, 100)
+
+n = lucky_number()
+print("Your lucky number is", n)`}
+        />
+
+        <p className="mt-2"><b>4. With parameters, With return</b> — the most common form: takes inputs, returns a result.</p>
+        <PyRunner
+          initialCode={`def add(a, b):
+    return a + b
+
+def area_rectangle(l, w):
+    return l * w
+
+print("Sum      :", add(5, 7))
+print("Area     :", area_rectangle(4, 6))`}
+        />
+
+        <Callout>
+          A function without an explicit <code>return</code> statement
+          automatically returns <code>None</code>. Type&nbsp;2 above prints a
+          message but if you write <code>x = wish("A")</code>, then{" "}
+          <code>x</code> will be <code>None</code>.
+        </Callout>
+      </Section>
+
       <Section title="Practice">
         <QuickCheck
           question="What will fact(0) return for the recursion above?"
