@@ -293,6 +293,131 @@ print("Bye!")`}</Code>
           </p>
         </Section>
 
+        <Section title="Complete program — from import to running">
+          <p>
+            A full menu-driven program that connects to MySQL, uses a{" "}
+            <code>while</code> loop to keep the app running, and demonstrates
+            every important connector function —{" "}
+            <code>connect()</code>, <code>cursor()</code>, <code>execute()</code>,{" "}
+            <code>fetchone()</code>, <code>fetchmany()</code>, <code>fetchall()</code>,{" "}
+            <code>commit()</code>, <code>rollback()</code>, <code>rowcount</code>,{" "}
+            <code>cursor.close()</code> and <code>con.close()</code>. All user
+            inputs are passed safely using <code>%s</code> parameterised queries.
+          </p>
+          <Code>{`# ------------------------------------------------------------
+# Student Management System — Python + MySQL (mysql.connector)
+# Install once:  pip install mysql-connector-python
+# Pre-create in MySQL:
+#   CREATE DATABASE school;
+#   USE school;
+#   CREATE TABLE student(
+#       roll   INT PRIMARY KEY,
+#       name   VARCHAR(40),
+#       cls    VARCHAR(10),
+#       marks  FLOAT
+#   );
+# ------------------------------------------------------------
+
+import mysql.connector as ms
+
+# 1) CONNECT
+con = ms.connect(
+    host     = "localhost",
+    user     = "root",
+    password = "root123",
+    database = "school"
+)
+
+if con.is_connected():
+    print("Connected to MySQL successfully!")
+
+# 2) CURSOR
+cur = con.cursor()
+
+# 3) MAIN LOOP — keeps running until user chooses Exit
+while True:
+    print("""
+    ------ STUDENT MENU ------
+    1. Add student
+    2. Show one student (fetchone)
+    3. Show few students (fetchmany)
+    4. Show all students (fetchall)
+    5. Update marks
+    6. Delete student
+    7. Exit
+    """)
+    ch = input("Enter choice (1-7): ")
+
+    if ch == "1":
+        r = int(input("Roll   : "))
+        n = input("Name   : ")
+        c = input("Class  : ")
+        m = float(input("Marks  : "))
+        sql  = "INSERT INTO student VALUES (%s, %s, %s, %s)"
+        data = (r, n, c, m)
+        try:
+            cur.execute(sql, data)
+            con.commit()                          # save changes
+            print(cur.rowcount, "row inserted.")
+        except Exception as e:
+            con.rollback()                        # undo on error
+            print("Failed:", e)
+
+    elif ch == "2":
+        r = int(input("Enter roll to search: "))
+        cur.execute("SELECT * FROM student WHERE roll = %s", (r,))
+        row = cur.fetchone()                      # single row / None
+        print(row if row else "No such student.")
+
+    elif ch == "3":
+        k = int(input("How many rows to show? "))
+        cur.execute("SELECT * FROM student")
+        rows = cur.fetchmany(k)                   # first k rows
+        for row in rows:
+            print(row)
+
+    elif ch == "4":
+        cur.execute("SELECT * FROM student")
+        rows = cur.fetchall()                     # every row
+        print("Total records:", cur.rowcount)
+        for row in rows:
+            print(row)
+
+    elif ch == "5":
+        r = int(input("Roll   : "))
+        m = float(input("New marks: "))
+        cur.execute(
+            "UPDATE student SET marks = %s WHERE roll = %s",
+            (m, r)
+        )
+        con.commit()
+        print(cur.rowcount, "row updated.")
+
+    elif ch == "6":
+        r = int(input("Roll to delete: "))
+        cur.execute("DELETE FROM student WHERE roll = %s", (r,))
+        con.commit()
+        print(cur.rowcount, "row deleted.")
+
+    elif ch == "7":
+        print("Closing connection. Bye!")
+        break
+
+    else:
+        print("Invalid choice, try again.")
+
+# 4) CLEAN UP
+cur.close()
+con.close()
+print("Connection closed.")`}</Code>
+          <Callout>
+            Notice every user input is passed as a <b>tuple</b> to{" "}
+            <code>execute()</code> using <code>%s</code> placeholders — this is
+            the CBSE-recommended, injection-safe way. Never build SQL with
+            f-strings.
+          </Callout>
+        </Section>
+
         <Section title="Previous Year Questions (PYQs)">
           <PYQ year="CBSE 2023" marks={3}
             question={<>Write Python code to connect to MySQL database <code>school</code>, fetch all rows from table <code>student</code> and display them.</>}
