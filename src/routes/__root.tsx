@@ -42,7 +42,7 @@ export const Route = createRootRoute({
           "Free interactive programming courses. Learn Python from beginner to advanced with a live in-browser editor. HTML, CSS & JavaScript coming soon.",
       },
       { name: "author", content: "CodeLearners" },
-      { name: "theme-color", content: "#0F1729" },
+      { name: "theme-color", content: "#f0f9ff" },
       { property: "og:site_name", content: "CodeLearners" },
       { property: "og:title", content: "CodeLearners — Learn to Code in Your Browser" },
       {
@@ -66,7 +66,14 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Figtree:wght@400;500;600;700&display=swap",
+      },
     ],
+
     scripts: [
       {
         type: "application/ld+json",
