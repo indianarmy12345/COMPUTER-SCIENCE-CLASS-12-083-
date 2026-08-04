@@ -139,7 +139,7 @@ export function SqlRunner({
         onChange={(e) => setQuery(e.target.value)}
         spellCheck={false}
         style={{ height }}
-        className="w-full resize-y bg-[var(--code-bg)] p-3 font-mono text-sm leading-relaxed text-foreground outline-none"
+        className="w-full cursor-text resize-y bg-[var(--code-bg)] p-3 font-mono text-sm leading-relaxed text-foreground caret-foreground outline-none"
       />
       <div className="max-h-72 overflow-auto border-t border-border bg-[var(--code-bg)]/60 p-3">
         {error && <p className="font-mono text-xs text-destructive">{error}</p>}
