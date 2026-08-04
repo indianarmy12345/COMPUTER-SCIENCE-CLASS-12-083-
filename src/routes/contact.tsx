@@ -147,10 +147,13 @@ function ContactPage() {
         </div>
         <button
           type="submit"
-          className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-neon transition-transform hover:scale-[1.02]"
+          disabled={sending}
+          className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground shadow-neon transition-transform hover:scale-[1.02] disabled:opacity-60"
         >
-          <Mail className="h-4 w-4" /> Send message
+          {sending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+          {sending ? "Sending…" : "Send message"}
         </button>
+
       </form>
       <AdSlot className="mt-10" />
     </div>
