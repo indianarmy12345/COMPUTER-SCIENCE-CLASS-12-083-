@@ -1,22 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Mail, MessageSquare, Bug, Sparkles } from "lucide-react";
+import { Mail, MessageSquare, Bug, Sparkles, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { z } from "zod";
 import { AdSlot } from "@/components/AdSlot";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — CS 083 Hub" },
+      { title: "Contact — CodeLearners" },
       {
         name: "description",
         content:
-          "Get in touch with CS 083 Hub. Send feedback, report a bug, or suggest a topic for our CBSE Class 12 Computer Science learning platform.",
+          "Get in touch with CodeLearners. Send feedback, report a bug, or suggest a topic for our interactive programming lessons.",
       },
-      { property: "og:title", content: "Contact — CS 083 Hub" },
+      { property: "og:title", content: "Contact — CodeLearners" },
       {
         property: "og:description",
-        content: "Send feedback, report a bug, or suggest a topic for CS 083 Hub.",
+        content: "Send feedback, report a bug, or suggest a topic for CodeLearners.",
       },
       { property: "og:url", content: "https://cslearners.lovable.app/contact" },
     ],
@@ -27,18 +29,42 @@ export const Route = createFileRoute("/contact")({
 
 const CONTACT_EMAIL = "cslearners11@gmail.com";
 
+const contactSchema = z.object({
+  name: z.string().trim().min(1, "Please enter your name").max(100, "Name is too long"),
+  email: z.string().trim().email("Enter a valid email address").max(255),
+  message: z
+    .string()
+    .trim()
+    .min(1, "Please write a message")
+    .max(2000, "Message must be under 2000 characters"),
+});
+
 function ContactPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [sending, setSending] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`CS 083 Hub — message from ${name || "a learner"}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name}\n${email}`);
-    window.location.href = `mailto:${CONTACT_EMAIL}?subject=${subject}&body=${body}`;
-    toast.success("Opening your email app…");
+    const parsed = contactSchema.safeParse({ name, email, message });
+    if (!parsed.success) {
+      toast.error(parsed.error.issues[0]?.message ?? "Please check your details");
+      return;
+    }
+    setSending(true);
+    const { error } = await supabase.from("contact_messages").insert(parsed.data);
+    setSending(false);
+    if (error) {
+      toast.error("Could not send your message. Please try again.");
+      return;
+    }
+    toast.success("Message sent — thanks for reaching out!");
+    setName("");
+    setEmail("");
+    setMessage("");
   };
+
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-12 sm:px-8 sm:py-16">
