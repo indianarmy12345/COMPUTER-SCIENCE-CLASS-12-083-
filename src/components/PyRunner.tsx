@@ -148,7 +148,7 @@ export function PyRunner({
         className="w-full resize-y bg-[var(--code-bg)] p-3 font-mono text-sm leading-relaxed text-foreground outline-none"
       />
       {output && (
-        <pre className="max-h-64 overflow-auto border-t border-border bg-[var(--code-bg)]/70 p-3 font-mono text-xs text-neon">
+        <pre className="max-h-64 overflow-auto border-t border-border bg-[var(--code-bg)]/70 p-3 font-mono text-xs text-foreground">
           {output}
         </pre>
       )}
