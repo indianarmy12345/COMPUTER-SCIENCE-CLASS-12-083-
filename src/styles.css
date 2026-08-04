@@ -81,7 +81,7 @@
   --neon: oklch(0.62 0.16 235);                /* sky */
   --neon-foreground: oklch(0.99 0.005 220);
   --neon-2: oklch(0.72 0.15 25);               /* coral peach */
-  --code-bg: oklch(0.24 0.04 250);             /* dark ink card for code */
+  --code-bg: oklch(0.965 0.012 240);          /* light code surface */
 
   --gradient-hero: radial-gradient(
       1000px 500px at 15% 0%,
