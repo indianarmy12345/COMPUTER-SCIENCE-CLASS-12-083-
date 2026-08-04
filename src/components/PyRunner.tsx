@@ -145,7 +145,7 @@ export function PyRunner({
         onChange={(e) => setCode(e.target.value)}
         spellCheck={false}
         style={{ height }}
-        className="w-full resize-y bg-[var(--code-bg)] p-3 font-mono text-sm leading-relaxed text-foreground outline-none"
+        className="w-full cursor-text resize-y bg-[var(--code-bg)] p-3 font-mono text-sm leading-relaxed text-foreground caret-foreground outline-none"
       />
       {output && (
         <pre className="max-h-64 overflow-auto border-t border-border bg-[var(--code-bg)]/70 p-3 font-mono text-xs text-foreground">
