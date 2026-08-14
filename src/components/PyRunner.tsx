@@ -107,6 +107,7 @@ export function PyRunner({
           <span>{title}</span>
         </div>
         <div className="flex items-center gap-1">
+          <CopyButton value={() => code} />
           <Button
             size="sm"
             variant="ghost"
