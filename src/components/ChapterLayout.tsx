@@ -405,3 +405,59 @@ export function QuickCheck({
     </div>
   );
 }
+
+/** High-frequency / most-predicted CBSE board questions for a chapter. */
+export function MostAsked({
+  items,
+}: {
+  items: { q: string; a: string; marks?: number; asked?: string }[];
+}) {
+  return (
+    <div className="space-y-3">
+      <div className="rounded-lg border border-neon-2/40 bg-neon-2/5 p-3 text-sm text-foreground/85">
+        <span className="font-semibold">Exam focus:</span> these questions (or very close
+        variants) have appeared repeatedly in CBSE board papers and sample papers — learn these
+        answers word-perfect.
+      </div>
+      {items.map((it, i) => (
+        <MostAskedCard key={i} index={i + 1} {...it} />
+      ))}
+    </div>
+  );
+}
+
+function MostAskedCard({
+  index,
+  q,
+  a,
+  marks,
+  asked,
+}: {
+  index: number;
+  q: string;
+  a: string;
+  marks?: number;
+  asked?: string;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="rounded-lg border border-border bg-card/40 p-4">
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <div className="text-[11px] font-semibold uppercase tracking-widest text-neon-2">
+          Q{index}
+          {marks ? ` · ${marks} mark${marks > 1 ? "s" : ""}` : ""}
+          {asked ? ` · asked in ${asked}` : ""}
+        </div>
+        <Button size="sm" variant="ghost" onClick={() => setOpen((o) => !o)}>
+          {open ? "Hide answer" : "Show answer"}
+        </Button>
+      </div>
+      <p className="text-sm font-medium text-foreground/90">{q}</p>
+      {open && (
+        <div className="mt-3 whitespace-pre-line rounded-md border border-border bg-background/60 p-3 text-sm text-foreground/85">
+          {a}
+        </div>
+      )}
+    </div>
+  );
+}
