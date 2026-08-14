@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 
 export const Route = createFileRoute("/xi/computer-systems")({
   head: () => ({
@@ -280,6 +280,43 @@ Reading bottom → top:  (101101)₂`}</pre>
           <QuickCheck question="Universal gate?"
             options={["AND", "OR", "NAND", "XOR"]} answer="NAND" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "Convert: (i) (45)10 to binary (ii) (1101)2 to decimal (iii) (2F)16 to decimal (iv) (57)8 to binary.",
+                marks: 2,
+                asked: "2019, 2021, 2023",
+                a: "(i) (45)10 = (101101)2\n(ii) (1101)2 = 13\n(iii) (2F)16 = 2*16 + 15 = 47\n(iv) (57)8 = 101 111 = (101111)2",
+              },
+              {
+                q: "Differentiate between RAM and ROM; and between primary and secondary memory.",
+                marks: 2,
+                asked: "2019, 2022, 2024",
+                a: "RAM is volatile read/write working memory; ROM is non-volatile and normally read-only (stores the bootstrap/BIOS).\nPrimary memory (RAM, cache) is directly accessible by the CPU, fast and limited; secondary memory (HDD, SSD, pen drive) is non-volatile, slower and used for permanent storage.",
+              },
+              {
+                q: "State and verify De Morgan's theorems.",
+                marks: 3,
+                asked: "2020, 2023",
+                a: "(X + Y)' = X'·Y' and (X·Y)' = X' + Y'. Verify with a truth table: for X=1, Y=0 → (1+0)'=0 and 1'·0' = 0·1 = 0; (1·0)'=1 and 1'+0' = 0+1 = 1 — LHS equals RHS for all four combinations.",
+              },
+              {
+                q: "Why is NAND called a universal gate? Draw/describe NOT, AND and OR using NAND gates.",
+                marks: 3,
+                asked: "2021, 2024 SQP",
+                a: "Any Boolean function can be built using NAND alone.\nNOT A = A NAND A\nA AND B = (A NAND B) NAND (A NAND B)\nA OR B = (A NAND A) NAND (B NAND B)",
+              },
+              {
+                q: "Define: bit, byte, nibble, KB, MB, GB, TB.",
+                marks: 2,
+                asked: "2019, 2022",
+                a: "bit = 0 or 1; nibble = 4 bits; byte = 8 bits; 1 KB = 1024 bytes; 1 MB = 1024 KB; 1 GB = 1024 MB; 1 TB = 1024 GB.",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

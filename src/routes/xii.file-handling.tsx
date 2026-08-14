@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 import { PyRunner } from "@/components/PyRunner";
 
 export const Route = createFileRoute("/xii/file-handling")({
@@ -339,6 +339,49 @@ def show_high_paid():
           <QuickCheck question="Which method writes a list of strings to a file?"
             options={["write()", "writelines()", "writeall()", "putlines()"]} answer="writelines()" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "Differentiate between text files and binary files. Give one example of each.",
+                marks: 2,
+                asked: "2019, 2021, 2024",
+                a: "A text file stores data as human-readable characters with an EOL character after each line (e.g. notes.txt); a binary file stores data in machine format exactly as in memory with no EOL translation (e.g. student.dat created with pickle). Text files need encoding/decoding, binary files do not.",
+              },
+              {
+                q: "Write a function COUNTLINES() to count and display the number of lines in a text file 'story.txt' that begin with the letter 'A'.",
+                marks: 3,
+                asked: "2020, 2022, 2023",
+                a: "def COUNTLINES():\n    f = open('story.txt', 'r')\n    c = 0\n    for line in f:\n        if line.startswith('A'):\n            c += 1\n    f.close()\n    print('Lines starting with A =', c)",
+              },
+              {
+                q: "Write a function to count the number of words in a text file 'notes.txt' that have exactly four characters.",
+                marks: 3,
+                asked: "2019, 2023, 2024 SQP",
+                a: "def count4():\n    f = open('notes.txt', 'r')\n    data = f.read().split()\n    c = 0\n    for w in data:\n        if len(w) == 4:\n            c += 1\n    f.close()\n    print('4-letter words =', c)",
+              },
+              {
+                q: "A binary file 'emp.dat' has records as [empno, name, salary]. Write a function to display employees earning more than 50000.",
+                marks: 4,
+                asked: "2020, 2022, 2024",
+                a: "import pickle\n\ndef high_paid():\n    f = open('emp.dat', 'rb')\n    try:\n        while True:\n            rec = pickle.load(f)\n            if rec[2] > 50000:\n                print(rec)\n    except EOFError:\n        pass\n    f.close()",
+              },
+              {
+                q: "Write a program to read a CSV file 'student.csv' and display only those rows where marks > 75.",
+                marks: 4,
+                asked: "2021, 2023, 2024 SQP",
+                a: "import csv\n\nwith open('student.csv', 'r', newline='') as f:\n    r = csv.reader(f)\n    next(r)              # skip header\n    for row in r:\n        if int(row[2]) > 75:\n            print(row)",
+              },
+              {
+                q: "What is the use of seek() and tell()? Explain with syntax.",
+                marks: 2,
+                asked: "2019, 2022",
+                a: "tell() returns the current position (in bytes) of the file pointer. seek(offset, from_what) moves the file pointer; from_what is 0 (beginning, default), 1 (current) or 2 (end).\n\nf.seek(0)      # go to start\nprint(f.tell())",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

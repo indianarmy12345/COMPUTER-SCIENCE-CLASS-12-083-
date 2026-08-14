@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 import { PyRunner } from "@/components/PyRunner";
 
 export const Route = createFileRoute("/xi/python-basics")({
@@ -374,6 +374,43 @@ print(list(enumerate(["sun","mon","tue"], start=1)))`}
           <QuickCheck question="Which keyword exits a loop early?"
             options={["exit", "stop", "break", "return"]} answer="break" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "Differentiate between mutable and immutable types with examples.",
+                marks: 2,
+                asked: "2019, 2022, 2024",
+                a: "Mutable objects can be changed in place — list, dict, set. Immutable objects cannot be changed after creation — int, float, str, tuple, bool. Modifying an immutable object creates a new object with a new id().",
+              },
+              {
+                q: "Find the output:\n\nL = [1, 2, 3, 4, 5]\nprint(L[1:4])\nprint(L[::-1])\nprint(L[-2:])",
+                marks: 2,
+                asked: "2020, 2023",
+                a: "[2, 3, 4]\n[5, 4, 3, 2, 1]\n[4, 5]",
+              },
+              {
+                q: "Write a program to input 10 numbers and print the largest and the sum of even numbers.",
+                marks: 3,
+                asked: "2019, 2021, 2024 SQP",
+                a: "nums = []\nfor i in range(10):\n    nums.append(int(input('Enter number: ')))\nbig = nums[0]\ns = 0\nfor n in nums:\n    if n > big:\n        big = n\n    if n % 2 == 0:\n        s += n\nprint('Largest =', big)\nprint('Sum of even =', s)",
+              },
+              {
+                q: "Differentiate between a list and a tuple. When would you prefer a tuple?",
+                marks: 2,
+                asked: "2020, 2022, 2024",
+                a: "A list is mutable and written with [ ]; a tuple is immutable and written with ( ). Tuples are faster, can be dictionary keys and protect data from accidental change, so they are preferred for fixed collections such as coordinates or constant records.",
+              },
+              {
+                q: "What is the difference between == and is? And between / , // and % ?",
+                marks: 2,
+                asked: "2021, 2023",
+                a: "== compares values; is compares identity (whether both names refer to the same object).\n/ gives true division (float), // gives floor division (integer part toward -infinity), % gives the remainder.",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

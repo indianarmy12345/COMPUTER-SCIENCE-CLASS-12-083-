@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 import { SqlRunner } from "@/components/SqlRunner";
 
 const SETUP = `CREATE TABLE student (
@@ -392,6 +392,49 @@ SELECT COUNT(*) FROM student WHERE marks >= 75;`}</pre>}
           <QuickCheck question="Cartesian product of m × n rows produces how many rows?"
             options={["m+n", "max(m,n)", "m*n", "m-n"]} answer="m*n" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "Define: degree, cardinality, primary key, candidate key, alternate key and foreign key.",
+                marks: 3,
+                asked: "2019-2024 (almost every year)",
+                a: "Degree = number of attributes (columns) in a relation.\nCardinality = number of tuples (rows).\nPrimary key = attribute (or set) that uniquely identifies each tuple.\nCandidate key = any attribute set eligible to be the primary key.\nAlternate key = candidate key not chosen as primary key.\nForeign key = attribute in one table referring to the primary key of another table, enforcing referential integrity.",
+              },
+              {
+                q: "Differentiate between DDL and DML commands with two examples each.",
+                marks: 2,
+                asked: "2020, 2022, 2024",
+                a: "DDL (Data Definition Language) defines/changes structure: CREATE TABLE, ALTER TABLE, DROP TABLE.\nDML (Data Manipulation Language) works on data: INSERT, UPDATE, DELETE, SELECT.",
+              },
+              {
+                q: "Write SQL to (i) create table STUDENT(Roll int primary key, Name varchar(25), Marks int) and (ii) add a column Grade char(1).",
+                marks: 2,
+                asked: "2019, 2021, 2023",
+                a: "(i) CREATE TABLE STUDENT (\n      Roll INT PRIMARY KEY,\n      Name VARCHAR(25),\n      Marks INT);\n\n(ii) ALTER TABLE STUDENT ADD Grade CHAR(1);",
+              },
+              {
+                q: "Consider table EMP(Eno, Name, Dept, Salary). Write queries: (i) total salary department-wise (ii) names starting with 'A' (iii) employees whose salary is between 20000 and 50000 (iv) departments having more than 3 employees.",
+                marks: 4,
+                asked: "2020, 2022, 2023, 2024 SQP",
+                a: "(i) SELECT Dept, SUM(Salary) FROM EMP GROUP BY Dept;\n(ii) SELECT Name FROM EMP WHERE Name LIKE 'A%';\n(iii) SELECT * FROM EMP WHERE Salary BETWEEN 20000 AND 50000;\n(iv) SELECT Dept, COUNT(*) FROM EMP GROUP BY Dept HAVING COUNT(*) > 3;",
+              },
+              {
+                q: "What is the difference between WHERE and HAVING? And between COUNT(*) and COUNT(column)?",
+                marks: 2,
+                asked: "2019, 2021, 2024",
+                a: "WHERE filters individual rows before grouping; HAVING filters groups after GROUP BY and can use aggregate functions.\nCOUNT(*) counts all rows including those with NULLs; COUNT(column) counts only non-NULL values in that column.",
+              },
+              {
+                q: "Write the output/effect of DELETE, DROP and TRUNCATE (any two differences).",
+                marks: 2,
+                asked: "2020, 2023",
+                a: "DELETE (DML) removes selected rows and can be rolled back; the table structure stays.\nTRUNCATE removes all rows quickly and cannot be rolled back; structure stays.\nDROP (DDL) removes rows plus the entire table structure from the database.",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

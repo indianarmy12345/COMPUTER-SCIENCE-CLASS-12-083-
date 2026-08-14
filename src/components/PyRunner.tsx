@@ -3,6 +3,7 @@ import { Play, Loader2, RotateCcw, Terminal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useChapterSlug } from "./ChapterLayout";
 import { markComplete } from "@/lib/progress";
+import { CopyButton } from "@/components/CopyButton";
 
 declare global {
   interface Window {
@@ -107,6 +108,7 @@ export function PyRunner({
           <span>{title}</span>
         </div>
         <div className="flex items-center gap-1">
+          <CopyButton value={() => code} />
           <Button
             size="sm"
             variant="ghost"

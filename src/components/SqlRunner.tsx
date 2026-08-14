@@ -1,3 +1,4 @@
+import { CopyButton } from "@/components/CopyButton";
 import { useEffect, useRef, useState } from "react";
 import { Play, Loader2, RotateCcw, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -109,6 +110,7 @@ export function SqlRunner({
           <span>{title}</span>
         </div>
         <div className="flex items-center gap-1">
+          <CopyButton value={() => query} label="Copy SQL" />
           <Button size="sm" variant="ghost" onClick={reset} className="h-7 px-2 text-xs">
             <RotateCcw className="mr-1 h-3 w-3" /> Reset DB
           </Button>

@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 
 export const Route = createFileRoute("/xii/python-sql")({
   head: () => ({
@@ -453,6 +453,49 @@ cur.close(); conn.close()`}</pre>}
           <QuickCheck question="Safest placeholder for user input in mysql.connector?"
             options={["?", "%s", "{}", "$1"]} answer="%s" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "Write the steps/statements to connect a Python program to a MySQL database named 'school'.",
+                marks: 2,
+                asked: "2020, 2022, 2024",
+                a: "import mysql.connector as m\ncon = m.connect(host='localhost', user='root', passwd='pass', database='school')\ncur = con.cursor()\n# ... execute queries ...\ncon.close()",
+              },
+              {
+                q: "What is the role of cursor() and commit()? Which operations need commit()?",
+                marks: 2,
+                asked: "2019, 2021, 2023, 2024 SQP",
+                a: "cursor() creates a cursor object that carries SQL statements to the database and holds the result set. commit() permanently saves changes to the database. INSERT, UPDATE and DELETE need commit(); SELECT does not.",
+              },
+              {
+                q: "Differentiate between fetchone(), fetchmany(n) and fetchall(). What does each return when there is no data?",
+                marks: 3,
+                asked: "2019, 2022, 2024",
+                a: "fetchone() returns the next single record as a tuple, None when exhausted.\nfetchmany(n) returns a list of the next n records, an empty list when exhausted.\nfetchall() returns a list of all remaining records, an empty list if none.\ncursor.rowcount gives the number of rows fetched/affected.",
+              },
+              {
+                q: "Write a Python function to display all records of table STUDENT where marks > 75, using %s parameter substitution.",
+                marks: 4,
+                asked: "2021, 2023, 2024 SQP",
+                a: "import mysql.connector as m\n\ndef high(limit):\n    con = m.connect(host='localhost', user='root', passwd='pass', database='school')\n    cur = con.cursor()\n    cur.execute('SELECT * FROM student WHERE marks > %s', (limit,))\n    for row in cur.fetchall():\n        print(row)\n    print('Rows:', cur.rowcount)\n    con.close()\n\nhigh(75)",
+              },
+              {
+                q: "Write a Python program to insert a new record into table STUDENT(roll, name, marks) taking input from the user.",
+                marks: 4,
+                asked: "2020, 2022, 2024",
+                a: "import mysql.connector as m\n\ncon = m.connect(host='localhost', user='root', passwd='pass', database='school')\ncur = con.cursor()\nr = int(input('Roll: '))\nn = input('Name: ')\nmk = int(input('Marks: '))\ncur.execute('INSERT INTO student VALUES (%s, %s, %s)', (r, n, mk))\ncon.commit()\nprint(cur.rowcount, 'record inserted')\ncon.close()",
+              },
+              {
+                q: "Why should %s placeholders be used instead of string formatting in queries?",
+                marks: 2,
+                asked: "2023, 2024 SQP",
+                a: "Placeholders let the connector escape and quote values safely, preventing SQL injection and quoting/type errors. Building a query with + or f-strings inserts raw user text into SQL, which an attacker can exploit (e.g. entering ' OR 1=1 --).",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }
