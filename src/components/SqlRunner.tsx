@@ -1,3 +1,4 @@
+import { CopyButton } from "@/components/CopyButton";
 import { useEffect, useRef, useState } from "react";
 import { Play, Loader2, RotateCcw, Database } from "lucide-react";
 import { Button } from "@/components/ui/button";

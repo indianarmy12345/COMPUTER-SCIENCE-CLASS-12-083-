@@ -1,3 +1,4 @@
+import { CopyButton } from "@/components/CopyButton";
 import { useRef, type ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, CheckCircle2 } from "lucide-react";
