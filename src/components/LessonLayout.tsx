@@ -117,9 +117,14 @@ function ProseBody({ text }: { text: string }) {
 
 function CodeBlock({ code }: { code: string }) {
   return (
-    <pre className="mt-3 overflow-x-auto rounded-lg border border-border bg-[var(--code-bg)] p-3 font-mono text-sm leading-relaxed text-foreground">
-      {code}
-    </pre>
+    <div className="group relative mt-3">
+      <div className="absolute right-2 top-2 z-10 opacity-80 transition-opacity group-hover:opacity-100">
+        <CopyButton value={code} />
+      </div>
+      <pre className="overflow-x-auto rounded-lg border border-border bg-[var(--code-bg)] p-3 pr-20 font-mono text-sm leading-relaxed text-foreground">
+        {code}
+      </pre>
+    </div>
   );
 }
 
