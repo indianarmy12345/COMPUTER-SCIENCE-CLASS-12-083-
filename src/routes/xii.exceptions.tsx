@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 import { PyRunner } from "@/components/PyRunner";
 
 export const Route = createFileRoute("/xii/exceptions")({
@@ -252,6 +252,43 @@ except ValueError:
           <QuickCheck question="Parent class of all built-in exceptions?"
             options={["Error", "Exception", "BaseException", "RuntimeError"]} answer="BaseException" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "What is an exception? How is it different from a syntax error?",
+                marks: 2,
+                asked: "2019, 2022, 2024 SQP",
+                a: "An exception is a run-time error that occurs while a syntactically correct program is executing (e.g. ZeroDivisionError, ValueError) and can be handled with try-except. A syntax error is detected by the interpreter before execution and cannot be handled at run time.",
+              },
+              {
+                q: "Explain the use of try, except, else and finally blocks with an example.",
+                marks: 3,
+                asked: "2020, 2023",
+                a: "try holds risky code; except handles a matching exception; else runs only if no exception occurred; finally always runs (used for cleanup such as closing files).\n\ntry:\n    f = open('data.txt')\n    n = int(f.readline())\nexcept FileNotFoundError:\n    print('File missing')\nexcept ValueError:\n    print('Not a number')\nelse:\n    print('Read', n)\nfinally:\n    print('Done')",
+              },
+              {
+                q: "Rewrite the code after handling the exception:\n\nnum = int(input('Enter number: '))\nprint(100/num)",
+                marks: 2,
+                asked: "2021, 2023 SQP",
+                a: "try:\n    num = int(input('Enter number: '))\n    print(100/num)\nexcept ValueError:\n    print('Please enter a valid integer')\nexcept ZeroDivisionError:\n    print('Division by zero is not allowed')",
+              },
+              {
+                q: "Name the exception raised in each case: (i) 5/0 (ii) int('abc') (iii) lst[10] on a 3-item list (iv) opening a missing file.",
+                marks: 2,
+                asked: "2019, 2022, 2024",
+                a: "(i) ZeroDivisionError (ii) ValueError (iii) IndexError (iv) FileNotFoundError",
+              },
+              {
+                q: "How do you raise your own exception? Write a program that raises an exception if marks entered are negative.",
+                marks: 3,
+                asked: "2020, 2024 SQP",
+                a: "The raise statement creates an exception object explicitly.\n\ntry:\n    m = int(input('Marks: '))\n    if m < 0:\n        raise ValueError('Marks cannot be negative')\n    print('Marks =', m)\nexcept ValueError as e:\n    print('Error:', e)",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

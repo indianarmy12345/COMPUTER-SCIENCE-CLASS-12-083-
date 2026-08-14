@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 import { PyRunner } from "@/components/PyRunner";
 
 export const Route = createFileRoute("/xii/functions")({
@@ -372,6 +372,49 @@ countNow(["Delhi","Mumbai","Pune","Chennai","Goa"])
           <QuickCheck question="In LEGB rule, what does B stand for?"
             options={["Block", "Built-in", "Boolean", "Bound"]} answer="Built-in" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "Differentiate between actual parameters and formal parameters with an example.",
+                marks: 2,
+                asked: "2019, 2022, 2024 SQP",
+                a: "Formal parameters are the variables listed in the function definition; actual parameters (arguments) are the values passed in the function call.\n\ndef area(r):   # r -> formal parameter\n    return 3.14*r*r\nprint(area(5))  # 5 -> actual parameter",
+              },
+              {
+                q: "What is the difference between a function returning a value and a function not returning a value? Give one example each.",
+                marks: 3,
+                asked: "2020, 2023",
+                a: "A function with a return statement sends a value back to the caller and can be used in an expression; without return it returns None and is used only for its effect (e.g. printing).\n\ndef add(a, b):     # returns\n    return a + b\n\ndef show(a, b):    # no return\n    print(a + b)",
+              },
+              {
+                q: "Explain the difference between global and local variables. What is the use of the global keyword?",
+                marks: 3,
+                asked: "2018, 2021, 2024",
+                a: "A local variable is created inside a function and exists only during the call; a global variable is defined outside all functions and is visible throughout the module. The global keyword lets a function rebind (assign to) a global variable instead of creating a new local one.\n\nc = 0\ndef hit():\n    global c\n    c += 1",
+              },
+              {
+                q: "Write a function that accepts a list of numbers and returns the count of even and odd numbers.",
+                marks: 3,
+                asked: "2019, 2022, 2023",
+                a: "def count_eo(lst):\n    e = o = 0\n    for n in lst:\n        if n % 2 == 0:\n            e += 1\n        else:\n            o += 1\n    return e, o\n\nprint(count_eo([1,2,3,4,5,6]))   # (3, 3)",
+              },
+              {
+                q: "What will be the output? Explain why default arguments must come after non-default arguments.\n\ndef f(a, b=2, c=3):\n    return a + b + c\nprint(f(1), f(1, 5), f(1, c=10))",
+                marks: 2,
+                asked: "2021 SQP, 2023",
+                a: "Output: 6 9 13\nPython fills positional arguments left to right, so a parameter with a default cannot be followed by one without a default — otherwise the call would be ambiguous and Python raises SyntaxError: non-default argument follows default argument.",
+              },
+              {
+                q: "Write a function that receives a string and returns the number of vowels and consonants in it.",
+                marks: 3,
+                asked: "2020, 2024",
+                a: "def vc(s):\n    v = c = 0\n    for ch in s.lower():\n        if ch.isalpha():\n            if ch in 'aeiou':\n                v += 1\n            else:\n                c += 1\n    return v, c\n\nprint(vc('Computer Science'))   # (6, 8)",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

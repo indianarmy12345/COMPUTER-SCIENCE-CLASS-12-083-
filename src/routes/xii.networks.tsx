@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 
 export const Route = createFileRoute("/xii/networks")({
   head: () => ({
@@ -284,6 +284,49 @@ function Page() {
           <QuickCheck question="IPv4 address length is:"
             options={["16 bits", "32 bits", "64 bits", "128 bits"]} answer="32 bits" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "Define bandwidth and data transfer rate. In what units are they measured?",
+                marks: 2,
+                asked: "2019, 2022, 2024",
+                a: "Bandwidth is the range of frequencies a channel can carry, measured in Hertz (Hz, KHz, MHz). Data transfer rate is the amount of data moved per second, measured in bits per second (bps, Kbps, Mbps, Gbps).",
+              },
+              {
+                q: "Differentiate between a hub and a switch. Which one should be preferred and why?",
+                marks: 2,
+                asked: "2019, 2021, 2023, 2024 SQP",
+                a: "A hub is a broadcast device: it forwards a frame to every connected node, causing collisions and wasted bandwidth. A switch reads the MAC address and forwards the frame only to the intended port. A switch is preferred as it is faster, more secure and reduces network traffic.",
+              },
+              {
+                q: "Ravi's company has four blocks. Suggest (i) the best cable layout, (ii) the block for the server, (iii) placement of a repeater/hub, and (iv) the device to connect to the Internet.",
+                marks: 5,
+                asked: "2018-2024 (case study, every year)",
+                a: "(i) Use a star topology and connect blocks with the shortest total distance (bus/star hybrid between nearest blocks).\n(ii) Place the server in the block with the maximum number of computers, to reduce traffic.\n(iii) Place a repeater between two blocks separated by more than 100 m (UTP limit), and a switch/hub in each block.\n(iv) A modem/router (with a gateway) is used to connect the LAN to the Internet.",
+              },
+              {
+                q: "Differentiate between a Web page and a Website; and between HTTP and HTTPS.",
+                marks: 2,
+                asked: "2020, 2022, 2024",
+                a: "A web page is a single hypertext document; a website is a collection of related web pages under one domain with a home page.\nHTTP transfers data in plain text on port 80; HTTPS adds SSL/TLS encryption on port 443, so data cannot be read if intercepted.",
+              },
+              {
+                q: "Expand and give one use of: (i) FTP (ii) SMTP (iii) POP3 (iv) VoIP (v) URL",
+                marks: 3,
+                asked: "2019, 2021, 2023",
+                a: "(i) File Transfer Protocol — upload/download files between hosts.\n(ii) Simple Mail Transfer Protocol — sending email.\n(iii) Post Office Protocol v3 — retrieving email from a mail server.\n(iv) Voice over Internet Protocol — voice calls over the Internet.\n(v) Uniform Resource Locator — unique address of a resource on the web.",
+              },
+              {
+                q: "Differentiate between guided and unguided media with two examples each.",
+                marks: 2,
+                asked: "2020, 2024 SQP",
+                a: "Guided (wired) media carry signals along a solid medium — twisted pair, coaxial cable, optical fibre. Unguided (wireless) media transmit through air — radio waves, microwaves, infrared, satellite. Guided media are more secure and stable; unguided media support mobility.",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

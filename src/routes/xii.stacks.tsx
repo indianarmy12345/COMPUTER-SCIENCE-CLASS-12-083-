@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 import { PyRunner } from "@/components/PyRunner";
 
 export const Route = createFileRoute("/xii/stacks")({
@@ -310,6 +310,43 @@ Result = 24`}</pre>
           <QuickCheck question="Trying to pop an empty stack causes:"
             options={["Overflow", "Underflow", "Crash", "Returns 0"]} answer="Underflow" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "What is a stack? Why is it called a LIFO structure?",
+                marks: 2,
+                asked: "2019, 2022, 2024",
+                a: "A stack is a linear data structure in which insertion (push) and deletion (pop) happen only at one end called the top. The element inserted last is removed first, hence Last In First Out (LIFO). Example: a pile of plates.",
+              },
+              {
+                q: "Write PUSH(S, item) and POP(S) functions to add and remove student records in a stack implemented with a list. Display 'Underflow' when the stack is empty.",
+                marks: 4,
+                asked: "2020, 2022, 2023, 2024 SQP",
+                a: "def PUSH(S, item):\n    S.append(item)\n\ndef POP(S):\n    if S == []:\n        print('Underflow')\n        return None\n    return S.pop()",
+              },
+              {
+                q: "Write a program to push into a stack only those numbers from a list which are divisible by 5, then display the stack from top.",
+                marks: 4,
+                asked: "2021, 2023",
+                a: "def push5(lst):\n    st = []\n    for n in lst:\n        if n % 5 == 0:\n            st.append(n)\n    if st == []:\n        print('Empty Stack')\n    else:\n        while st:\n            print(st.pop(), end=' ')\n\npush5([5, 12, 20, 33, 45])   # 45 20 5",
+              },
+              {
+                q: "Give two real-life and two computing applications of a stack.",
+                marks: 2,
+                asked: "2019, 2024",
+                a: "Real life: pile of plates, stack of books, bangles on a wrist.\nComputing: undo/redo in editors, browser back button, function-call (activation) stack, expression conversion and evaluation (infix to postfix), parenthesis matching, recursion handling.",
+              },
+              {
+                q: "Which list methods act as push and pop, and what are overflow and underflow?",
+                marks: 2,
+                asked: "2020, 2022 SQP",
+                a: "append() pushes an element at the top and pop() (with no index) removes the topmost element. Underflow occurs when popping from an empty stack; overflow occurs when pushing into a full stack (only in fixed-size implementations — Python lists grow dynamically, so overflow is limited by memory).",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

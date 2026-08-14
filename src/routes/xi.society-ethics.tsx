@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ChapterLayout, Section, Callout, QuickCheck, PYQ } from "@/components/ChapterLayout";
+import { ChapterLayout, Section, Callout, QuickCheck, PYQ, MostAsked } from "@/components/ChapterLayout";
 
 export const Route = createFileRoute("/xi/society-ethics")({
   head: () => ({
@@ -276,6 +276,43 @@ function Page() {
           <QuickCheck question="Right granted for an invention is called:"
             options={["Copyright", "Patent", "Trademark", "Licence"]} answer="Patent" />
         </Section>
+        <Section title="Most repeated board questions">
+          <MostAsked
+            items={[
+              {
+                q: "What is a digital footprint? Name its two types and state one way to keep it clean.",
+                marks: 2,
+                asked: "2020, 2022, 2024",
+                a: "A digital footprint is the trail of data you leave online. Active footprint: data you share deliberately (posts, forms, emails). Passive footprint: data collected without your direct action (IP address, cookies, browsing history). Keep it clean by limiting personal information, using privacy settings and thinking before posting.",
+              },
+              {
+                q: "Differentiate between copyright, patent and trademark.",
+                marks: 3,
+                asked: "2019, 2021, 2023, 2024 SQP",
+                a: "Copyright protects original creative works (books, music, software code) automatically for the author's lifetime + a fixed period.\nA patent protects a new invention/process and must be applied for; it gives exclusive rights for about 20 years.\nA trademark protects brand identity — names, logos, slogans — that distinguish goods or services.",
+              },
+              {
+                q: "What is plagiarism? Give two ways to avoid it.",
+                marks: 2,
+                asked: "2019, 2022, 2024",
+                a: "Plagiarism is presenting someone else's work or ideas as your own without giving credit. Avoid it by citing the source/author properly and by paraphrasing in your own words, or by using openly licensed (Creative Commons / free and open source) material with attribution.",
+              },
+              {
+                q: "What is cyberbullying? What should a student do if they become a victim?",
+                marks: 2,
+                asked: "2020, 2023",
+                a: "Cyberbullying is harassing, threatening, insulting or humiliating someone using digital media. The victim should not reply, take screenshots as evidence, block/report the account, tell a trusted adult, and report the crime on the national cybercrime portal or to the cyber cell under the IT Act.",
+              },
+              {
+                q: "What is e-waste? State two hazards and two safe disposal methods.",
+                marks: 3,
+                asked: "2019, 2021, 2024",
+                a: "E-waste is discarded electronic and electrical equipment. Hazards: toxic metals such as lead and mercury pollute soil and water; burning releases harmful gases causing health problems.\nSafe disposal: reduce/reuse and donate working devices, and recycle through authorised e-waste collection centres or manufacturer buy-back (extended producer responsibility).",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }
