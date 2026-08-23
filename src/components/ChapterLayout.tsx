@@ -246,6 +246,19 @@ export function QuickCheck({
           </Button>
         </div>
       )}
+      {/* Kept in the DOM (visually hidden) so PDF notes include the options and answer. */}
+      <div className="hidden">
+        {options ? (
+          <ul>
+            {options.map((opt, i) => (
+              <li key={opt}>{`(${String.fromCharCode(97 + i)}) ${opt}`}</li>
+            ))}
+          </ul>
+        ) : null}
+        <p>{`Answer: ${answer}`}</p>
+        {hint ? <p>{`Hint: ${hint}`}</p> : null}
+      </div>
+
       {state === "correct" && (
         <p className="mt-2 text-xs text-neon">✓ Correct — chapter marked complete.</p>
       )}
