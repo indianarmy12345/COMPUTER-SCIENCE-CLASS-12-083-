@@ -160,6 +160,21 @@ export async function downloadChapterPdf(
     if (skipTag.has(tag)) return;
     if (node instanceof HTMLElement && node.dataset["pdfSkip"] === "true") return;
 
+    if (node instanceof HTMLElement && node.dataset["pdfBlock"] === "pre-text") {
+      (node.textContent ?? "")
+        .split("\n")
+        .map((l) => l.trim())
+        .filter(Boolean)
+        .forEach((line) =>
+          /^[-*•]/.test(line)
+            ? bullet(line.replace(/^[-*•]\s*/, ""))
+            : text(line, { indent: 10, gapAfter: 3 }),
+        );
+      y += 6;
+      return;
+    }
+
+
     if (tag === "H2") {
       ensure(30);
       text(cleanText(node), { size: 15, bold: true, color: [17, 24, 39], gapAfter: 8 });

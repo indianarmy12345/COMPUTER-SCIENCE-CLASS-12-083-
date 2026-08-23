@@ -174,15 +174,16 @@ export function PYQ({
         </Button>
       </div>
       <div className="text-sm font-medium text-foreground/90">{question}</div>
-      {open && (
-        <div className="mt-3 rounded-md border border-amber-500/30 bg-background/50 p-3 text-sm text-foreground/85">
-          <div className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-amber-400">Answer</div>
-          {answer}
-        </div>
-      )}
+      <div
+        className={`mt-3 rounded-md border border-amber-500/30 bg-background/50 p-3 text-sm text-foreground/85${open ? "" : " hidden"}`}
+      >
+        <div className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-amber-400">Answer</div>
+        {answer}
+      </div>
     </div>
   );
 }
+
 
 /** Quick check: short answer or MCQ. Marks the chapter complete on correct submit. */
 export function QuickCheck({
@@ -245,6 +246,19 @@ export function QuickCheck({
           </Button>
         </div>
       )}
+      {/* Kept in the DOM (visually hidden) so PDF notes include the options and answer. */}
+      <div className="hidden">
+        {options ? (
+          <ul>
+            {options.map((opt, i) => (
+              <li key={opt}>{`(${String.fromCharCode(97 + i)}) ${opt}`}</li>
+            ))}
+          </ul>
+        ) : null}
+        <p>{`Answer: ${answer}`}</p>
+        {hint ? <p>{`Hint: ${hint}`}</p> : null}
+      </div>
+
       {state === "correct" && (
         <p className="mt-2 text-xs text-neon">✓ Correct — chapter marked complete.</p>
       )}
@@ -304,11 +318,13 @@ function MostAskedCard({
         </Button>
       </div>
       <p className="text-sm font-medium text-foreground/90">{q}</p>
-      {open && (
-        <div className="mt-3 whitespace-pre-line rounded-md border border-border bg-background/60 p-3 text-sm text-foreground/85">
-          {a}
-        </div>
-      )}
+      <div
+        data-pdf-block="pre-text"
+        className={`mt-3 whitespace-pre-line rounded-md border border-border bg-background/60 p-3 text-sm text-foreground/85${open ? "" : " hidden"}`}
+      >
+        {`Answer: ${a}`}
+      </div>
+
     </div>
   );
 }
