@@ -318,11 +318,13 @@ function MostAskedCard({
         </Button>
       </div>
       <p className="text-sm font-medium text-foreground/90">{q}</p>
-      {open && (
-        <div className="mt-3 whitespace-pre-line rounded-md border border-border bg-background/60 p-3 text-sm text-foreground/85">
-          {a}
-        </div>
-      )}
+      <div
+        data-pdf-block="pre-text"
+        className={`mt-3 whitespace-pre-line rounded-md border border-border bg-background/60 p-3 text-sm text-foreground/85${open ? "" : " hidden"}`}
+      >
+        {`Answer: ${a}`}
+      </div>
+
     </div>
   );
 }
