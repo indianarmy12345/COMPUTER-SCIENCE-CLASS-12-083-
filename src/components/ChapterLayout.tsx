@@ -174,15 +174,16 @@ export function PYQ({
         </Button>
       </div>
       <div className="text-sm font-medium text-foreground/90">{question}</div>
-      {open && (
-        <div className="mt-3 rounded-md border border-amber-500/30 bg-background/50 p-3 text-sm text-foreground/85">
-          <div className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-amber-400">Answer</div>
-          {answer}
-        </div>
-      )}
+      <div
+        className={`mt-3 rounded-md border border-amber-500/30 bg-background/50 p-3 text-sm text-foreground/85${open ? "" : " hidden"}`}
+      >
+        <div className="mb-1 text-[11px] font-semibold uppercase tracking-widest text-amber-400">Answer</div>
+        {answer}
+      </div>
     </div>
   );
 }
+
 
 /** Quick check: short answer or MCQ. Marks the chapter complete on correct submit. */
 export function QuickCheck({
