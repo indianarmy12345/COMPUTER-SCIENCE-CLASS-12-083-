@@ -327,6 +327,301 @@ function Page() {
           />
         </Section>
 
+
+        <Section title="Types of networks — comparison table">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="p-2 text-left">Type</th>
+                  <th className="p-2 text-left">Full form / range</th>
+                  <th className="p-2 text-left">Example</th>
+                  <th className="p-2 text-left">Ownership</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b"><td className="p-2">PAN</td><td className="p-2">Personal Area Network, a few metres</td><td className="p-2">Bluetooth earphones, smartwatch to phone</td><td className="p-2">Individual</td></tr>
+                <tr className="border-b"><td className="p-2">LAN</td><td className="p-2">Local Area Network, up to ~1 km / one building</td><td className="p-2">School computer lab, home Wi-Fi</td><td className="p-2">Single organisation</td></tr>
+                <tr className="border-b"><td className="p-2">MAN</td><td className="p-2">Metropolitan Area Network, one city (~5–50 km)</td><td className="p-2">Cable TV network, city traffic-signal network</td><td className="p-2">One or more organisations</td></tr>
+                <tr className="border-b"><td className="p-2">WAN</td><td className="p-2">Wide Area Network, countries/continents</td><td className="p-2">The Internet, bank ATM network, airline reservation system</td><td className="p-2">Multiple organisations</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <Callout>Exam tip: "spread across a city" ⇒ MAN; "spread across the world / connects multiple LANs across countries" ⇒ WAN.</Callout>
+        </Section>
+
+        <Section title="Network devices — detailed roles (exam table)">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="p-2 text-left">Device</th>
+                  <th className="p-2 text-left">Layer / addressing</th>
+                  <th className="p-2 text-left">Function</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b"><td className="p-2">Modem</td><td className="p-2">Physical</td><td className="p-2">Modulates digital signal → analog for transmission over telephone/cable line and demodulates on receiving end; connects LAN to ISP.</td></tr>
+                <tr className="border-b"><td className="p-2">RJ45 connector</td><td className="p-2">Physical</td><td className="p-2">8-pin plug used to terminate twisted-pair (Ethernet) cable at NIC/switch ports.</td></tr>
+                <tr className="border-b"><td className="p-2">Repeater</td><td className="p-2">Physical</td><td className="p-2">Amplifies/regenerates a weak signal so it can travel further without attenuation loss (used beyond ~100 m of UTP).</td></tr>
+                <tr className="border-b"><td className="p-2">Hub</td><td className="p-2">Physical</td><td className="p-2">Broadcasts every incoming frame to all connected ports; no intelligence; causes collisions.</td></tr>
+                <tr className="border-b"><td className="p-2">Switch</td><td className="p-2">Data Link (MAC)</td><td className="p-2">Learns MAC addresses of connected devices and forwards frames only to the destination port — faster and more secure than a hub.</td></tr>
+                <tr className="border-b"><td className="p-2">Router</td><td className="p-2">Network (IP)</td><td className="p-2">Connects two or more different networks and chooses the best path for packets using IP addresses/routing tables.</td></tr>
+                <tr className="border-b"><td className="p-2">Gateway</td><td className="p-2">All layers</td><td className="p-2">Connects networks running different protocols/architectures (e.g. LAN to a mainframe network); acts as an entry-exit point.</td></tr>
+                <tr className="border-b"><td className="p-2">NIC (Network Interface Card)</td><td className="p-2">Data Link</td><td className="p-2">Hardware card/chip giving each device a unique MAC address; provides physical connection to the medium.</td></tr>
+                <tr className="border-b"><td className="p-2">Wi-Fi card</td><td className="p-2">Physical/Data Link</td><td className="p-2">Wireless NIC — lets a device connect to a wireless LAN/access point.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        <Section title="Transmission media — pros and cons">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="p-2 text-left">Medium</th>
+                  <th className="p-2 text-left">Advantages</th>
+                  <th className="p-2 text-left">Disadvantages</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b"><td className="p-2">Twisted Pair (UTP/STP)</td><td className="p-2">Cheap, easy to install, flexible</td><td className="p-2">Low bandwidth, high attenuation, EMI-prone (UTP), short range (~100 m)</td></tr>
+                <tr className="border-b"><td className="p-2">Coaxial cable</td><td className="p-2">Better shielding, higher bandwidth than twisted pair, longer range</td><td className="p-2">Costlier, bulkier, harder to install</td></tr>
+                <tr className="border-b"><td className="p-2">Optical Fibre</td><td className="p-2">Very high bandwidth, immune to EMI, secure, long distance with no repeaters</td><td className="p-2">Expensive, fragile, needs skilled installation</td></tr>
+                <tr className="border-b"><td className="p-2">Radio waves</td><td className="p-2">Penetrates walls, no line-of-sight needed, supports mobility</td><td className="p-2">Interference, insecure (needs encryption), limited range</td></tr>
+                <tr className="border-b"><td className="p-2">Microwave (terrestrial)</td><td className="p-2">High bandwidth, no cabling cost over long distance</td><td className="p-2">Line-of-sight required, affected by weather</td></tr>
+                <tr className="border-b"><td className="p-2">Satellite</td><td className="p-2">Covers very large/remote areas, good for broadcast</td><td className="p-2">High latency, very costly, affected by weather</td></tr>
+                <tr className="border-b"><td className="p-2">Infrared</td><td className="p-2">Cheap, no licence needed</td><td className="p-2">Line-of-sight only, very short range, blocked by obstacles</td></tr>
+                <tr className="border-b"><td className="p-2">Bluetooth</td><td className="p-2">Low power, easy pairing, cheap</td><td className="p-2">Very short range (~10 m), lower speed than Wi-Fi</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </Section>
+
+        <Section title="Topologies — ASCII diagrams with advantages/disadvantages">
+          <p><b>Bus topology</b> — single shared backbone, terminators at both ends:</p>
+          <pre className="rounded bg-muted p-3 text-xs overflow-x-auto">{"A---+---B---+---C---+---D\n        |       |\n     (drop)   (drop)"}</pre>
+          <ul className="list-disc space-y-1 pl-5 text-sm">
+            <li>+ Cheap, easy to lay for small networks.</li>
+            <li>− Backbone failure = whole network down; performance degrades as nodes/traffic grow; difficult to troubleshoot.</li>
+          </ul>
+
+          <p className="mt-3"><b>Star topology</b> — all nodes to a central switch/hub:</p>
+          <pre className="rounded bg-muted p-3 text-xs overflow-x-auto">{"      A\n      |\nB----[SW]----C\n      |\n      D"}</pre>
+          <ul className="list-disc space-y-1 pl-5 text-sm">
+            <li>+ Easy to add/remove nodes; failure of one cable doesn't affect others; easy fault detection.</li>
+            <li>− Central device failure brings down the entire network; more cabling than bus.</li>
+          </ul>
+
+          <p className="mt-3"><b>Tree topology</b> — hierarchical, star groups linked to a backbone:</p>
+          <pre className="rounded bg-muted p-3 text-xs overflow-x-auto">{"        [Root Hub]\n       /          \\\n   [Hub1]        [Hub2]\n   /    \\        /    \\\n  A      B      C      D"}</pre>
+          <ul className="list-disc space-y-1 pl-5 text-sm">
+            <li>+ Scalable, easy to manage/segment large networks, supports future expansion.</li>
+            <li>− If the root/backbone fails, entire section goes down; more cabling; complex to maintain.</li>
+          </ul>
+
+          <p className="mt-3"><b>Mesh topology</b> — every node connects to every other node:</p>
+          <pre className="rounded bg-muted p-3 text-xs overflow-x-auto">{"A-----B\n|\\   /|\n| \\ / |\n|  X  |\n| / \\ |\n|/   \\|\nC-----D"}</pre>
+          <ul className="list-disc space-y-1 pl-5 text-sm">
+            <li>+ Highly reliable/fault-tolerant (multiple paths), no single point of failure, good for critical links.</li>
+            <li>− Very expensive cabling (n(n−1)/2 links), complex to install/manage.</li>
+          </ul>
+        </Section>
+
+        <Section title="Web scripting: client-side vs server-side">
+          <ul className="list-disc space-y-1 pl-5">
+            <li><b>Client-side scripting</b> — runs in the browser (e.g. JavaScript). Used for form validation, animations, DOM manipulation; reduces server load; source visible to user.</li>
+            <li><b>Server-side scripting</b> — runs on the web server (e.g. PHP, ASP.NET, Node.js, Python). Used to access databases, generate dynamic pages; code hidden from client.</li>
+          </ul>
+        </Section>
+
+        <Section title="URL vs Domain name vs DNS resolution">
+          <ul className="list-disc space-y-1 pl-5">
+            <li><b>Domain name</b> — a human-readable name for a website/server, e.g. <code>cbseacademic.nic.in</code>.</li>
+            <li><b>URL</b> — the complete address of a specific resource, including protocol, domain, path: <code>https://cbseacademic.nic.in/curriculum.html</code>.</li>
+            <li><b>DNS resolution steps:</b> browser checks cache → OS/router cache → asks a DNS resolver (ISP) → resolver queries root, TLD, and authoritative name servers → IP returned → browser connects to that IP.</li>
+          </ul>
+        </Section>
+
+        <Section title="Network security threats and firewalls (Class XII revision)">
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse text-sm">
+              <thead>
+                <tr className="border-b bg-muted/50">
+                  <th className="p-2 text-left">Threat</th>
+                  <th className="p-2 text-left">What it does</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b"><td className="p-2">Virus</td><td className="p-2">Self-replicating malicious code attached to a file; needs a host program to spread.</td></tr>
+                <tr className="border-b"><td className="p-2">Worm</td><td className="p-2">Self-replicating, spreads across a network without needing a host file; consumes bandwidth.</td></tr>
+                <tr className="border-b"><td className="p-2">Trojan horse</td><td className="p-2">Disguised as legitimate software but performs hidden malicious actions (backdoor access).</td></tr>
+                <tr className="border-b"><td className="p-2">Spam</td><td className="p-2">Unsolicited bulk email, often advertising or carrying malware links.</td></tr>
+                <tr className="border-b"><td className="p-2">Adware</td><td className="p-2">Automatically displays/downloads unwanted advertisements.</td></tr>
+                <tr className="border-b"><td className="p-2">Phishing</td><td className="p-2">Fake emails/websites trick users into revealing passwords/bank details.</td></tr>
+                <tr className="border-b"><td className="p-2">DoS attack</td><td className="p-2">Denial of Service — floods a server with requests so genuine users can't access it.</td></tr>
+                <tr className="border-b"><td className="p-2">Snooping / Eavesdropping</td><td className="p-2">Unauthorized interception of data/communication travelling over a network.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-2"><b>Firewall:</b> hardware/software placed between an internal network and the internet; inspects packets against a rule-set and blocks/allows traffic accordingly, protecting against unauthorised access and many of the threats above.</p>
+        </Section>
+
+        <Section title="Case study 1: Multi-block school campus">
+          <p><b>Scenario:</b> "Global Public School" has 4 blocks — Admin (20 computers), Science (60), Arts (40), Sports (10). Distances: Admin–Science 60 m, Admin–Arts 90 m, Admin–Sports 115 m, Science–Arts 50 m, Science–Sports 65 m, Arts–Sports 40 m.</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li><b>Suggest cable layout:</b> Connect blocks following the shortest cable path — Science–Arts (50 m), Arts–Sports (40 m), Admin–Science (60 m) — forming a minimum-distance backbone (essentially a minimum spanning tree).</li>
+            <li><b>Most suitable place/block to house the server:</b> Science block, as it has the maximum number of computers (60) — this minimises overall data traffic/travel.</li>
+            <li><b>Suggest the topology:</b> Star topology within each block, blocks interconnected to form a tree/hybrid topology.</li>
+            <li><b>Repeater needed?</b> Not required for any single link since all distances are under 100 m (UTP limit for 10/100 Mbps Ethernet).</li>
+            <li><b>Device to provide internet access to all blocks:</b> A single router/modem connected at the Science block (server block), shared via switches in each block.</li>
+          </ul>
+        </Section>
+
+        <Section title="Case study 2: Company with a branch in another city + Wi-Fi requirement">
+          <p><b>Scenario:</b> "TechnoSoft Ltd" has its Head Office in Mumbai with 4 buildings (HR-50 m from Admin, Admin, Finance-70 m from Admin, IT Park-150 m from Admin) and a branch office in Pune, 150 km away. Management wants some departments to also support laptops without cables.</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li><b>Suggest a cable layout for connecting the buildings:</b> Use a star topology from Admin (server block) to HR and Finance (within 100 m); use a repeater or switch cascade for IT Park (150 m, beyond UTP limit) or replace that link with optical fibre.</li>
+            <li><b>Best block for the server:</b> Admin, being the most central and (typically) the block with the most computers/hub of activity.</li>
+            <li><b>Connecting Mumbai HO with Pune branch:</b> Use a WAN link via the Internet with VPN, or a leased line, connected through routers/modems at both ends — not a LAN cable (too far).</li>
+            <li><b>Enable wireless access:</b> Install Wi-Fi Access Points in departments that need laptop mobility; wired Ethernet remains for desktops that need stable, high-speed, secure connections.</li>
+          </ul>
+        </Section>
+
+        <Section title="Case study 3: Hospital network with security concerns">
+          <p><b>Scenario:</b> "CityCare Hospital" has 3 blocks — Reception (15 systems), Diagnostics (45 systems, 40 m from Reception), Admin (25 systems, 30 m from Reception). Patient data confidentiality is critical, and the hospital wants to prevent unauthorised access from outside.</p>
+          <ul className="list-disc space-y-1 pl-5">
+            <li><b>Topology suggested:</b> Star topology in each block with a central switch, blocks connected via a backbone (tree topology).</li>
+            <li><b>Server placement:</b> Diagnostics block (maximum number of computers: 45).</li>
+            <li><b>Protect patient data from external hackers:</b> Install a <b>firewall</b> at the network's entry point to the Internet, and use <b>encryption (HTTPS/VPN)</b> for any data sent outside.</li>
+            <li><b>Cable suggested:</b> Twisted pair (UTP/Cat6) is sufficient as all distances are under 100 m; no repeater required.</li>
+          </ul>
+        </Section>
+
+        <Section title="Output/short-answer style practice questions">
+          <ol className="list-decimal space-y-2 pl-5 text-sm">
+            <li>Expand: (a) NIC (b) DNS (c) HTTP (d) FTP (e) VoIP.</li>
+            <li>What is the difference between a MAC address and an IP address?</li>
+            <li>Name the topology in which a break in the backbone cable disrupts the entire network.</li>
+            <li>Which device would you use to join two LANs that use different network protocols?</li>
+            <li>State two differences between a hub and a switch.</li>
+            <li>A device transmits 500 megabits of data in 5 seconds. What is its data transfer rate in Mbps?</li>
+            <li>Convert the IPv4 address <code>172.16.0.1</code> into its binary octets.</li>
+            <li>Name the protocol used to (a) securely transfer web pages (b) transfer files (c) send email.</li>
+            <li>Why is optical fibre preferred over UTP for connecting two buildings 500 m apart?</li>
+            <li>What is a firewall, and where in a network is it typically placed?</li>
+          </ol>
+          <p className="mt-2 text-xs text-muted-foreground">Answers: (6) 100 Mbps; (7) 10101100.00010000.00000000.00000001; others — see relevant sections above.</p>
+        </Section>
+
+        <Section title="More MCQs (Set 2)">
+          <QuickCheck question="Which device regenerates a weak signal without changing its content?" options={["Switch", "Repeater", "Router", "Gateway"]} answer="Repeater" />
+          <QuickCheck question="ARPANET was developed by:" options={["NASA", "US Department of Defense", "Google", "IBM"]} answer="US Department of Defense" />
+          <QuickCheck question="NSFNET stands for:" options={["National Science Foundation Network", "National Software Firm Network", "New Server Framework Network", "None of these"]} answer="National Science Foundation Network" />
+          <QuickCheck question="Which topology requires the maximum number of cables for n nodes?" options={["Bus", "Star", "Mesh", "Tree"]} answer="Mesh" />
+          <QuickCheck question="RJ45 connector is used with which cable?" options={["Coaxial", "Optical fibre", "Twisted pair", "Bluetooth"]} answer="Twisted pair" />
+          <QuickCheck question="Which is a connectionless, unreliable protocol used for fast delivery?" options={["TCP", "UDP", "FTP", "HTTP"]} answer="UDP" />
+          <QuickCheck question="Which malware disguises itself as legitimate software?" options={["Worm", "Trojan Horse", "Virus", "Spam"]} answer="Trojan Horse" />
+          <QuickCheck question="A DoS attack aims to:" options={["Steal passwords", "Flood a server so it cannot serve genuine users", "Encrypt files for ransom", "Duplicate MAC addresses"]} answer="Flood a server so it cannot serve genuine users" />
+          <QuickCheck question="Which is NOT a valid IPv6 feature?" options={["128-bit address", "Hexadecimal notation", "4.3 billion unique addresses", "Written in 8 groups"]} answer="4.3 billion unique addresses" />
+          <QuickCheck question="Which layer/addressing does a switch use to forward frames?" options={["IP address", "MAC address", "Domain name", "Port number"]} answer="MAC address" />
+          <QuickCheck question="A network confined to one's own body/nearby devices (few metres) is a:" options={["LAN", "PAN", "MAN", "WAN"]} answer="PAN" />
+          <QuickCheck question="Which protocol lets you remotely log in to another computer securely?" options={["Telnet", "SSH", "FTP", "SMTP"]} answer="SSH" />
+          <QuickCheck question="Cookies are stored on the:" options={["Web server", "DNS server", "Client/browser", "Router"]} answer="Client/browser" />
+          <QuickCheck question="Which of these is a client-side scripting language?" options={["PHP", "JavaScript", "Python (Django)", "ASP.NET"]} answer="JavaScript" />
+        </Section>
+
+        <Section title="More PYQs (2018–2025, incl. SQP)">
+          <PYQ year="CBSE 2018" marks={1}
+            question={<>What is the full form of ARPANET?</>}
+            answer={<>Advanced Research Projects Agency Network.</>}
+          />
+          <PYQ year="CBSE 2019" marks={2}
+            question={<>Differentiate between a Hub and a Repeater.</>}
+            answer={<>A hub is a multi-port device that broadcasts data to all connected nodes without regard for the destination. A repeater is a two-port device that simply amplifies/regenerates a weak signal so it can travel further, without any addressing intelligence.</>}
+          />
+          <PYQ year="CBSE 2020" marks={1}
+            question={<>Which protocol is used to transfer files between a client and a server?</>}
+            answer={<>FTP (File Transfer Protocol).</>}
+          />
+          <PYQ year="CBSE 2021 (Term)" marks={2}
+            question={<>What do MAC and IP addresses stand for? How are they different?</>}
+            answer={<>MAC = Media Access Control address (48-bit, physical, permanent, assigned by NIC manufacturer). IP = Internet Protocol address (logical, assigned by the network, can change; IPv4 is 32-bit, IPv6 is 128-bit).</>}
+          />
+          <PYQ year="CBSE 2022 SQP" marks={3}
+            question={<>A company has 3 wings — Sales (20 computers), HR (10), Finance (15) — situated 50 m, 80 m, and 120 m from each other respectively. Suggest the topology and server placement.</>}
+            answer={<>Star topology in each wing connected via a central switch/backbone (tree). Server should be placed in the Sales wing since it has the maximum number of computers (20), minimizing overall traffic.</>}
+          />
+          <PYQ year="CBSE 2023" marks={2}
+            question={<>Name any two threats to network security and briefly explain them.</>}
+            answer={<>(i) Virus — malicious self-replicating code that attaches to files and damages/corrupts data. (ii) Phishing — fraudulent emails/websites designed to trick users into revealing sensitive information like passwords or bank details.</>}
+          />
+          <PYQ year="CBSE 2024" marks={1}
+            question={<>Expand: NFC.</>}
+            answer={<>Near Field Communication — short-range (a few cm) wireless technology used for contactless payments and data exchange between nearby devices.</>}
+          />
+          <PYQ year="CBSE 2025 SQP" marks={3}
+            question={<>Differentiate between circuit switching and packet switching with one example each.</>}
+            answer={<>Circuit switching establishes a dedicated end-to-end path for the entire duration of communication (e.g. traditional telephone call) — reliable but wastes bandwidth when idle. Packet switching breaks data into packets that may take different routes and are reassembled at the destination (e.g. the Internet) — efficient, fault-tolerant, and better utilises bandwidth.</>}
+          />
+        </Section>
+
+        <Section title="Most repeated board questions — Set 2 (model answers)">
+          <MostAsked
+            items={[
+              {
+                q: "Explain any three network devices with their function.",
+                marks: 3,
+                asked: "2018, 2020, 2022, 2024",
+                a: "Modem: converts digital signals to analog and back so data can travel over telephone/cable lines to the ISP.\nSwitch: forwards data frames only to the intended destination port using MAC addresses, reducing collisions.\nRouter: connects two or more different networks and determines the best path for data packets using IP addresses.",
+              },
+              {
+                q: "What is DNS? Explain how a domain name is resolved to an IP address.",
+                marks: 3,
+                asked: "2019, 2021, 2023 SQP",
+                a: "DNS (Domain Name System) is a distributed service that translates human-readable domain names into machine-usable IP addresses. When a browser needs to reach a domain, it first checks local/browser cache, then queries a DNS resolver (usually at the ISP), which in turn queries root, TLD and authoritative name servers until it obtains the correct IP address, which is returned to the browser to establish a connection.",
+              },
+              {
+                q: "What is a firewall? How does it protect a network?",
+                marks: 2,
+                asked: "2020, 2022, 2024",
+                a: "A firewall is a hardware device or software that sits between a trusted internal network and an untrusted external network (like the Internet). It examines incoming and outgoing traffic against a defined set of security rules and blocks unauthorized or suspicious traffic, protecting the network from hackers, malware and intrusion attempts.",
+              },
+              {
+                q: "Differentiate between VoIP and traditional telephony. Give one advantage of VoIP.",
+                marks: 2,
+                asked: "2021, 2023",
+                a: "Traditional telephony uses dedicated circuit-switched analog lines. VoIP (Voice over Internet Protocol) digitises voice and sends it as data packets over the Internet using packet switching. Advantage: VoIP is much cheaper, especially for long-distance/international calls, and supports additional features like video and file sharing.",
+              },
+              {
+                q: "Explain client-side and server-side scripting with one example of each.",
+                marks: 2,
+                asked: "2022, 2024",
+                a: "Client-side scripting executes in the user's browser to handle tasks like form validation and animations without contacting the server repeatedly — example: JavaScript. Server-side scripting executes on the web server to generate dynamic content, often involving database access — example: PHP.",
+              },
+              {
+                q: "State any two advantages and two disadvantages of a Mesh topology.",
+                marks: 2,
+                asked: "2019, 2023, 2025 SQP",
+                a: "Advantages: (i) Highly reliable — failure of one link doesn't affect others since multiple paths exist; (ii) Fault isolation is easy. Disadvantages: (i) Very high cabling cost since every node connects to every other node; (ii) Difficult and complex to install and reconfigure.",
+              },
+              {
+                q: "Explain the working of packet switching. Why is it preferred for the Internet?",
+                marks: 3,
+                asked: "2018, 2021, 2024",
+                a: "In packet switching, a message is broken into small fixed-size units called packets, each carrying source/destination addressing information. Packets may travel via different routes through intermediate routers and are reassembled in the correct order at the destination. It is preferred for the Internet because it makes efficient use of bandwidth (no dedicated path needed), is fault-tolerant (can reroute around failed links), and supports multiple simultaneous conversations over shared links.",
+              },
+              {
+                q: "What is the difference between a web page, a website, and a web browser?",
+                marks: 2,
+                asked: "2020, 2022, 2023",
+                a: "A web page is a single hypertext document viewable on the internet. A website is a collection of related, interlinked web pages under a common domain, usually with a home page. A web browser (e.g. Chrome, Firefox) is client software used to request, retrieve and render web pages from a web server.",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }

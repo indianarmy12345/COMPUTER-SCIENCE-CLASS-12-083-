@@ -289,6 +289,479 @@ except ValueError:
           />
         </Section>
 
+
+        <Section title="Exception hierarchy (ASCII diagram)">
+          <p>All exceptions in Python derive from a common tree rooted at <code>BaseException</code>:</p>
+          <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`BaseException
+ ├── SystemExit
+ ├── KeyboardInterrupt
+ ├── GeneratorExit
+ └── Exception
+      ├── ArithmeticError
+      │     ├── ZeroDivisionError
+      │     ├── OverflowError
+      │     └── FloatingPointError
+      ├── LookupError
+      │     ├── IndexError
+      │     └── KeyError
+      ├── ValueError
+      ├── TypeError
+      ├── NameError
+      │     └── UnboundLocalError
+      ├── AttributeError
+      ├── OSError (a.k.a. IOError)
+      │     └── FileNotFoundError
+      ├── ImportError
+      │     └── ModuleNotFoundError
+      ├── StopIteration
+      ├── RuntimeError
+      │     └── RecursionError
+      └── AssertionError`}</pre>
+          <Callout label="Why it matters">
+            Catching a parent class (e.g. <code>ArithmeticError</code>) also catches all
+            of its children (<code>ZeroDivisionError</code>, <code>OverflowError</code>).
+            Order your <code>except</code> clauses from <b>most specific to most general</b> —
+            Python checks them top to bottom and uses the first match.
+          </Callout>
+        </Section>
+
+        <Section title="Full try/except/else/finally semantics">
+          <ul className="ml-5 list-disc space-y-1 text-sm">
+            <li><code>try</code>: code that might raise an exception is placed here.</li>
+            <li><code>except</code>: runs only if a matching exception is raised in the try block; can have multiple clauses, and an optional <code>as e</code> to capture the exception object.</li>
+            <li><code>else</code>: runs only if the try block completed with <b>no exception</b>. Useful to separate "risky" code from "success" code so the else code's own errors aren't accidentally caught by the except above it.</li>
+            <li><code>finally</code>: always executes — whether an exception occurred, was handled, was NOT handled, or even if there is a <code>return</code>/<code>break</code>/<code>continue</code> inside try/except. Used for guaranteed cleanup (closing files, releasing locks, closing DB connections).</li>
+            <li>If an exception is raised in <code>try</code> and there is <b>no matching except</b>, Python still runs <code>finally</code> before propagating the exception upward and eventually crashing the program (if never caught).</li>
+          </ul>
+          <PyRunner
+            height={300}
+            initialCode={`def demo(x):
+    try:
+        print("try: computing 10/x")
+        r = 10 / x
+    except ZeroDivisionError:
+        print("except: division by zero")
+        return "handled"
+    else:
+        print("else: no error, r =", r)
+        return r
+    finally:
+        print("finally: always runs")
+
+print(demo(2))
+print("---")
+print(demo(0))`}
+          />
+        </Section>
+
+        <Section title="Nested try blocks and exception propagation">
+          <p>
+            A <code>try</code> block can be nested inside another <code>try</code> or
+            inside a function called from a try block. If the inner block cannot handle
+            an exception, it <b>propagates outward</b> to the next enclosing try, and
+            further up the call stack, until a matching except is found or the program
+            terminates.
+          </p>
+          <PyRunner
+            height={320}
+            initialCode={`def inner(n):
+    try:
+        return 100 / n
+    except TypeError:
+        print("inner: caught TypeError")
+        raise            # re-raise so outer can also react
+
+def outer(n):
+    try:
+        try:
+            print("outer-inner result:", inner(n))
+        except ZeroDivisionError:
+            print("outer: caught ZeroDivisionError from inner")
+    except Exception as e:
+        print("outer: caught propagated error:", type(e).__name__)
+
+outer(5)
+outer(0)
+outer("x")`}
+          />
+        </Section>
+
+        <Section title="The assert statement">
+          <p>
+            <code>assert condition, message</code> raises <code>AssertionError</code> if
+            the condition is <code>False</code>. Commonly used for debugging / sanity
+            checks (assumptions that should always hold), not for validating normal
+            user input (use exceptions for that).
+          </p>
+          <PyRunner
+            initialCode={`def set_marks(m):
+    assert 0 <= m <= 100, "Marks must be between 0 and 100"
+    return m
+
+print(set_marks(85))
+try:
+    print(set_marks(150))
+except AssertionError as e:
+    print("AssertionError:", e)`}
+          />
+        </Section>
+
+        <Section title="raise ... from ... (exception chaining)">
+          <p>
+            <code>raise NewException("...") from original_exception</code> lets you
+            convert one exception into a more meaningful one while preserving the
+            original cause in the traceback (shown as "The above exception was the
+            direct cause of the following exception").
+          </p>
+          <PyRunner
+            initialCode={`def get_config_value(cfg, key):
+    try:
+        return cfg[key]
+    except KeyError as e:
+        raise ValueError(f"Missing required config: {key}") from e
+
+cfg = {"host": "localhost"}
+try:
+    get_config_value(cfg, "port")
+except ValueError as e:
+    print("Caught:", e)
+    print("Original cause:", type(e.__cause__).__name__)`}
+          />
+        </Section>
+
+        <Section title="Custom exception classes — a fuller example">
+          <PyRunner
+            height={340}
+            initialCode={`class InsufficientBalanceError(Exception):
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        super().__init__(f"Cannot withdraw {amount}; balance is only {balance}")
+
+class Account:
+    def __init__(self, balance):
+        self.balance = balance
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientBalanceError(self.balance, amount)
+        self.balance -= amount
+        return self.balance
+
+acc = Account(1000)
+for amt in [200, 500, 900]:
+    try:
+        print("New balance:", acc.withdraw(amt))
+    except InsufficientBalanceError as e:
+        print("Error:", e)
+        print("shortfall:", e.amount - e.balance)`}
+          />
+        </Section>
+
+        <Section title="with statement and context managers">
+          <p>
+            The <code>with</code> statement guarantees that cleanup code runs even if an
+            exception occurs inside the block — it is Python's structured alternative to
+            manual <code>try/finally</code> for resources like files.
+          </p>
+          <PyRunner
+            initialCode={`with open("marks.txt", "w") as f:
+    f.write("Amit 88\\nSara 92\\n")
+
+# 'with' auto-closes the file even if an error happens while reading
+try:
+    with open("marks.txt") as f:
+        for line in f:
+            name, score = line.split()
+            print(name, int(score) * 2)
+        raise RuntimeError("simulated failure mid-loop")
+except RuntimeError as e:
+    print("caught:", e)
+print("file closed?", f.closed)`}
+          />
+          <Callout label="How it works">
+            Any object with <code>__enter__</code> and <code>__exit__</code> methods can
+            be used with <code>with</code>. <code>__exit__</code> is called automatically
+            on block exit — normal or via exception — which is exactly where file objects
+            close themselves.
+          </Callout>
+        </Section>
+
+        <Section title="Output prediction practice">
+          <p>Predict the output of each snippet before running it.</p>
+          <PyRunner initialCode={`try:
+    print("A")
+    x = 1 / 0
+    print("B")
+except ZeroDivisionError:
+    print("C")
+else:
+    print("D")
+finally:
+    print("E")`} />
+          <PyRunner initialCode={`try:
+    print(1)
+    raise ValueError("bad")
+except TypeError:
+    print(2)
+except ValueError:
+    print(3)
+else:
+    print(4)
+finally:
+    print(5)`} />
+          <PyRunner initialCode={`def f():
+    try:
+        return 1
+    finally:
+        print("cleanup")
+
+print(f())`} />
+          <PyRunner initialCode={`try:
+    lst = [1, 2, 3]
+    print(lst[5])
+except IndexError:
+    print("index error")
+except Exception:
+    print("general error")`} />
+          <PyRunner initialCode={`x = 10
+try:
+    y = x + "5"
+except (TypeError, ValueError) as e:
+    print("Error:", type(e).__name__)`} />
+          <PyRunner initialCode={`try:
+    try:
+        raise KeyError("k1")
+    except ValueError:
+        print("inner caught")
+except KeyError:
+    print("outer caught")`} />
+          <PyRunner initialCode={`class MyErr(Exception):
+    pass
+
+try:
+    raise MyErr("custom!")
+except Exception as e:
+    print(isinstance(e, MyErr), e)`} />
+          <PyRunner initialCode={`for i in range(3):
+    try:
+        if i == 1:
+            raise ValueError
+        print("ok", i)
+    except ValueError:
+        print("skip", i)
+        continue
+    finally:
+        print("loop-finally", i)`} />
+        </Section>
+
+        <Section title="Find the error / debug the code">
+          <ul className="ml-5 list-disc space-y-3 text-sm">
+            <li>
+              <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`try:
+    print(10/0)
+except:
+    print(e)`}</pre>
+              <p><b>Bug:</b> bare <code>except:</code> doesn't capture the exception into <code>e</code>. Fix: <code>except Exception as e:</code>.</p>
+            </li>
+            <li>
+              <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`try:
+    x = int("10a")
+except ValueError
+    print("bad value")`}</pre>
+              <p><b>Bug:</b> missing colon after <code>except ValueError</code>.</p>
+            </li>
+            <li>
+              <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`try:
+    print(1/0)
+except ZeroDivisionError:
+    print("err")
+else
+    print("no error")`}</pre>
+              <p><b>Bug:</b> missing colon after <code>else</code>.</p>
+            </li>
+            <li>
+              <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`def f(x):
+    if x < 0:
+        raise "negative not allowed"
+    return x`}</pre>
+              <p><b>Bug:</b> you can only <code>raise</code> an exception instance/class, not a plain string. Fix: <code>raise ValueError("negative not allowed")</code>.</p>
+            </li>
+            <li>
+              <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`try:
+    d = {"a": 1}
+    print(d["b"])
+except IndexError:
+    print("key missing")`}</pre>
+              <p><b>Bug:</b> a missing dictionary key raises <code>KeyError</code>, not <code>IndexError</code>.</p>
+            </li>
+          </ul>
+        </Section>
+
+        <Section title="More PyRunner practice">
+          <PyRunner
+            height={300}
+            initialCode={`# Custom exception hierarchy
+class ValidationError(Exception):
+    pass
+
+class AgeTooLowError(ValidationError):
+    pass
+
+class AgeTooHighError(ValidationError):
+    pass
+
+def check_age(age):
+    if age < 18:
+        raise AgeTooLowError(f"{age} is below 18")
+    if age > 60:
+        raise AgeTooHighError(f"{age} is above 60")
+    return "eligible"
+
+for a in [15, 30, 70]:
+    try:
+        print(a, "->", check_age(a))
+    except ValidationError as e:
+        print(a, "-> rejected:", type(e).__name__, "-", e)`}
+          />
+          <PyRunner
+            initialCode={`# Retry pattern using loops + exceptions
+import random
+random.seed(1)
+
+def flaky_call():
+    if random.random() < 0.6:
+        raise ConnectionError("network glitch")
+    return "success"
+
+for attempt in range(1, 4):
+    try:
+        print("Attempt", attempt, "->", flaky_call())
+        break
+    except ConnectionError as e:
+        print("Attempt", attempt, "failed:", e)
+else:
+    print("All attempts failed")`}
+          />
+        </Section>
+
+        <Section title="Extra Previous Year Questions (PYQs)">
+          <PYQ year="CBSE 2020" marks={1}
+            question={<>Which statement is used to manually raise an exception?</>}
+            answer={<><code>raise</code></>}
+          />
+          <PYQ year="CBSE 2021" marks={2}
+            question={<>What is the difference between <code>except Exception as e</code> and a bare <code>except:</code>?</>}
+            answer={<>Both can catch almost any exception, but <code>except Exception as e</code> binds the exception object to name <code>e</code> so you can inspect its type/message, and it does not catch system-exiting exceptions like <code>KeyboardInterrupt</code>/<code>SystemExit</code> (which derive from BaseException, not Exception) — whereas bare <code>except:</code> catches literally everything including those, which is considered bad practice.</>}
+          />
+          <PYQ year="CBSE 2023 SQP" marks={3}
+            question={<>Write a Python program using a user-defined exception <code>NegativeValueError</code> that is raised when a negative number is entered, and prints its square root otherwise.</>}
+            answer={<pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`import math
+
+class NegativeValueError(Exception):
+    pass
+
+try:
+    n = float(input("Enter a number: "))
+    if n < 0:
+        raise NegativeValueError("Cannot take square root of a negative number")
+    print("Square root:", math.sqrt(n))
+except NegativeValueError as e:
+    print("Error:", e)
+except ValueError:
+    print("Please enter a valid number")`}</pre>}
+          />
+          <PYQ year="CBSE 2022" marks={1}
+            question={<>Name the exception raised when a list index is out of range.</>}
+            answer={<><code>IndexError</code></>}
+          />
+          <PYQ year="CBSE 2024" marks={2}
+            question={<>What will be the output of the following code?
+              <pre className="overflow-x-auto rounded bg-[var(--code-bg)] p-2 text-xs">{`try:
+    print(1)
+    print(10/0)
+except ZeroDivisionError:
+    print(2)
+finally:
+    print(3)`}</pre>
+            </>}
+            answer={<>Output: <code>1</code>, then <code>2</code>, then <code>3</code> — each on its own line.</>}
+          />
+          <PYQ year="CBSE 2019" marks={2}
+            question={<>Differentiate between <code>else</code> and <code>finally</code> clauses used with try/except.</>}
+            answer={<><code>else</code> executes only when the try block raises no exception; <code>finally</code> executes unconditionally — whether an exception occurred, was handled, or not — and is meant for cleanup actions.</>}
+          />
+        </Section>
+
+        <Section title="Extra MCQs">
+          <QuickCheck question="What is printed?  try: raise TypeError() except (ValueError, TypeError): print('X') else: print('Y')"
+            options={["X", "Y", "XY", "Nothing"]} answer="X" />
+          <QuickCheck question="Which of these is NOT a valid exception-handling keyword in Python?"
+            options={["try", "except", "catch", "finally"]} answer="catch" />
+          <QuickCheck question="What does 'assert 2 > 3' do?"
+            options={["Prints False", "Raises AssertionError", "Does nothing", "SyntaxError"]} answer="Raises AssertionError" />
+          <QuickCheck question="raise NewErr(...) from old_err is used for:"
+            options={["Looping", "Chaining exceptions", "Deleting exceptions", "Suppressing all errors"]} answer="Chaining exceptions" />
+          <QuickCheck question="Which base class should a custom user-defined exception normally inherit from?"
+            options={["object", "Exception", "BaseException", "Error"]} answer="Exception" />
+          <QuickCheck question="In a try with multiple except blocks, Python checks them:"
+            options={["Randomly", "Bottom to top", "Top to bottom, first match wins", "All at once"]} answer="Top to bottom, first match wins" />
+          <QuickCheck question="What special methods make an object usable with 'with'?"
+            options={["__init__ and __del__", "__enter__ and __exit__", "__open__ and __close__", "__start__ and __stop__"]} answer="__enter__ and __exit__" />
+          <QuickCheck question="If an exception occurs inside a function and is not caught there, what happens?"
+            options={["Program silently continues", "It propagates to the caller", "Python auto-fixes it", "Only a warning is shown"]} answer="It propagates to the caller" />
+          <QuickCheck question="Which exception's parent is ArithmeticError?"
+            options={["IndexError", "ZeroDivisionError", "KeyError", "TypeError"]} answer="ZeroDivisionError" />
+          <QuickCheck question="What happens to `finally` if `try` has a `return` statement?"
+            options={["finally is skipped", "finally still executes before returning", "SyntaxError", "return is ignored"]} answer="finally still executes before returning" />
+          <QuickCheck question="int('12.5') raises:"
+            options={["TypeError", "ValueError", "OverflowError", "No error"]} answer="ValueError" />
+          <QuickCheck question="Which of the following can appear only once per try statement (not repeated)?"
+            options={["except", "else and finally", "try", "raise"]} answer="else and finally" />
+        </Section>
+
+        <Section title="More model answers (MostAsked)">
+          <MostAsked
+            items={[
+              {
+                q: "Differentiate between an error and an exception with examples.",
+                marks: 2,
+                asked: "2020, 2023",
+                a: "An error (syntax error) is a mistake in code structure detected before execution, e.g. a missing colon — the program will not even start running. An exception is a run-time problem in an otherwise syntactically correct program, e.g. ZeroDivisionError, and can be caught/handled using try-except so the program continues.",
+              },
+              {
+                q: "What is the purpose of the else clause in exception handling? Give an example.",
+                marks: 2,
+                asked: "2021, 2024 SQP",
+                a: "The else clause runs only when the try block executes without raising any exception; it keeps 'success path' code separate from risky code so its own errors are not accidentally swallowed by the except above.\n\ntry:\n    n = int(input('Enter n: '))\nexcept ValueError:\n    print('Invalid input')\nelse:\n    print('You entered', n)",
+              },
+              {
+                q: "Explain exception propagation with a suitable example.",
+                marks: 3,
+                asked: "2022, 2023",
+                a: "If a function raises an exception and does not handle it, the exception propagates up to the function that called it, and further up the call stack, until a matching except block is found or the program terminates with a traceback.\n\ndef inner():\n    return 1/0\n\ndef outer():\n    return inner()   # no handling here\n\ntry:\n    outer()\nexcept ZeroDivisionError:\n    print('caught in main')",
+              },
+              {
+                q: "Write a program that defines a custom exception InvalidPincodeError raised when a 6-digit pincode is not entered.",
+                marks: 3,
+                asked: "2023, 2024",
+                a: "class InvalidPincodeError(Exception):\n    pass\n\ndef check_pin(pin):\n    if len(str(pin)) != 6:\n        raise InvalidPincodeError('Pincode must be 6 digits')\n    return 'valid'\n\ntry:\n    print(check_pin(11002))\nexcept InvalidPincodeError as e:\n    print('Error:', e)",
+              },
+              {
+                q: "What is the difference between raise and raise ... from ...?",
+                marks: 2,
+                asked: "2024 SQP",
+                a: "`raise` simply raises a new exception (or re-raises the current one with no arguments). `raise NewException(...) from original` explicitly chains a new exception to an original cause, preserving both tracebacks so debugging shows why the new exception occurred.",
+              },
+              {
+                q: "Explain how the with statement helps in exception handling while working with files.",
+                marks: 2,
+                asked: "2019, 2022",
+                a: "The with statement uses a context manager (__enter__/__exit__) so that the file is automatically closed when the block ends — whether it ends normally or due to an exception — removing the need for an explicit try/finally to close the file.",
+              },
+            ]}
+          />
+        </Section>
+
       </ChapterLayout>
   );
 }
