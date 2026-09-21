@@ -18,6 +18,7 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminRouteImport } from './routes/admin'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MockTestsIndexRouteImport } from './routes/mock-tests.index'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as XiiStacksRouteImport } from './routes/xii.stacks'
 import { Route as XiiPythonSqlRouteImport } from './routes/xii.python-sql'
@@ -79,6 +80,11 @@ const AboutRoute = AboutRouteImport.update({
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MockTestsIndexRoute = MockTestsIndexRouteImport.update({
+  id: '/mock-tests/',
+  path: '/mock-tests/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
@@ -193,6 +199,7 @@ export interface FileRoutesByFullPath {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn/': typeof LearnIndexRoute
+  '/mock-tests/': typeof MockTestsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/learn/$course/$lesson': typeof LearnCourseLessonRoute
@@ -221,6 +228,7 @@ export interface FileRoutesByTo {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn': typeof LearnIndexRoute
+  '/mock-tests': typeof MockTestsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/learn/$course/$lesson': typeof LearnCourseLessonRoute
@@ -250,6 +258,7 @@ export interface FileRoutesById {
   '/xii/python-sql': typeof XiiPythonSqlRoute
   '/xii/stacks': typeof XiiStacksRoute
   '/learn/': typeof LearnIndexRoute
+  '/mock-tests/': typeof MockTestsIndexRoute
   '/.lovable/oauth/consent': typeof DotlovableOauthConsentRoute
   '/.mcp/invoke-tool/$tool': typeof Char91DotmcpChar93InvokeToolToolRoute
   '/learn/$course/$lesson': typeof LearnCourseLessonRoute
@@ -280,6 +289,7 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn/'
+    | '/mock-tests/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/learn/$course/$lesson'
@@ -308,6 +318,7 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn'
+    | '/mock-tests'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/learn/$course/$lesson'
@@ -336,6 +347,7 @@ export interface FileRouteTypes {
     | '/xii/python-sql'
     | '/xii/stacks'
     | '/learn/'
+    | '/mock-tests/'
     | '/.lovable/oauth/consent'
     | '/.mcp/invoke-tool/$tool'
     | '/learn/$course/$lesson'
@@ -365,6 +377,7 @@ export interface RootRouteChildren {
   XiiPythonSqlRoute: typeof XiiPythonSqlRoute
   XiiStacksRoute: typeof XiiStacksRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  MockTestsIndexRoute: typeof MockTestsIndexRoute
   DotlovableOauthConsentRoute: typeof DotlovableOauthConsentRoute
   Char91DotmcpChar93InvokeToolToolRoute: typeof Char91DotmcpChar93InvokeToolToolRoute
   LearnCourseLessonRoute: typeof LearnCourseLessonRoute
@@ -434,6 +447,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mock-tests/': {
+      id: '/mock-tests/'
+      path: '/mock-tests'
+      fullPath: '/mock-tests/'
+      preLoaderRoute: typeof MockTestsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn/': {
@@ -582,6 +602,7 @@ const rootRouteChildren: RootRouteChildren = {
   XiiPythonSqlRoute: XiiPythonSqlRoute,
   XiiStacksRoute: XiiStacksRoute,
   LearnIndexRoute: LearnIndexRoute,
+  MockTestsIndexRoute: MockTestsIndexRoute,
   DotlovableOauthConsentRoute: DotlovableOauthConsentRoute,
   Char91DotmcpChar93InvokeToolToolRoute: Char91DotmcpChar93InvokeToolToolRoute,
   LearnCourseLessonRoute: LearnCourseLessonRoute,
