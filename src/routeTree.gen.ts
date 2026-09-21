@@ -30,6 +30,7 @@ import { Route as XiiDbmsRouteImport } from './routes/xii.dbms'
 import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
 import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
 import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
+import { Route as MockTestsTestIdRouteImport } from './routes/mock-tests.$testId'
 import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LearnCourseIndexRouteImport } from './routes/learn.$course.index'
@@ -142,6 +143,11 @@ const XiComputerSystemsRoute = XiComputerSystemsRouteImport.update({
   path: '/xi/computer-systems',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MockTestsTestIdRoute = MockTestsTestIdRouteImport.update({
+  id: '/mock-tests/$testId',
+  path: '/mock-tests/$testId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const Char91DotwellKnownChar93OauthProtectedResourceRoute =
   Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
     id: '/.well-known/oauth-protected-resource',
@@ -188,6 +194,7 @@ export interface FileRoutesByFullPath {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/mock-tests/$testId': typeof MockTestsTestIdRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -217,6 +224,7 @@ export interface FileRoutesByTo {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/mock-tests/$testId': typeof MockTestsTestIdRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -247,6 +255,7 @@ export interface FileRoutesById {
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/.mcp/list-tools': typeof Char91DotmcpChar93ListToolsRoute
   '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  '/mock-tests/$testId': typeof MockTestsTestIdRoute
   '/xi/computer-systems': typeof XiComputerSystemsRoute
   '/xi/python-basics': typeof XiPythonBasicsRoute
   '/xi/society-ethics': typeof XiSocietyEthicsRoute
@@ -278,6 +287,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/mock-tests/$testId'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -307,6 +317,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/mock-tests/$testId'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -336,6 +347,7 @@ export interface FileRouteTypes {
     | '/sitemap.xml'
     | '/.mcp/list-tools'
     | '/.well-known/oauth-protected-resource'
+    | '/mock-tests/$testId'
     | '/xi/computer-systems'
     | '/xi/python-basics'
     | '/xi/society-ethics'
@@ -366,6 +378,7 @@ export interface RootRouteChildren {
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   Char91DotmcpChar93ListToolsRoute: typeof Char91DotmcpChar93ListToolsRoute
   Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
+  MockTestsTestIdRoute: typeof MockTestsTestIdRoute
   XiComputerSystemsRoute: typeof XiComputerSystemsRoute
   XiPythonBasicsRoute: typeof XiPythonBasicsRoute
   XiSocietyEthicsRoute: typeof XiSocietyEthicsRoute
@@ -533,6 +546,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof XiComputerSystemsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mock-tests/$testId': {
+      id: '/mock-tests/$testId'
+      path: '/mock-tests/$testId'
+      fullPath: '/mock-tests/$testId'
+      preLoaderRoute: typeof MockTestsTestIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/.well-known/oauth-protected-resource': {
       id: '/.well-known/oauth-protected-resource'
       path: '/.well-known/oauth-protected-resource'
@@ -591,6 +611,7 @@ const rootRouteChildren: RootRouteChildren = {
   Char91DotmcpChar93ListToolsRoute: Char91DotmcpChar93ListToolsRoute,
   Char91DotwellKnownChar93OauthProtectedResourceRoute:
     Char91DotwellKnownChar93OauthProtectedResourceRoute,
+  MockTestsTestIdRoute: MockTestsTestIdRoute,
   XiComputerSystemsRoute: XiComputerSystemsRoute,
   XiPythonBasicsRoute: XiPythonBasicsRoute,
   XiSocietyEthicsRoute: XiSocietyEthicsRoute,
