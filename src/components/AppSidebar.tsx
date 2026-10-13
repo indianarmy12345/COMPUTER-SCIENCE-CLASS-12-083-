@@ -95,6 +95,14 @@ export function AppSidebar() {
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild isActive={pathname.startsWith("/mock-tests")}>
+                  <Link to="/mock-tests" preload="intent">
+                    <Sparkles className="h-4 w-4" />
+                    <span>Mock Tests</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
