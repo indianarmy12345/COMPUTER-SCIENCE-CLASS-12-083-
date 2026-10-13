@@ -1,6 +1,8 @@
 import { paperOne, type MockTest, type MockQuestion, type MockSection, type MockTopic } from "./mock-tests";
+import { paperTwo } from "./mock-papers/paper-two";
+import { paperThree } from "./mock-papers/paper-three";
 
-export const mockTests: MockTest[] = [paperOne];
+export const mockTests: MockTest[] = [paperOne, paperTwo, paperThree];
 
 export function getMockTest(slug: string): MockTest | undefined {
   return mockTests.find((t) => t.slug === slug);
