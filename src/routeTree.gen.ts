@@ -9,68 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as McpRouteImport } from './routes/mcp'
-import { Route as PlaygroundRouteImport } from './routes/playground'
-import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
-import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
-import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as McpRouteImport } from './routes/mcp'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as MockTestsIndexRouteImport } from './routes/mock-tests.index'
-import { Route as MockTestsTestIdRouteImport } from './routes/mock-tests.$testId'
-import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
-import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
-import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
-import { Route as XiiDbmsRouteImport } from './routes/xii.dbms'
-import { Route as XiiExceptionsRouteImport } from './routes/xii.exceptions'
-import { Route as XiiFileHandlingRouteImport } from './routes/xii.file-handling'
-import { Route as XiiFunctionsRouteImport } from './routes/xii.functions'
-import { Route as XiiNetworksRouteImport } from './routes/xii.networks'
-import { Route as XiiPythonSqlRouteImport } from './routes/xii.python-sql'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as XiiStacksRouteImport } from './routes/xii.stacks'
-import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
-import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as XiiPythonSqlRouteImport } from './routes/xii.python-sql'
+import { Route as XiiNetworksRouteImport } from './routes/xii.networks'
+import { Route as XiiFunctionsRouteImport } from './routes/xii.functions'
+import { Route as XiiFileHandlingRouteImport } from './routes/xii.file-handling'
+import { Route as XiiExceptionsRouteImport } from './routes/xii.exceptions'
+import { Route as XiiDbmsRouteImport } from './routes/xii.dbms'
+import { Route as XiSocietyEthicsRouteImport } from './routes/xi.society-ethics'
+import { Route as XiPythonBasicsRouteImport } from './routes/xi.python-basics'
+import { Route as XiComputerSystemsRouteImport } from './routes/xi.computer-systems'
+import { Route as MockTestsTestIdRouteImport } from './routes/mock-tests.$testId'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
+import { Route as Char91DotmcpChar93ListToolsRouteImport } from './routes/[.mcp]/list-tools'
 import { Route as LearnCourseIndexRouteImport } from './routes/learn.$course.index'
 import { Route as LearnCourseLessonRouteImport } from './routes/learn.$course.$lesson'
+import { Route as Char91DotmcpChar93InvokeToolToolRouteImport } from './routes/[.mcp]/invoke-tool/$tool'
+import { Route as DotlovableOauthConsentRouteImport } from './routes/[.]lovable.oauth.consent'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const McpRoute = McpRouteImport.update({
-  id: '/mcp',
-  path: '/mcp',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PlaygroundRoute = PlaygroundRouteImport.update({
-  id: '/playground',
-  path: '/playground',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -78,26 +48,39 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
+const PlaygroundRoute = PlaygroundRouteImport.update({
+  id: '/playground',
+  path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotmcpChar93ListToolsRoute =
-  Char91DotmcpChar93ListToolsRouteImport.update({
-    id: '/.mcp/list-tools',
-    path: '/.mcp/list-tools',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const Char91DotwellKnownChar93OauthProtectedResourceRoute =
-  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
-    id: '/.well-known/oauth-protected-resource',
-    path: '/.well-known/oauth-protected-resource',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const LearnIndexRoute = LearnIndexRouteImport.update({
-  id: '/learn/',
-  path: '/learn/',
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MockTestsIndexRoute = MockTestsIndexRouteImport.update({
@@ -105,54 +88,9 @@ const MockTestsIndexRoute = MockTestsIndexRouteImport.update({
   path: '/mock-tests/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MockTestsTestIdRoute = MockTestsTestIdRouteImport.update({
-  id: '/mock-tests/$testId',
-  path: '/mock-tests/$testId',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiComputerSystemsRoute = XiComputerSystemsRouteImport.update({
-  id: '/xi/computer-systems',
-  path: '/xi/computer-systems',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiPythonBasicsRoute = XiPythonBasicsRouteImport.update({
-  id: '/xi/python-basics',
-  path: '/xi/python-basics',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiSocietyEthicsRoute = XiSocietyEthicsRouteImport.update({
-  id: '/xi/society-ethics',
-  path: '/xi/society-ethics',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiiDbmsRoute = XiiDbmsRouteImport.update({
-  id: '/xii/dbms',
-  path: '/xii/dbms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiiExceptionsRoute = XiiExceptionsRouteImport.update({
-  id: '/xii/exceptions',
-  path: '/xii/exceptions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiiFileHandlingRoute = XiiFileHandlingRouteImport.update({
-  id: '/xii/file-handling',
-  path: '/xii/file-handling',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiiFunctionsRoute = XiiFunctionsRouteImport.update({
-  id: '/xii/functions',
-  path: '/xii/functions',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiiNetworksRoute = XiiNetworksRouteImport.update({
-  id: '/xii/networks',
-  path: '/xii/networks',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const XiiPythonSqlRoute = XiiPythonSqlRouteImport.update({
-  id: '/xii/python-sql',
-  path: '/xii/python-sql',
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/learn/',
+  path: '/learn/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const XiiStacksRoute = XiiStacksRouteImport.update({
@@ -160,15 +98,66 @@ const XiiStacksRoute = XiiStacksRouteImport.update({
   path: '/xii/stacks',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
-  id: '/.lovable/oauth/consent',
-  path: '/.lovable/oauth/consent',
+const XiiPythonSqlRoute = XiiPythonSqlRouteImport.update({
+  id: '/xii/python-sql',
+  path: '/xii/python-sql',
   getParentRoute: () => rootRouteImport,
 } as any)
-const Char91DotmcpChar93InvokeToolToolRoute =
-  Char91DotmcpChar93InvokeToolToolRouteImport.update({
-    id: '/.mcp/invoke-tool/$tool',
-    path: '/.mcp/invoke-tool/$tool',
+const XiiNetworksRoute = XiiNetworksRouteImport.update({
+  id: '/xii/networks',
+  path: '/xii/networks',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiFunctionsRoute = XiiFunctionsRouteImport.update({
+  id: '/xii/functions',
+  path: '/xii/functions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiFileHandlingRoute = XiiFileHandlingRouteImport.update({
+  id: '/xii/file-handling',
+  path: '/xii/file-handling',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiExceptionsRoute = XiiExceptionsRouteImport.update({
+  id: '/xii/exceptions',
+  path: '/xii/exceptions',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiiDbmsRoute = XiiDbmsRouteImport.update({
+  id: '/xii/dbms',
+  path: '/xii/dbms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiSocietyEthicsRoute = XiSocietyEthicsRouteImport.update({
+  id: '/xi/society-ethics',
+  path: '/xi/society-ethics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiPythonBasicsRoute = XiPythonBasicsRouteImport.update({
+  id: '/xi/python-basics',
+  path: '/xi/python-basics',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const XiComputerSystemsRoute = XiComputerSystemsRouteImport.update({
+  id: '/xi/computer-systems',
+  path: '/xi/computer-systems',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MockTestsTestIdRoute = MockTestsTestIdRouteImport.update({
+  id: '/mock-tests/$testId',
+  path: '/mock-tests/$testId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const Char91DotmcpChar93ListToolsRoute =
+  Char91DotmcpChar93ListToolsRouteImport.update({
+    id: '/.mcp/list-tools',
+    path: '/.mcp/list-tools',
     getParentRoute: () => rootRouteImport,
   } as any)
 const LearnCourseIndexRoute = LearnCourseIndexRouteImport.update({
@@ -179,6 +168,17 @@ const LearnCourseIndexRoute = LearnCourseIndexRouteImport.update({
 const LearnCourseLessonRoute = LearnCourseLessonRouteImport.update({
   id: '/learn/$course/$lesson',
   path: '/learn/$course/$lesson',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Char91DotmcpChar93InvokeToolToolRoute =
+  Char91DotmcpChar93InvokeToolToolRouteImport.update({
+    id: '/.mcp/invoke-tool/$tool',
+    path: '/.mcp/invoke-tool/$tool',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const DotlovableOauthConsentRoute = DotlovableOauthConsentRouteImport.update({
+  id: '/.lovable/oauth/consent',
+  path: '/.lovable/oauth/consent',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -399,53 +399,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mcp': {
-      id: '/mcp'
-      path: '/mcp'
-      fullPath: '/mcp'
-      preLoaderRoute: typeof McpRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/playground': {
-      id: '/playground'
-      path: '/playground'
-      fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/privacy': {
@@ -455,32 +413,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
+    '/playground': {
+      id: '/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/list-tools': {
-      id: '/.mcp/list-tools'
-      path: '/.mcp/list-tools'
-      fullPath: '/.mcp/list-tools'
-      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.well-known/oauth-protected-resource': {
-      id: '/.well-known/oauth-protected-resource'
-      path: '/.well-known/oauth-protected-resource'
-      fullPath: '/.well-known/oauth-protected-resource'
-      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/learn/': {
-      id: '/learn/'
-      path: '/learn'
-      fullPath: '/learn/'
-      preLoaderRoute: typeof LearnIndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mock-tests/': {
@@ -490,74 +469,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MockTestsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mock-tests/$testId': {
-      id: '/mock-tests/$testId'
-      path: '/mock-tests/$testId'
-      fullPath: '/mock-tests/$testId'
-      preLoaderRoute: typeof MockTestsTestIdRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xi/computer-systems': {
-      id: '/xi/computer-systems'
-      path: '/xi/computer-systems'
-      fullPath: '/xi/computer-systems'
-      preLoaderRoute: typeof XiComputerSystemsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xi/python-basics': {
-      id: '/xi/python-basics'
-      path: '/xi/python-basics'
-      fullPath: '/xi/python-basics'
-      preLoaderRoute: typeof XiPythonBasicsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xi/society-ethics': {
-      id: '/xi/society-ethics'
-      path: '/xi/society-ethics'
-      fullPath: '/xi/society-ethics'
-      preLoaderRoute: typeof XiSocietyEthicsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xii/dbms': {
-      id: '/xii/dbms'
-      path: '/xii/dbms'
-      fullPath: '/xii/dbms'
-      preLoaderRoute: typeof XiiDbmsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xii/exceptions': {
-      id: '/xii/exceptions'
-      path: '/xii/exceptions'
-      fullPath: '/xii/exceptions'
-      preLoaderRoute: typeof XiiExceptionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xii/file-handling': {
-      id: '/xii/file-handling'
-      path: '/xii/file-handling'
-      fullPath: '/xii/file-handling'
-      preLoaderRoute: typeof XiiFileHandlingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xii/functions': {
-      id: '/xii/functions'
-      path: '/xii/functions'
-      fullPath: '/xii/functions'
-      preLoaderRoute: typeof XiiFunctionsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xii/networks': {
-      id: '/xii/networks'
-      path: '/xii/networks'
-      fullPath: '/xii/networks'
-      preLoaderRoute: typeof XiiNetworksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/xii/python-sql': {
-      id: '/xii/python-sql'
-      path: '/xii/python-sql'
-      fullPath: '/xii/python-sql'
-      preLoaderRoute: typeof XiiPythonSqlRouteImport
+    '/learn/': {
+      id: '/learn/'
+      path: '/learn'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/xii/stacks': {
@@ -567,18 +483,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof XiiStacksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.lovable/oauth/consent': {
-      id: '/.lovable/oauth/consent'
-      path: '/.lovable/oauth/consent'
-      fullPath: '/.lovable/oauth/consent'
-      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
+    '/xii/python-sql': {
+      id: '/xii/python-sql'
+      path: '/xii/python-sql'
+      fullPath: '/xii/python-sql'
+      preLoaderRoute: typeof XiiPythonSqlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/.mcp/invoke-tool/$tool': {
-      id: '/.mcp/invoke-tool/$tool'
-      path: '/.mcp/invoke-tool/$tool'
-      fullPath: '/.mcp/invoke-tool/$tool'
-      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+    '/xii/networks': {
+      id: '/xii/networks'
+      path: '/xii/networks'
+      fullPath: '/xii/networks'
+      preLoaderRoute: typeof XiiNetworksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/functions': {
+      id: '/xii/functions'
+      path: '/xii/functions'
+      fullPath: '/xii/functions'
+      preLoaderRoute: typeof XiiFunctionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/file-handling': {
+      id: '/xii/file-handling'
+      path: '/xii/file-handling'
+      fullPath: '/xii/file-handling'
+      preLoaderRoute: typeof XiiFileHandlingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/exceptions': {
+      id: '/xii/exceptions'
+      path: '/xii/exceptions'
+      fullPath: '/xii/exceptions'
+      preLoaderRoute: typeof XiiExceptionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xii/dbms': {
+      id: '/xii/dbms'
+      path: '/xii/dbms'
+      fullPath: '/xii/dbms'
+      preLoaderRoute: typeof XiiDbmsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xi/society-ethics': {
+      id: '/xi/society-ethics'
+      path: '/xi/society-ethics'
+      fullPath: '/xi/society-ethics'
+      preLoaderRoute: typeof XiSocietyEthicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xi/python-basics': {
+      id: '/xi/python-basics'
+      path: '/xi/python-basics'
+      fullPath: '/xi/python-basics'
+      preLoaderRoute: typeof XiPythonBasicsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/xi/computer-systems': {
+      id: '/xi/computer-systems'
+      path: '/xi/computer-systems'
+      fullPath: '/xi/computer-systems'
+      preLoaderRoute: typeof XiComputerSystemsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mock-tests/$testId': {
+      id: '/mock-tests/$testId'
+      path: '/mock-tests/$testId'
+      fullPath: '/mock-tests/$testId'
+      preLoaderRoute: typeof MockTestsTestIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/list-tools': {
+      id: '/.mcp/list-tools'
+      path: '/.mcp/list-tools'
+      fullPath: '/.mcp/list-tools'
+      preLoaderRoute: typeof Char91DotmcpChar93ListToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/learn/$course/': {
@@ -593,6 +579,20 @@ declare module '@tanstack/react-router' {
       path: '/learn/$course/$lesson'
       fullPath: '/learn/$course/$lesson'
       preLoaderRoute: typeof LearnCourseLessonRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.mcp/invoke-tool/$tool': {
+      id: '/.mcp/invoke-tool/$tool'
+      path: '/.mcp/invoke-tool/$tool'
+      fullPath: '/.mcp/invoke-tool/$tool'
+      preLoaderRoute: typeof Char91DotmcpChar93InvokeToolToolRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.lovable/oauth/consent': {
+      id: '/.lovable/oauth/consent'
+      path: '/.lovable/oauth/consent'
+      fullPath: '/.lovable/oauth/consent'
+      preLoaderRoute: typeof DotlovableOauthConsentRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
