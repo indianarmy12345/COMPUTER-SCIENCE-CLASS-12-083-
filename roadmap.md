@@ -1,0 +1,2 @@
+- [ ] Reorder all Class XII chapter material in CBSE syllabus sequence without deleting or rewriting existing content.
+- [ ] Verify the chapter sequence and confirm the site builds cleanly.
